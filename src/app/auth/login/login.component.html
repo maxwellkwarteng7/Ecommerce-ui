@@ -1,1 +1,78 @@
-<p>login works!</p>
+<!-- the login page -->
+
+
+<div class="flex items-center justify-center w-full h-[100vh]">
+    <!-- container containing the image and the form -->
+     <div class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm">
+        <!-- the form box -->
+         <div class="w-full md:w-[50%]  h-full ">
+              <div class="relative  w-[77px] my-5 mx-3">
+        <h2 class="uppercase font-extrabold tracking-widest text-xs relative z-10"  style="
+        text-shadow:
+          2px 2px 0 white,
+          -2px 2px 0 white,
+          -2px -2px 0 white,
+          2px -2px 0 white,
+          0 2px 0 white,
+          2px 0 0 white,
+          -2px 0 0 white,
+          0 -2px 0 white;
+      ">MXSHOP</h2>
+        <span class="inline-block w-[12px] h-[12px] rounded-full absolute top-[-1.5px] right-[11.5px] bg-primary"></span>
+       </div>
+       <!-- the form -->
+        <div class="flex items-center justify-center w-full mt-4">
+            <div class="w-[85%] flex flex-col gap-3 items-center justify-center">
+                <div>
+                    <h3 class="text-lg text-center font-semibold ">Welcome Back</h3>
+                    <p class="text-gray-500 text-sm  mt-2 text-center">Please enter your details to login</p>
+                </div>
+
+                <!-- the form -->
+                 <div>
+                    <form action="">
+                        <div class="my-2">
+                            <label class="inline-block w-full text-sm text-tertiary" for="username">Username</label>
+                            <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full " type="text"  id="username" />
+                        </div>
+                        <div class="my-2">
+                            <div class="relative">
+                                <label class="inline-block w-full text-sm text-tertiary" for="password">Password</label>
+                                <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full pr-8 " [type]="type"  id="password" />
+                                <span [className]="type === 'password' ? 'mdi mdi-eye-off absolute bottom-[3px] right-[4px] cursor-pointer' : 'mdi mdi-eye absolute bottom-[3px] right-[4px] cursor-pointer' " (click)="togglePassword()"></span>
+                            </div> 
+                        </div>
+                        <div class="mb-2 mt-5 flex items-center justify-end text-[13px] text-gray-800">
+                           <a class="underline underline-offset-2">forgot Password ?</a>
+                        </div>
+
+                        <!-- the button to send the details  -->
+                         <div class="mt-8">
+                            <button class=" w-full py-2 rounded-sm text-white bg-primary text-sm  text-center uppercase">
+                                Login
+                            </button>
+                         </div>
+
+                         <div class="mt-5 text-center">
+                          <p class="text-sm text-tertiary">
+                            Don't have an account ? 
+                            <a href="" class="text-gray-800 underline underline-offset-2"> register here</a>
+                          </p>
+
+                         </div>
+                    </form>
+                 </div>
+          
+            </div>
+
+
+        </div>
+
+         </div>
+         <div class="hidden md:block md:w-[50%] bg-primary h-full overflow-hidden">
+           <img src="/public/auth-images/login.jpg" alt="...login-image" class="w-full h-full object-center">
+         </div>
+
+     </div>
+
+</div>

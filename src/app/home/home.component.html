@@ -1,0 +1,72 @@
+<!-- the navigation bar -->
+<header>
+  <nav class="bg-white h-[8vh] md:h-[10vh] w-full flex items-center justify-between">
+    <!-- logo and hamburger -->
+    <div class="flex items-center gap-3 pl-4">
+      <!-- hamburger -->
+       <div class="flex flex-col gap-[0.175em] md:hidden cursor-pointer" (click)="toggleHamburger()">
+        <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
+        <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
+        <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
+       </div>
+
+       <!-- logo -->
+       <div class="relative ">
+        <h2 class="uppercase font-extrabold tracking-widest relative z-10"  style="
+        text-shadow:
+          2px 2px 0 white,
+          -2px 2px 0 white,
+          -2px -2px 0 white,
+          2px -2px 0 white,
+          0 2px 0 white,
+          2px 0 0 white,
+          -2px 0 0 white,
+          0 -2px 0 white;
+      ">MXSHOP</h2>
+        <span class="inline-block w-[12px] h-[12px] rounded-full absolute top-[-0.5px] right-[-5px]  bg-primary"></span>
+       </div>
+
+    </div>
+
+     <!-- the links , login , sing up  ,  cart and logout  -->
+      <div [className]="hamburger === false  ? ' z-40 absolute top-0 bg-transparent w-full  h-full md:static  md:bg-white md:w-auto md:h-auto translate-x-[-100%] transition-transform duration-500 ease-in-out md:translate-x-0' : ' z-40 absolute top-0  bg-transparent  w-full  h-full md:static  md:bg-white md:w-auto md:h-auto  md:translate-x-0 transition-transform duration-500 ease-in-out'" (click)="toggleHamburger()">
+        <div class="w-[75%] md:w-auto bg-white  h-full  md:h-auto  pl-4 pt-8 md:pl-0 md:pt-0" (click)="maintainHamburger()">
+          <ul class="list-none text-sm text-tertiary flex flex-col  gap-5 md:gap-8 md:flex-row  ">
+            <li><a  class="uppercase" [routerLink]="['/home']">Home</a></li>
+            <li><a class="uppercase"  href="">Pricing</a></li>
+            <li><a class="uppercase"  href="">Events</a></li>
+            <li><a class="uppercase"  href="">Company</a></li>
+          </ul>
+          <!-- auth links and cart -->
+          <div class="flex flex-col pt-4 md:hidden">
+             <div class="flex items-center gap-2  text-sm text-tertiary ">
+              <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
+              <span class="mdi mdi-account text-black"></span>
+             </div>
+          </div>
+
+
+        </div>
+      </div>
+
+      <!-- the login and the cart  -->
+       <div class="flex items-center gap-2 md:gap-4">
+        <div class="hidden items-center gap-2 px-4 text-sm text-tertiary md:flex ">
+          <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
+          <span class="mdi mdi-account text-black"></span>
+         </div> 
+          <div class="flex items-center gap-2 px-4 text-sm text-tertiary">
+              <a href="" [routerLink]="['/login']" class="uppercase">Login</a>
+              <span class="mdi mdi-login text-black"></span>
+          </div>
+
+          <div class="flex items-center gap-2 px-4 text-sm text-tertiary cursor-pointer">
+            <span class="mdi mdi-cart-outline text-black"></span>
+            <span class="text-xs">1000</span>
+        </div>
+
+       </div>
+  </nav>
+</header>
+
+<router-outlet />

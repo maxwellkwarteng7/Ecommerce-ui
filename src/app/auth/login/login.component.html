@@ -2,6 +2,12 @@
 
 
 <div class="flex items-center justify-center w-full h-[100vh]">
+
+    <!-- home button -->
+     <button [routerLink]="['/home']" class="py-2 px-3 rounded-sm bg-gray-200 text-gray-800 flex items-center gap-2 text-xs md:text-sm absolute top-[10px] left-[10px]">
+        <span class="mdi mdi-arrow-left"></span>
+      <span >Home</span>
+     </button>
     <!-- container containing the image and the form -->
      <div class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm">
         <!-- the form box -->
@@ -46,7 +52,7 @@
                             </div>
                             <div *ngIf="Fields['password']['errors'] && Fields['password']['touched']" class="py-1">
                                 <p *ngIf="Fields['password']['errors']['required']" class="text-red-500 text-xs">Password is required</p>
-                                <p *ngIf="Fields['password']['errors']['minlength']" class="text-red-500 text-xs">Must be 8 or characters</p>
+                                <p *ngIf="Fields['password']['errors']['minlength']" class="text-red-500 text-xs">Must be 8 or more characters</p>
                                 
                             </div> 
                         </div>

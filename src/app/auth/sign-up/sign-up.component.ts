@@ -1,12 +1,63 @@
-import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
-  imports: [],
+  imports: [RouterLink ,ReactiveFormsModule , CommonModule ],
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
 
+  type: string = 'password'; 
+
+  registerForm: FormGroup = new FormGroup({
+    username: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  }, {
+      validators : this.confirmPasswordValidator()
+  });
+
+  ngOnInit(): void {
+   
+  }
+
+
+  // getting the controls of this form 
+  get Fields() {
+    return this.registerForm.controls; 
+  }
+
+  // toggle the type of input for password 
+  togglePassword() {
+    if (this.type === 'password') {
+      this.type = 'text'; 
+    } else {
+      this.type = 'password'; 
+    }
+  }
+
+
+  submitRegisterForm() {
+    const body = this.registerForm.value; 
+    console.log(body); 
+  }
+
+  // the password validator function 
+  confirmPasswordValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (control instanceof FormGroup) {
+        const password = control.get('password')?.value; 
+        const confirmPassword = control.get('confirmPassword')?.value; 
+        // checking if the two of the passwords match 
+        return password && confirmPassword && password !== confirmPassword ? { mismatch: true } : null;
+        
+      }
+      return null; 
+    }
+  }
 }

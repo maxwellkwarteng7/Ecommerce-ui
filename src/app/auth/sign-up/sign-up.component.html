@@ -68,11 +68,12 @@
                           <div *ngIf="Fields['confirmPassword']['errors'] && Fields['confirmPassword']['touched']" class="py-1">
                               <p *ngIf="Fields['confirmPassword']['errors']['required']" class="text-red-500 text-xs">Password is required</p>
                               <p *ngIf="Fields['confirmPassword']['errors']['minlength']" class="text-red-500 text-xs">Must be 8 or more characters</p>
-                              <p *ngIf="registerForm.errors?.['mismatch']"  class="text-red-500 text-xs">
+                          </div> 
+                          <div *ngIf="Fields['confirmPassword']['touched']" class="my-1">
+                            <p  *ngIf="registerForm.errors?.['mismatch']"  class="text-red-500 text-xs">
                                 Passwords do not match
                               </p>
-                              
-                          </div> 
+                          </div>
                       </div>
                     
 

@@ -16,6 +16,7 @@ export class SignUpComponent implements OnInit {
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
+    email: new FormControl('', [Validators.required , Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
   }, {
@@ -25,6 +26,20 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
    
   }
+
+    // the password validator function 
+    confirmPasswordValidator(): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        if (control instanceof FormGroup) {
+          const password = control.get('password')?.value; 
+          const confirmPassword = control.get('confirmPassword')?.value; 
+          // checking if the two of the passwords match 
+          return password && confirmPassword && password !== confirmPassword ? { mismatch: true } : null;
+          
+        }
+        return null; 
+      }
+    }
 
 
   // getting the controls of this form 
@@ -44,20 +59,9 @@ export class SignUpComponent implements OnInit {
 
   submitRegisterForm() {
     const body = this.registerForm.value; 
+    delete body.confirmPassword; 
     console.log(body); 
   }
 
-  // the password validator function 
-  confirmPasswordValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (control instanceof FormGroup) {
-        const password = control.get('password')?.value; 
-        const confirmPassword = control.get('confirmPassword')?.value; 
-        // checking if the two of the passwords match 
-        return password && confirmPassword && password !== confirmPassword ? { mismatch: true } : null;
-        
-      }
-      return null; 
-    }
-  }
+
 }

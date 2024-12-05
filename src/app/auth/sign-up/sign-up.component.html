@@ -11,7 +11,7 @@
      <div class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm">
 
         <div class="hidden md:block md:w-[50%] bg-tertiary h-full overflow-hidden z-40 rounded-sm">
-            <img src="/auth-images/login.jpg" alt="...login-image" class="w-full h-full object-center object-cover" loading="eager"/>
+            <img src="/auth-images/register.jpg" alt="...login-image" class="w-full h-full object-center object-cover" loading="eager"/>
           </div>
 
           <!-- the registration part  -->
@@ -48,6 +48,16 @@
                               <p *ngIf="Fields['username']['errors']['required']" class="text-red-500 text-xs">Username is required</p>
                           </div> 
                       </div>
+                      <!-- the email field  -->
+                      <div class="my-2">
+                        <label class="inline-block w-full text-sm text-tertiary" for="email">Email</label>
+                        <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full " type="email"  id="email" formControlName="email" />
+                        <div *ngIf="Fields['email']['errors'] && Fields['email']['touched']" class="py-1">
+                            <p *ngIf="Fields['email']['errors']['required']" class="text-red-500 text-xs">Email is required</p>
+                            <p *ngIf="Fields['email']['errors']['email']" class="text-red-500 text-xs">must be valid email and not more than 255 characters</p>
+                        </div> 
+                    </div>
+                    <!-- the password -->
                       <div class="my-2">
                           <div class="relative">
                               <label class="inline-block w-full text-sm text-tertiary" for="password">Password</label>
@@ -66,8 +76,7 @@
                               <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full pr-8 " type="password"  id="password" formControlName="confirmPassword" />
                           </div>
                           <div *ngIf="Fields['confirmPassword']['errors'] && Fields['confirmPassword']['touched']" class="py-1">
-                              <p *ngIf="Fields['confirmPassword']['errors']['required']" class="text-red-500 text-xs">Password is required</p>
-                              <p *ngIf="Fields['confirmPassword']['errors']['minlength']" class="text-red-500 text-xs">Must be 8 or more characters</p>
+                              <p *ngIf="Fields['confirmPassword']['errors']['required']" class="text-red-500 text-xs">Retype your password</p>
                           </div> 
                           <div *ngIf="Fields['confirmPassword']['touched']" class="my-1">
                             <p  *ngIf="registerForm.errors?.['mismatch']"  class="text-red-500 text-xs">

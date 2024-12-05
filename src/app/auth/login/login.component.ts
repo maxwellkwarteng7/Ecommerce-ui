@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component  , OnInit } from '@angular/core';
+import { Component  , inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { AuthServiceService } from '../../services/auth-service/auth-service.service';
+import { loginTemplate } from '../../models/templates';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -11,11 +13,16 @@ import { RouterLink } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
   type: string = 'password';
+  loading: boolean = false; 
+  loginErrorMessage: string = ''; 
 
   loginForm: FormGroup = new FormGroup({
-    username: new FormControl('', Validators.required),
-    password: new FormControl('', [Validators.required, Validators.minLength(8)])
+    email: new FormControl('', [Validators.email , Validators.required]),
+    password: new FormControl('', [Validators.required])
   });
+
+  // injecting the auth service 
+   auth = inject(AuthServiceService); 
 
   ngOnInit(): void { 
     console.log(this.loginForm.controls)
@@ -31,14 +38,34 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  // post the login details 
+ 
+
 
   get Fields() {
     return this.loginForm.controls; 
   }
 
+  // reset form 
+  resetForm(email : string ) {
+    return this.loginForm.reset({
+      email 
+    })
+  }
+
   submitLoginForm() {
-    const values  = this.loginForm.value; 
+    this.loading = true; 
+    const values : loginTemplate  = this.loginForm.value; 
     console.log(values); 
+    this.auth.postLoginDetails(values).subscribe((res) => {
+      console.log(res);
+      this.loading = false; 
+      
+    }, (error) => {
+      this.loginErrorMessage = error.error.error; 
+      this.resetForm(values.email); 
+      this.loading = false; 
+    }); 
   }
 
 }

@@ -3,7 +3,7 @@ import { Component  , inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
-import { loginTemplate } from '../../models/templates';
+import { loginSuccessMessage, loginTemplate } from '../../models/templates';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,9 +15,11 @@ export class LoginComponent implements OnInit {
   type: string = 'password';
   loading: boolean = false; 
   loginErrorMessage: string = ''; 
+  userDetails!: loginSuccessMessage; 
+  
 
   loginForm: FormGroup = new FormGroup({
-    email: new FormControl('', [Validators.email , Validators.required]),
+    email: new FormControl('', [Validators.email , Validators.required]) , 
     password: new FormControl('', [Validators.required])
   });
 
@@ -55,15 +57,14 @@ export class LoginComponent implements OnInit {
 
   submitLoginForm() {
     this.loading = true; 
-    const values : loginTemplate  = this.loginForm.value; 
-    console.log(values); 
-    this.auth.postLoginDetails(values).subscribe((res) => {
-      console.log(res);
+    const loginDetails : loginTemplate  = this.loginForm.value; 
+    console.log(loginDetails); 
+    this.auth.postLoginDetails(loginDetails).subscribe((res) => {
+      console.log(res.message); 
       this.loading = false; 
-      
     }, (error) => {
       this.loginErrorMessage = error.error.error; 
-      this.resetForm(values.email); 
+      this.resetForm(loginDetails.email); 
       this.loading = false; 
     }); 
   }

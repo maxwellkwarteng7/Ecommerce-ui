@@ -38,6 +38,10 @@
                   <p class="text-gray-500 text-sm  mt-2 text-center">Please enter your details to create an account</p>
               </div>
 
+              <div class="my-2 text-center">
+                <p class="text-[13px] text-red-500" > {{registrationErrorMessage}} </p>
+            </div>
+
               <!-- the form -->
                <div>
                   <form action="" [formGroup]="registerForm">
@@ -88,9 +92,16 @@
 
                       <!-- the button to send the details  -->
                        <div class="mt-8">
-                          <button  class=" w-full py-2 rounded-sm text-white bg-primary text-sm  text-center uppercase"  [disabled]="!registerForm.valid" (click)="submitRegisterForm()">
-                              Register
-                          </button>
+                          @if (!loading) {
+                            <button  class=" w-full py-2 rounded-sm text-white bg-primary text-sm  text-center uppercase"  [disabled]="!registerForm.valid" (click)="submitRegisterForm()">
+                                Register
+                            </button>
+                          }@else {
+                            <button  class=" w-full py-2 rounded-sm text-white bg-primary text-sm flex items-center justify-center  uppercase"  
+                            disabled>
+                                <div class="spinner"></div>
+                            </button>
+                          }
                        </div>
 
                        <div class="mt-5 text-center">

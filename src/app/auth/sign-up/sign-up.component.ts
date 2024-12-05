@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { RouterLink } from '@angular/router';
+import { loginSuccessMessage, registerTemplate } from '../../models/templates';
+import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -13,6 +15,8 @@ import { RouterLink } from '@angular/router';
 export class SignUpComponent implements OnInit {
 
   type: string = 'password'; 
+  loading: boolean = false; 
+  registrationErrorMessage: string = ''; 
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -26,6 +30,9 @@ export class SignUpComponent implements OnInit {
   ngOnInit(): void {
    
   }
+
+  // inject the authentication service 
+  auth = inject(AuthServiceService); 
 
     // the password validator function 
     confirmPasswordValidator(): ValidatorFn {
@@ -58,9 +65,19 @@ export class SignUpComponent implements OnInit {
 
 
   submitRegisterForm() {
-    const body = this.registerForm.value; 
+    this.loading = true; 
+    const body  = this.registerForm.value; 
     delete body.confirmPassword; 
-    console.log(body); 
+    body.role = 'customer'; 
+    // make the api call 
+    this.auth.postRegistrationDetails(body).subscribe((res) => {
+      console.log(res.message); 
+    }, (error) => {
+      this.registrationErrorMessage = error.error.error; 
+      console.log(error); 
+      this.loading = false; 
+    })
+
   }
 
 

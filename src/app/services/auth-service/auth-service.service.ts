@@ -26,7 +26,7 @@ export class AuthServiceService {
   storeToken(token: string) {
     this.cookie.set('token', token, {
       expires: new Date(new Date().getTime() + this.expirationDays * 24 * 60 * 60 * 1000),
-    
+      path : '/'
     })
   }
 }

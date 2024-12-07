@@ -21,3 +21,9 @@ export interface loginSuccessMessage {
     userEmail : string 
    }
 }
+
+export interface userDetails  {
+    username: string, 
+    userRole: string, 
+    userEmail : string 
+}

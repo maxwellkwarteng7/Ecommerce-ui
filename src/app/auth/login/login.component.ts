@@ -62,6 +62,7 @@ export class LoginComponent implements OnInit {
     const loginDetails : loginTemplate  = this.loginForm.value; 
     console.log(loginDetails); 
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
+      this.auth.storeToken(res.message.token); 
       this.loading = false;  
     }, (error) => {
       this.loginErrorMessage = error.error.error; 

@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { loginSuccessMessage, loginTemplate, registerTemplate, registrationSuccessMessage } from '../../models/templates';
+import {  loginSuccessMessage, loginTemplate, registerTemplate, registrationSuccessMessage, userDetails } from '../../models/templates';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private cookie : CookieService) { }
+
+  userDetails!: userDetails;  
+  expirationDays: number = 7; 
   
   
   postRegistrationDetails( payload : registerTemplate) : Observable<registrationSuccessMessage> {
@@ -19,10 +23,10 @@ export class AuthServiceService {
     return  this.http.post<loginSuccessMessage>(`${environment.baseUrl}/login`, payload); 
   }
 
-
-  
-
-
-
-
+  storeToken(token: string) {
+    this.cookie.set('token', token, {
+      expires: new Date(new Date().getTime() + this.expirationDays * 24 * 60 * 60 * 1000),
+    
+    })
+  }
 }

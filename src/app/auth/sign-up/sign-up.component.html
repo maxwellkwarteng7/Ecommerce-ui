@@ -1,128 +1,244 @@
 <!-- this is the content of the register / sign-up page  -->
-<div class="flex items-center justify-center w-full  min-h-[100vh] bg-white">
+<div class="flex items-center justify-center w-full min-h-[100vh] bg-white">
+  <!-- home button -->
+  <button
+    [routerLink]="['/home']"
+    class="py-2 px-3 rounded-sm bg-gray-200 text-gray-800 flex items-center gap-2 text-xs md:text-sm absolute top-[10px] left-[10px]"
+  >
+    <span class="mdi mdi-arrow-left"></span>
+    <span>Home</span>
+  </button>
 
-    <!-- home button -->
-    <button [routerLink]="['/home']" class="py-2 px-3 rounded-sm bg-gray-200 text-gray-800 flex items-center gap-2 text-xs md:text-sm absolute top-[10px] left-[10px]">
-        <span class="mdi mdi-arrow-left"></span>
-      <span >Home</span>
-     </button>
+  <!--  -->
+  <div
+    class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm"
+  >
+    <div
+      class="hidden md:block md:w-[50%] bg-tertiary h-full overflow-hidden z-40 rounded-sm"
+    >
+      <img
+        src="/auth-images/register.jpg"
+        alt="...login-image"
+        class="w-full h-full object-center object-cover"
+        loading="eager"
+      />
+    </div>
 
-     <!--  -->
-     <div class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm">
-
-        <div class="hidden md:block md:w-[50%] bg-tertiary h-full overflow-hidden z-40 rounded-sm">
-            <img src="/auth-images/register.jpg" alt="...login-image" class="w-full h-full object-center object-cover" loading="eager"/>
+    <!-- the registration part  -->
+    <div class="w-full md:w-[50%] h-full relative">
+      <div class="absolute right-[5px] top-[5px] w-[77px] my-5 mx-3">
+        <a
+          routerLink="/home"
+          class="uppercase font-extrabold tracking-widest text-xs relative z-10 cursor-pointer"
+          style="
+            text-shadow: 2px 2px 0 white, -2px 2px 0 white, -2px -2px 0 white,
+              2px -2px 0 white, 0 2px 0 white, 2px 0 0 white, -2px 0 0 white,
+              0 -2px 0 white;
+          "
+          >MXSHOP</a
+        >
+        <span
+          class="inline-block w-[12px] h-[12px] rounded-full absolute top-[1px] right-[13px] bg-primary"
+        ></span>
+      </div>
+      <!-- the form -->
+      <div class="flex items-center justify-center w-full mt-[60px]">
+        <div class="w-[85%] flex flex-col gap-3 items-center justify-center">
+          <div>
+            <h3 class="text-lg text-center font-semibold capitalize">
+              Let's Get Started
+            </h3>
+            <p class="text-gray-500 text-sm mt-2 text-center">
+              Please enter your details to create an account
+            </p>
           </div>
 
-          <!-- the registration part  -->
-          <div class="w-full md:w-[50%]  h-full relative " >
-            <div class="absolute  right-[5px] top-[5px]  w-[77px] my-5 mx-3">
-      <a routerLink="/home" class="uppercase font-extrabold tracking-widest text-xs relative z-10 cursor-pointer"  style="
-      text-shadow:
-        2px 2px 0 white,
-        -2px 2px 0 white,
-        -2px -2px 0 white,
-        2px -2px 0 white,
-        0 2px 0 white,
-        2px 0 0 white,
-        -2px 0 0 white,
-        0 -2px 0 white;
-    ">MXSHOP</a>
-      <span class="inline-block w-[12px] h-[12px] rounded-full absolute top-[1px] right-[13px] bg-primary"></span>
-     </div>
-     <!-- the form -->
-      <div class="flex items-center justify-center w-full mt-[60px]">
-          <div class="w-[85%] flex flex-col gap-3 items-center justify-center">
-              <div>
-                  <h3 class="text-lg text-center font-semibold capitalize ">Let's Get Started </h3>
-                  <p class="text-gray-500 text-sm  mt-2 text-center">Please enter your details to create an account</p>
+          <div class="my-2 text-center">
+            <p class="text-[13px] text-red-500">
+              {{ registrationErrorMessage }}
+            </p>
+          </div>
+
+          <!-- the form -->
+          <div>
+            <form action="" [formGroup]="registerForm">
+              <div class="my-2">
+                <label
+                  class="inline-block w-full text-sm text-tertiary"
+                  for="username"
+                  >Username</label
+                >
+                <input
+                  class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700 w-full"
+                  type="text"
+                  id="username"
+                  formControlName="username"
+                />
+                <div
+                  *ngIf="
+                    Fields['username']['errors'] &&
+                    Fields['username']['touched']
+                  "
+                  class="py-1"
+                >
+                  <p
+                    *ngIf="Fields['username']['errors']['required']"
+                    class="text-red-500 text-xs"
+                  >
+                    Username is required
+                  </p>
+                </div>
+              </div>
+              <!-- the email field  -->
+              <div class="my-2">
+                <label
+                  class="inline-block w-full text-sm text-tertiary"
+                  for="email"
+                  >Email</label
+                >
+                <input
+                  class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700 w-full"
+                  type="email"
+                  id="email"
+                  formControlName="email"
+                />
+                <div
+                  *ngIf="
+                    Fields['email']['errors'] && Fields['email']['touched']
+                  "
+                  class="py-1"
+                >
+                  <p
+                    *ngIf="Fields['email']['errors']['required']"
+                    class="text-red-500 text-xs"
+                  >
+                    Email is required
+                  </p>
+                  <p
+                    *ngIf="Fields['email']['errors']['email']"
+                    class="text-red-500 text-xs"
+                  >
+                    must be valid email and not more than 255 characters
+                  </p>
+                </div>
+              </div>
+              <!-- the password -->
+              <div class="my-2">
+                <div class="relative">
+                  <label
+                    class="inline-block w-full text-sm text-tertiary"
+                    for="password"
+                    >Password</label
+                  >
+                  <input
+                    class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700 w-full pr-8"
+                    [type]="type"
+                    id="password"
+                    formControlName="password"
+                  />
+                  <span
+                    [className]="
+                      type === 'password'
+                        ? 'mdi mdi-eye-off absolute bottom-[3px] right-[4px] cursor-pointer'
+                        : 'mdi mdi-eye absolute bottom-[3px] right-[4px] cursor-pointer'
+                    "
+                    (click)="togglePassword()"
+                  ></span>
+                </div>
+                <div
+                  *ngIf="
+                    Fields['password']['errors'] &&
+                    Fields['password']['touched']
+                  "
+                  class="py-1"
+                >
+                  <p
+                    *ngIf="Fields['password']['errors']['required']"
+                    class="text-red-500 text-xs"
+                  >
+                    Password is required
+                  </p>
+                  <p
+                    *ngIf="Fields['password']['errors']['minlength']"
+                    class="text-red-500 text-xs"
+                  >
+                    Must be 8 or more characters
+                  </p>
+                </div>
+              </div>
+              <div class="my-2">
+                <div class="relative">
+                  <label
+                    class="inline-block w-full text-sm text-tertiary"
+                    for="password"
+                    >Confirm Password</label
+                  >
+                  <input
+                    class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700 w-full pr-8"
+                    type="password"
+                    id="password"
+                    formControlName="confirmPassword"
+                  />
+                </div>
+                <div
+                  *ngIf="
+                    Fields['confirmPassword']['errors'] &&
+                    Fields['confirmPassword']['touched']
+                  "
+                  class="py-1"
+                >
+                  <p
+                    *ngIf="Fields['confirmPassword']['errors']['required']"
+                    class="text-red-500 text-xs"
+                  >
+                    Retype your password
+                  </p>
+                </div>
+                <div *ngIf="Fields['confirmPassword']['touched']" class="my-1">
+                  <p
+                    *ngIf="registerForm.errors?.['mismatch']"
+                    class="text-red-500 text-xs"
+                  >
+                    Passwords do not match
+                  </p>
+                </div>
               </div>
 
-              <div class="my-2 text-center">
-                <p class="text-[13px] text-red-500" > {{registrationErrorMessage}} </p>
-            </div>
+              <!-- the button to send the details  -->
+              <div class="mt-8">
+                @if (!loading) {
+                <button
+                  class="w-full py-2 rounded-sm text-white bg-primary text-sm text-center uppercase"
+                  [disabled]="!registerForm.valid"
+                  (click)="submitRegisterForm()"
+                >
+                  Register
+                </button>
+                }@else {
+                <button
+                  class="w-full py-2 rounded-sm text-white bg-primary text-sm flex items-center justify-center uppercase"
+                  disabled
+                >
+                  <div class="spinner"></div>
+                </button>
+                }
+              </div>
 
-              <!-- the form -->
-               <div>
-                  <form action="" [formGroup]="registerForm">
-                      <div class="my-2">
-                          <label class="inline-block w-full text-sm text-tertiary" for="username">Username</label>
-                          <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full " type="text"  id="username" formControlName="username" />
-                          <div *ngIf="Fields['username']['errors'] && Fields['username']['touched']" class="py-1">
-                              <p *ngIf="Fields['username']['errors']['required']" class="text-red-500 text-xs">Username is required</p>
-                          </div> 
-                      </div>
-                      <!-- the email field  -->
-                      <div class="my-2">
-                        <label class="inline-block w-full text-sm text-tertiary" for="email">Email</label>
-                        <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full " type="email"  id="email" formControlName="email" />
-                        <div *ngIf="Fields['email']['errors'] && Fields['email']['touched']" class="py-1">
-                            <p *ngIf="Fields['email']['errors']['required']" class="text-red-500 text-xs">Email is required</p>
-                            <p *ngIf="Fields['email']['errors']['email']" class="text-red-500 text-xs">must be valid email and not more than 255 characters</p>
-                        </div> 
-                    </div>
-                    <!-- the password -->
-                      <div class="my-2">
-                          <div class="relative">
-                              <label class="inline-block w-full text-sm text-tertiary" for="password">Password</label>
-                              <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full pr-8 " [type]="type"  id="password" formControlName="password" />
-                              <span [className]="type === 'password' ? 'mdi mdi-eye-off absolute bottom-[3px] right-[4px] cursor-pointer' : 'mdi mdi-eye absolute bottom-[3px] right-[4px] cursor-pointer' " (click)="togglePassword()"></span>
-                          </div>
-                          <div *ngIf="Fields['password']['errors'] && Fields['password']['touched']" class="py-1">
-                              <p *ngIf="Fields['password']['errors']['required']" class="text-red-500 text-xs">Password is required</p>
-                              <p *ngIf="Fields['password']['errors']['minlength']" class="text-red-500 text-xs">Must be 8 or more characters</p>
-                              
-                          </div> 
-                      </div>
-                      <div class="my-2">
-                          <div class="relative">
-                              <label class="inline-block w-full text-sm text-tertiary" for="password">Confirm Password</label>
-                              <input class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700  w-full pr-8 " type="password"  id="password" formControlName="confirmPassword" />
-                          </div>
-                          <div *ngIf="Fields['confirmPassword']['errors'] && Fields['confirmPassword']['touched']" class="py-1">
-                              <p *ngIf="Fields['confirmPassword']['errors']['required']" class="text-red-500 text-xs">Retype your password</p>
-                          </div> 
-                          <div *ngIf="Fields['confirmPassword']['touched']" class="my-1">
-                            <p  *ngIf="registerForm.errors?.['mismatch']"  class="text-red-500 text-xs">
-                                Passwords do not match
-                              </p>
-                          </div>
-                      </div>
-                    
-
-                      <!-- the button to send the details  -->
-                       <div class="mt-8">
-                          @if (!loading) {
-                            <button  class=" w-full py-2 rounded-sm text-white bg-primary text-sm  text-center uppercase"  [disabled]="!registerForm.valid" (click)="submitRegisterForm()">
-                                Register
-                            </button>
-                          }@else {
-                            <button  class=" w-full py-2 rounded-sm text-white bg-primary text-sm flex items-center justify-center  uppercase"  
-                            disabled>
-                                <div class="spinner"></div>
-                            </button>
-                          }
-                       </div>
-
-                       <div class="mt-5 text-center">
-                        <p class="text-sm text-tertiary">
-                          Already have an account ? 
-                          <button routerLink="/login" class="text-gray-800 underline underline-offset-2">login here</button>
-                        </p>
-
-                       </div>
-                  </form>
-               </div>
-        
+              <div class="mt-5 text-center">
+                <p class="text-sm text-tertiary">
+                  Already have an account ?
+                  <button
+                    routerLink="/login"
+                    class="text-gray-800 underline underline-offset-2"
+                  >
+                    login here
+                  </button>
+                </p>
+              </div>
+            </form>
           </div>
-
-
+        </div>
       </div>
-
-       </div>
-
-
-
-     </div>
-
+    </div>
+  </div>
 </div>

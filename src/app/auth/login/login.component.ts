@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 import { loginSuccessMessage, loginTemplate } from '../../models/templates';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,7 +25,8 @@ export class LoginComponent implements OnInit {
   });
 
   // injecting the auth service 
-   auth = inject(AuthServiceService); 
+  auth = inject(AuthServiceService); 
+ 
 
   ngOnInit(): void { 
     console.log(this.loginForm.controls)
@@ -60,8 +62,7 @@ export class LoginComponent implements OnInit {
     const loginDetails : loginTemplate  = this.loginForm.value; 
     console.log(loginDetails); 
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
-      console.log(res.message); 
-      this.loading = false; 
+      this.loading = false;  
     }, (error) => {
       this.loginErrorMessage = error.error.error; 
       this.resetForm(loginDetails.email); 

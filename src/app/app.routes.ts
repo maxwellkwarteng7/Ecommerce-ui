@@ -20,5 +20,9 @@ export const routes: Routes = [
     {
         path: 'sign-up', 
         component : SignUpComponent
+    } , 
+    {
+        path : 'forgot-password' , 
+    
     }
 ];

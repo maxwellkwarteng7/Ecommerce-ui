@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
  
 
   ngOnInit(): void { 
-    console.log(this.loginForm.controls)
+    
   }
    
  

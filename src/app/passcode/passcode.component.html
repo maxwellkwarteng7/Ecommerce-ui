@@ -6,6 +6,8 @@
             <span class="mdi mdi-lock"></span>
         </div>
 
+        
+
         <!-- title of the page  -->
          <div class="text-center text-semibold text-lg mt-3">
             <h5>Reset Password</h5>
@@ -14,13 +16,20 @@
 
          <!-- enter your email field -->
 
-         <form action="">
+         <form [formGroup]="forgotPasswordForm">
             <div class="my-3">
                 <label class="inline-block w-full text-gray-600" for="email">Email</label>
-                <input class="w-full outline-none text-sm  border-b-[0.5px] border-b-gray-500 text-gray-700 py-1"  placeholder="eg: Johndoe@gmail.com" />
+                <input class="w-full outline-none text-sm  border-b-[0.5px] border-b-gray-500 text-gray-700 py-1"  placeholder="eg: Johndoe@gmail.com" formControlName="email" />
+                <!-- error message -->
+                 <div *ngIf="forgotPasswordFields['email']['errors'] && forgotPasswordFields['email']['touched']" class="text-red-500 text-xs">
+                    <p *ngIf="forgotPasswordFields['email']['errors']['required']">Email is required </p>
+                    <p *ngIf="forgotPasswordFields['email']['errors']['email']" class="mt-1">
+                       Must be a valid email and not more than 255 characters 
+                    </p>
+                 </div>
             </div>
             <div class="mt-8">
-                <button class="bg-primary text-white text-sm text-center  py-2 rounded-sm w-full">
+                <button class="bg-primary text-white text-sm text-center  py-2 rounded-sm w-full" [disabled]="!forgotPasswordForm.valid">
                     Submit
                 </button>
             </div>

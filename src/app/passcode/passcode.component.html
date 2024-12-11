@@ -1,40 +1,99 @@
-<div class="w-full h-[100vh] flex items-center justify-center bg-[whitesmoke]"> 
+<div class="w-full h-[100vh] flex items-center justify-center bg-[whitesmoke]">
+  <!-- the card  -->
+  <div class="w-[95%] sm:w-[400px] bg-white min-h-[20rem] shadow-xl rounded-sm py-5 px-10">
+    <div class="text-center text-2xl">
+      <span class="mdi mdi-lock"></span>
+    </div>
 
-    <!-- the card  -->
-     <div class="w-[400px] bg-white  min-h-[20rem] shadow-xl rounded-sm p-5">
-        <div class="text-center text-2xl">
-            <span class="mdi mdi-lock"></span>
+    <!-- the forgot password section -->
+    <div *ngIf="currentRoute === 'forgot-password'">
+      <!-- title of the page  -->
+      <div class="text-center text-semibold text-lg mt-3">
+        <h5>Reset Password</h5>
+        <p class="text-xs text-tertiary">
+          Enter your email to reset your password
+        </p>
+      </div>
+
+      <!-- enter your email field -->
+
+      <form [formGroup]="forgotPasswordForm">
+        <div class="my-3">
+          <label class="inline-block w-full text-gray-600" for="email"
+            >Email</label
+          >
+          <input
+            class="w-full outline-none text-sm border-b-[0.5px] border-b-gray-500 text-gray-700 py-1"
+            placeholder="eg: Johndoe@gmail.com"
+            formControlName="email"
+          />
+          <!-- error message -->
+          <div
+            *ngIf="
+              forgotPasswordFields['email']['errors'] &&
+              forgotPasswordFields['email']['touched']
+            "
+            class="text-red-500 text-xs"
+          >
+            <p *ngIf="forgotPasswordFields['email']['errors']['required']">
+              Email is required
+            </p>
+            <p
+              *ngIf="forgotPasswordFields['email']['errors']['email']"
+              class="mt-1"
+            >
+              Must be a valid email and not more than 255 characters
+            </p>
+          </div>
         </div>
+        <div class="mt-8">
+          <button
+            class="bg-primary text-white text-sm text-center py-2 rounded-sm w-full"
+            [disabled]="!forgotPasswordForm.valid"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
 
-        
+    <!-- the authenticated email section -->
+     <div *ngIf="currentRoute === 'verify-email'">
+        <div class="text-center text-semibold text-lg mt-3">
+            <h5>Verify Email</h5>
+            <p class="text-xs text-tertiary">
+              6 digit pin has been sent to your email
+            </p>
+          </div>
 
-        <!-- title of the page  -->
-         <div class="text-center text-semibold text-lg mt-3">
-            <h5>Reset Password</h5>
-            <p class="text-xs text-tertiary">Enter your email to reset your password</p>
-         </div>
-
-         <!-- enter your email field -->
-
-         <form [formGroup]="forgotPasswordForm">
-            <div class="my-3">
-                <label class="inline-block w-full text-gray-600" for="email">Email</label>
-                <input class="w-full outline-none text-sm  border-b-[0.5px] border-b-gray-500 text-gray-700 py-1"  placeholder="eg: Johndoe@gmail.com" formControlName="email" />
-                <!-- error message -->
-                 <div *ngIf="forgotPasswordFields['email']['errors'] && forgotPasswordFields['email']['touched']" class="text-red-500 text-xs">
-                    <p *ngIf="forgotPasswordFields['email']['errors']['required']">Email is required </p>
-                    <p *ngIf="forgotPasswordFields['email']['errors']['email']" class="mt-1">
-                       Must be a valid email and not more than 255 characters 
-                    </p>
-                 </div>
+          <!-- the input fields to handle that  -->
+           <form >
+            <div class="flex items-center gap-2 justify-evenly  w-full h-full overflow-hidden mt-4">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text1 (keyup)="autoFocus($event , '' , text1 , text2)">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text2 (keyup)="autoFocus($event , text1 , text2 , text3)">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text3 (keyup)="autoFocus($event , text2 , text3 , text4)">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text4 (keyup)="autoFocus($event , text3 , text4 , text5)">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text5 (keyup)="autoFocus($event , text4 , text5 , text6)">
+                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text6 (keyup)="autoFocus($event , text5 , text6 , '')">
             </div>
-            <div class="mt-8">
-                <button class="bg-primary text-white text-sm text-center  py-2 rounded-sm w-full" [disabled]="!forgotPasswordForm.valid">
-                    Submit
+            <div class="my-5">
+                <button class="w-full text-white rounded-sm py-2 bg-primary text-center">
+                    Verify
                 </button>
             </div>
-         </form>
+           </form>
+
+           <!-- facing issues  -->
+            <div class="text-sm text-tertiary text-center">
+                <span>Are you facing any problems receiving the code ?</span>
+                <a class="text-gray-700">Resend Code</a>
+            </div>
 
      </div>
 
+
+
+  </div>
 </div>
+
+

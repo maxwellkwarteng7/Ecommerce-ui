@@ -77,14 +77,14 @@
                 <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text6 (keyup)="autoFocus($event , text5 , text6 , '')" formControlName="six">
             </div>
             <div class="my-5">
-                <button [disabled]="!SixdigitPinForm.valid" class="w-full text-white rounded-sm py-2 bg-primary text-center">
+                <button (click)="handleSixDigit()" [disabled]="!SixdigitPinForm.valid" class="w-full text-white rounded-sm py-2 bg-primary text-center">
                     Verify
                 </button>
             </div>
            </form>
 
            <!-- facing issues  -->
-            <div class="text-sm text-tertiary text-center">
+            <div  class="text-sm text-tertiary text-center">
                 <span>Are you facing any problems receiving the code ?</span>
                 <a class="text-gray-700">Resend Code</a>
             </div>

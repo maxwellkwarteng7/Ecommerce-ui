@@ -59,4 +59,15 @@ export class PasscodeComponent implements OnInit {
     }
   }
 
+  // handle 6 digit 
+  handleSixDigit() {
+    const values = this.SixdigitPinForm.value; 
+    // get all values as one into newValues variable 
+    const newValues: string = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`; 
+  
+    // parse it and make it an integer
+    const sixDigits = parseInt(newValues); 
+    
+  }
+
 }

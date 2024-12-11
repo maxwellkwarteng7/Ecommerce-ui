@@ -25,8 +25,17 @@ export class PasscodeComponent implements OnInit {
     console.log(this.currentRoute); 
   }
 
-  forgotPasswordForm = new FormGroup({
+  forgotPasswordForm : FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
+  });
+
+  SixdigitPinForm: FormGroup = new FormGroup({
+    one: new FormControl('', [Validators.required]),
+    two: new FormControl('', [Validators.required]),
+    three: new FormControl('', [Validators.required]),
+    four: new FormControl('', [Validators.required]),
+    five: new FormControl('', [Validators.required]),
+    six: new FormControl('', [Validators.required]),
   });
 
   get forgotPasswordFields() {

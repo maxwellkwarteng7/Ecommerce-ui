@@ -21,7 +21,8 @@ export class PasscodeComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   this.currentRoute = this.router.snapshot.routeConfig?.path || ''; 
+    this.currentRoute = this.router.snapshot.routeConfig?.path || ''; 
+    console.log(this.currentRoute); 
   }
 
   forgotPasswordForm = new FormGroup({
@@ -30,6 +31,23 @@ export class PasscodeComponent implements OnInit {
 
   get forgotPasswordFields() {
     return this.forgotPasswordForm.controls; 
+  }
+
+  // function to handle the event to focus the input to the next and backspace to the previous
+
+  autoFocus(e : any , previous : any , current:any , next : any) {
+    const length = current.value.length; 
+    const maxlength = current.getAttribute('maxlength'); 
+    if (length == maxlength) {
+      if (next !== "") {
+        next.focus(); 
+      } 
+    }
+    if (e.key === "Backspace") {
+      if (previous !== "") {
+        previous.focus(); 
+      }
+    }
   }
 
 }

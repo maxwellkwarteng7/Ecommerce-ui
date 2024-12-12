@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { loginSuccessMessage, registerTemplate } from '../../models/templates';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 
@@ -33,6 +33,7 @@ export class SignUpComponent implements OnInit {
 
   // inject the authentication service 
   auth = inject(AuthServiceService); 
+  router = inject(Router); 
 
     // the password validator function 
     confirmPasswordValidator(): ValidatorFn {
@@ -71,7 +72,7 @@ export class SignUpComponent implements OnInit {
     body.role = 'customer'; 
     // make the api call 
     this.auth.postRegistrationDetails(body).subscribe((res) => {
-      console.log(res.message); 
+      this.router.navigateByUrl('/verify-email'); 
     }, (error) => {
       this.registrationErrorMessage = error.error.error; 
       console.log(error); 

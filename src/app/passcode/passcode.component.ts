@@ -22,13 +22,13 @@ export class PasscodeComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentRoute = this.router.snapshot.routeConfig?.path || ''; 
-    console.log(this.currentRoute); 
   }
-
+// forgot password form 
   forgotPasswordForm : FormGroup = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email])
   });
 
+    // the 6 digit form 
   SixdigitPinForm: FormGroup = new FormGroup({
     one: new FormControl('', [Validators.required]),
     two: new FormControl('', [Validators.required]),
@@ -45,16 +45,16 @@ export class PasscodeComponent implements OnInit {
   // function to handle the event to focus the input to the next and backspace to the previous
 
   autoFocus(e : any , previous : any , current:any , next : any) {
-    const length = current.value.length; 
-    const maxlength = current.getAttribute('maxlength'); 
+    const length = current.value.length; //get the length of the current value 
+    const maxlength = current.getAttribute('maxlength');  //get the maxlength value from the input field
     if (length == maxlength) {
       if (next !== "") {
-        next.focus(); 
+        next.focus();  //focus on the next input field 
       } 
     }
     if (e.key === "Backspace") {
       if (previous !== "") {
-        previous.focus(); 
+        previous.focus();  // focus on the previous input field
       }
     }
   }

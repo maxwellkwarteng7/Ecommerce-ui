@@ -1,24 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { NavbarComponent } from "../navbar/navbar.component";
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet , RouterLink],
+  imports: [RouterOutlet,  NavbarComponent , FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  hamburger: boolean = false; 
 
- 
-  toggleHamburger() {
-    this.hamburger = !this.hamburger ;  
-  }
 
-  maintainHamburger() {
-    this.hamburger = false; 
-  }
-
+  
 }

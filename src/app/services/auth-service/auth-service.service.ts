@@ -26,9 +26,14 @@ export class AuthServiceService {
   storeToken(token: string) {
     this.cookie.set('token', token, {
       expires: new Date(new Date().getTime() + this.expirationDays * 24 * 60 * 60 * 1000),
-      path: '/', 
-      sameSite: 'Strict', 
-      secure: true 
+      path: '/',
+      sameSite: 'Strict',
+      secure: true
     })
+  }
+
+  //post pin 
+  postPinInfo(payload : string) : Observable<string> {
+    return this.http.post<string>(`${environment.baseUrl}/verify-email`, payload); 
   }
 }

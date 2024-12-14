@@ -72,7 +72,13 @@ export class SignUpComponent implements OnInit {
     body.role = 'customer'; 
     // make the api call 
     this.auth.postRegistrationDetails(body).subscribe((res) => {
-      this.router.navigateByUrl('/verify-email'); 
+      this.auth.postPinInfo(body.email).subscribe((res) => {
+      this.router.navigateByUrl('/verify-email');     
+      }, (error) => {
+        this.registrationErrorMessage = error.error.error; 
+      console.log(error); 
+      this.loading = false; 
+      })
     }, (error) => {
       this.registrationErrorMessage = error.error.error; 
       console.log(error); 

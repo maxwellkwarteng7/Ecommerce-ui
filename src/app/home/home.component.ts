@@ -12,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+  title = "home";
+  game: boolean = false; 
 
   
 }

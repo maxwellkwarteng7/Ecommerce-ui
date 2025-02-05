@@ -5,14 +5,14 @@
       <div class="flex items-center gap-3 pl-4">
         <!-- hamburger -->
          <div class="flex flex-col gap-[0.175em] md:hidden cursor-pointer" (click)="toggleHamburger()">
-          <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
-          <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
+          <div class="w-[20px] h-[3.22px] bg-tertiary rounded-lg"></div>
+          <div class="w-[17px] h-[3.2px] bg-tertiary rounded-lg"></div>
           <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
          </div>
   
          <!-- logo -->
          <div class="relative ">
-          <h2 class="uppercase font-extrabold tracking-widest relative z-10"  style="
+          <h2 class="uppercase font-extrabold tracking-widest relative z-10 text-sm md:text-[16px]"  style="
           text-shadow:
             2px 2px 0 white,
             -2px 2px 0 white,
@@ -51,16 +51,16 @@
   
         <!-- the login and the cart  -->
          <div class="flex items-center gap-2 md:gap-4">
-          <div class="hidden items-center gap-2 px-4 text-sm text-tertiary md:flex ">
+          <div class="hidden items-center gap-2 px-4 text-xs md:text-sm text-tertiary md:flex ">
             <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
             <span class="mdi mdi-account text-black"></span>
            </div> 
-            <div class="flex items-center gap-2 px-4 text-sm text-tertiary">
+            <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary">
                 <a href="" [routerLink]="['/login']" class="uppercase">Login</a>
                 <span class="mdi mdi-login text-black"></span>
             </div>
   
-            <div class="flex items-center gap-2 px-4 text-sm text-tertiary cursor-pointer">
+            <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary cursor-pointer">
               <span class="mdi mdi-cart-outline text-black"></span>
               <span class="text-xs">1000</span>
           </div>

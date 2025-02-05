@@ -1,6 +1,6 @@
 <!-- the navigation bar -->
 <header>
-    <nav class="bg-white h-[8vh] md:h-[10vh] w-full flex items-center justify-between shadow-md z-10 sticky-0 top-0">
+    <nav class="bg-white h-[8vh] md:h-[10vh] w-full flex items-center justify-between shadow-md z-[5] fixed top-0">
       <!-- logo and hamburger -->
       <div class="flex items-center gap-3 pl-4">
         <!-- hamburger -->
@@ -29,8 +29,8 @@
       </div>
   
        <!-- the links , login , sing up  ,  cart and logout  -->
-        <div [className]="hamburger === false  ? ' z-40 absolute top-0 bg-transparent w-full  h-full md:static  md:bg-white md:w-auto md:h-auto translate-x-[-100%] transition-transform duration-500 ease-in-out md:translate-x-0' : ' z-40 absolute top-0  bg-transparent  w-full  h-full md:static  md:bg-white md:w-auto md:h-auto  md:translate-x-0 transition-transform duration-500 ease-in-out'" (click)="toggleHamburger()">
-          <div class="w-[75%] md:w-auto bg-white  h-full  md:h-auto  pl-4 pt-8 md:pl-0 md:pt-0" (click)="maintainHamburger()">
+        <div [className]="hamburger === false  ? ' z-40 absolute top-0 bg-transparent w-full  h-[100vh] md:static  md:bg-white md:w-auto md:h-auto translate-x-[-100%] transition-transform duration-500 ease-in-out md:translate-x-0' : ' z-40 absolute top-0  bg-transparent  w-full  h-[100vh] md:static  md:bg-white md:w-auto md:h-auto  md:translate-x-0 transition-transform duration-500 ease-in-out'" (click)="toggleHamburger()">
+          <div class="w-[75%] md:w-auto bg-white h-[100vh]   md:h-auto  pl-4 pt-8 md:pl-0 md:pt-0" (click)="maintainHamburger()">
             <ul class="list-none text-sm text-tertiary flex flex-col  gap-5 md:gap-8 md:flex-row  ">
               <li><a  class="uppercase" [routerLink]="['/home']">Home</a></li>
               <li><a class="uppercase"  href="">Pricing</a></li>

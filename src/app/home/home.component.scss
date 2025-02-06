@@ -11,3 +11,7 @@
   .no-scrollbar::-webkit-scrollbar {
     display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
   }
+
+  .hero-image { 
+    mix-blend-mode: overlay;
+  }

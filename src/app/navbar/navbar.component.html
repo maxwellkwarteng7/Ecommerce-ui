@@ -1,13 +1,13 @@
 <!-- the navigation bar -->
-<header>
-    <nav class="bg-white h-[8vh] md:h-[10vh] w-full flex items-center justify-between  z-[5] sticky top-0">
+<header class="w-full h-auto sticky top-0">
+    <nav class="bg-white h-[8vh] md:h-[10vh] w-full flex items-center justify-between  z-[5]">
       <!-- logo and hamburger -->
-      <div class="flex items-center gap-3 pl-4 md:pl-[3%]">
+      <div class="flex items-center gap-3 pl-4 md:pl-[3%] xl:pl-[8%]">
         <!-- hamburger -->
          <div class="flex flex-col gap-[0.175em] md:hidden cursor-pointer" (click)="toggleHamburger()">
-          <div class="w-[20px] h-[3.22px] bg-tertiary rounded-lg"></div>
-          <div class="w-[17px] h-[3.2px] bg-tertiary rounded-lg"></div>
-          <div class="w-[20px] h-[3.2px] bg-tertiary rounded-lg"></div>
+          <div class="w-[20px] h-[3.22px] bg-black rounded-lg"></div>
+          <div class="w-[16px] h-[3.2px] bg-black rounded-lg"></div>
+          <div class="w-[20px] h-[3.2px] bg-black rounded-lg"></div>
          </div>
   
          <!-- logo -->
@@ -50,7 +50,7 @@
         </div>
   
         <!-- the login and the cart  -->
-         <div class="flex items-center pr-4  gap-2 md:gap-4 md:pr-[3%]">
+         <div class="flex items-center pr-4  gap-2 md:gap-4 md:pr-[3%] xl:pr-[8%]">
           <div class="hidden items-center gap-2 text-xs md:text-sm text-tertiary md:flex ">
             <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
             <span class="mdi mdi-account text-black"></span>
@@ -62,7 +62,7 @@
   
             <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary cursor-pointer">
               <span class="mdi mdi-cart-outline text-black"></span>
-              <span class="text-xs">1000</span>
+              <span class="text-xs text-primary">1000</span>
           </div>
   
          </div>

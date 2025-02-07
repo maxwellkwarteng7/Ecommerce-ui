@@ -9,7 +9,7 @@ import { ProductsComponent } from "../products/products.component";
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, FormsModule, SidebarComponent, ProductsComponent],
+  imports: [RouterOutlet, NavbarComponent, FormsModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

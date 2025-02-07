@@ -14,4 +14,46 @@ import { ProductsComponent } from "../products/products.component";
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {  
+  categoryItems = [
+    {
+      categoryName: 'name', 
+      image : 'home-images/one.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/hero-image.png'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+    {
+      categoryName: 'name', 
+      image : 'home-images/two.jpg'
+    } , 
+  ]  
 }

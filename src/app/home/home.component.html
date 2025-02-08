@@ -70,11 +70,11 @@
             </div>
         }
        </div>      -->
-       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4  justify-center gap-4 p-4">
+       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-center gap-4 p-4">
         @for (item of categoryItems; track $index) {
-            <div class="h-[12rem] flex flex-col justify-center shadow-md cursor-pointer">
+            <div class="h-[13rem] flex flex-col justify-center shadow-md cursor-pointer">
                 <div class="h-[65%] w-full overflow-hidden">
-                    <img src="{{item.image}}" alt="..category-image" class="w-full h-full object-contain object-center">
+                    <img src="{{item.image}}" alt="..category-image" class="w-full h-full object-cover">
                 </div>
                 <p class="text-sm sm:text-[16px] h-[35%] text-center py-2">Clothing</p>
                 </div>

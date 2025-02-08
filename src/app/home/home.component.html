@@ -60,16 +60,6 @@
    <!-- the product category part  -->
     <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto">
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize">Find Things You'll l<span class="text-primary">o</span>ve </h1>
-       <!-- <div class="w-full flex items-center  gap-4 overflow-x-scroll py-3">
-        @for (item of categoryItems; track $index) {
-            <div class="flex flex-col items-center justify-center gap-2">
-                <div class="w-[70px] h-[70px] md:w-[100px] md:h-[100px] bg-white rounded-full flex items-center justify-center">
-                    <img src="{{item.image}}" alt="...category-image" class="w-[60%] h-[60%] object-cover object-center rounded-full">
-                </div>
-                <p class="text-center text-sm">{{item.categoryName}}</p>
-            </div>
-        }
-       </div>      -->
        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-center gap-4 p-4">
         @for (item of categoryItems; track $index) {
             <div class="h-[13rem] flex flex-col justify-center shadow-md cursor-pointer">

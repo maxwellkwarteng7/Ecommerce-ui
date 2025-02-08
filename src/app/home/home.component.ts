@@ -41,7 +41,7 @@ export class HomeComponent {
     } , 
     {
       categoryName: 'name', 
-      image : 'home-images/two.jpg'
+      image : 'home-images/one.jpg'
     } , 
     {
       categoryName: 'name', 

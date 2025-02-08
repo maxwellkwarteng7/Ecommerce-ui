@@ -74,7 +74,7 @@
         @for (item of categoryItems; track $index) {
             <div class="h-[12rem] flex flex-col justify-center shadow-md cursor-pointer">
                 <div class="h-[65%] w-full overflow-hidden">
-                    <img src="home-images/one.jpg" alt="..category-image" class="w-full h-full object-cover object-center">
+                    <img src="{{item.image}}" alt="..category-image" class="w-full h-full object-contain object-center">
                 </div>
                 <p class="text-sm sm:text-[16px] h-[35%] text-center py-2">Clothing</p>
                 </div>

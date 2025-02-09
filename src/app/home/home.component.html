@@ -58,18 +58,21 @@
    </div>
 
    <!-- the product category part  -->
-    <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto relative">
-        <button class="absolute  top-[50%] left-[3%]  bg-primary text-white p-1 md:p-2 rounded-sm text-sm">
-            <span class="mdi mdi-arrow-left"></span>
-        </button>
-        <button class="absolute top-[50%] right-[3%]  p-2 rounded-sm bg-primary text-white text-sm">
-            <span class="mdi mdi-arrow-right"></span>
-        </button>
-        <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize">Browse Categories</h1>
-            <div class="flex items-center gap-4 p-4 w-full overflow-auto no-scrollbar">
+    <div class="px-[3%] md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto relative">
+       
+        <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize mb-4">Browse Categories</h1>
+        <div class="py-3 flex items-center justify-center md:justify-between gap-5">
+            <button class="bg-primary text-white p-1 md:p-2 rounded-full text-sm">
+                <span class="mdi mdi-arrow-left"></span>
+            </button>
+            <button class="flex items-center justify-center  p-1 md:p-2 rounded-full bg-primary text-white text-sm">
+                <span class="mdi mdi-arrow-right"></span>
+            </button>
+        </div>
+            <div class="flex items-center gap-5  w-full overflow-auto no-scrollbar">
                 @for (item of categoryItems; track $index) {
                    <div class="flex flex-col gap-1  items-center">
-                    <div class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[110px] md:h-[110px] bg-teal-500 rounded-full flex items-center justify-center">
+                    <div class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center">
                     <img src="home-images/one.jpg" alt="..category-image" class="text-xs w-full h-full object-cover  rounded-full">
                     </div>
                     <h2 class="text-[13.5px] sm:text-sm text-center">category name</h2>

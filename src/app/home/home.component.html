@@ -59,19 +59,21 @@
 
    <!-- the product category part  -->
     <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto">
-        <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize">Find Things You'll l<span class="text-primary">o</span>ve </h1>
-       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 justify-center gap-4 p-4">
-        @for (item of categoryItems; track $index) {
-            <div class="h-[13rem] flex flex-col justify-center shadow-md cursor-pointer">
-                <div class="h-[65%] w-full overflow-hidden">
-                    <img src="{{item.image}}" alt="..category-image" class="w-full h-full object-cover">
-                </div>
-                <p class="text-sm sm:text-[16px] h-[35%] text-center py-2">Clothing</p>
-                </div>
-        }
-       </div>
+        <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize">Find Things You'll l<span class="text-primary">o</span>ve </h1>+
+            <div class="flex items-center gap-4 p-4 w-full overflow-auto">
+                @for (item of categoryItems; track $index) {
+                    <div class="w-[80px] h-[80px] sm:w-[100px] sm:h-[100px] md:w-[110px] md:h-[110px] bg-teal-500 rounded-full">
 
+                    </div>
+                }
+               </div>
     </div>
+
+    <!-- the products  -->
+     <div>
+        <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize">Featured Collection</h1>
+  
+     </div>
    
 
 

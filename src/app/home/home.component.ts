@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormsModule } from '@angular/forms';
-import { SidebarComponent } from "../sidebar/sidebar.component";
-import { ProductsComponent } from "../products/products.component";
+
 
 
 @Component({
@@ -13,7 +12,12 @@ import { ProductsComponent } from "../products/products.component";
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {  
+export class HomeComponent implements OnInit {  
+  @ViewChild('scrollContainer' , {static : false}) scrollContainer!: ElementRef; 
+  ngOnInit(): void {
+    
+  }
+  
   categoryItems = [
     {
       categoryName: 'name', 
@@ -83,5 +87,13 @@ export class HomeComponent {
       categoryName: 'name', 
       image : 'home-images/two.jpg'
     } , 
-  ]  
+  ] 
+  
+  
+  handleScroll(type: string) {
+    const container = this.scrollContainer.nativeElement; 
+    const scrollamount = 200;
+    type && type === 'previous' ? container.scrollLeft -= scrollamount : container.scrollLeft += scrollamount;
+  }
+
 }

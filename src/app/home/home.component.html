@@ -58,9 +58,9 @@
    </div>
 
    <!-- the product category part  -->
-    <div class="px-[3%] md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto relative">
+    <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto relative">
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize-">Browse Categories</h1>
-            <div class="flex items-center gap-5  w-full overflow-auto no-scrollbar">
+            <div class="flex items-center gap-5  w-full overflow-auto no-scrollbar" #scrollContainer>
                 @for (item of categoryItems; track $index) {
                    <div class="flex flex-col gap-1  items-center">
                     <div class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center">
@@ -71,20 +71,39 @@
                 }
                </div>
                <div class="flex items-center justify-between px-2 py-3">
-                <button class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
+                <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
                     <span class="mdi mdi-arrow-left"></span>
                 </button>
-                <button class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
+                <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
                     <span class="mdi mdi-arrow-right"></span>
                 </button>
                </div>
     </div>
 
     <!-- the products  -->
-     <div>
+     <div class="px-4 md:px-[3%] xl:px-[8%]" >
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-5 pb-3 capitalize">Featured Collection</h1>
+
+     
+        <div class="py-5 grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
+
+            <div class="w-full h-[23rem] bg-secondary shadow-sm rounded-sm cursor-pointer">
+                <img src="auth-images/login.jpg" alt="...product-image" class=" w-full h-[60%] object-cover object-center">
+                <div class="w-full h-[40%] p-3 flex flex-col justify-center gap-2">
+                    <h3 class="text-sm md:text-[16px] font-semibold">Product Name</h3>
+                    <p class="text-xs sm:text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, asperiores.</p>
+                    <div class="flex items-center gap-4">
+                        <h3 class="text-primary text-sm md:text-[16px]">$400</h3>
+                        <h5 class=" text-sm md:text-[16px] opacity-8 line-through">$600</h5>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+      </div>
   
-     </div>
+  
    
 
 

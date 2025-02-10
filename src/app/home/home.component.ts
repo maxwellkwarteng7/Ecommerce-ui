@@ -53,40 +53,9 @@ export class HomeComponent implements OnInit {
     } , 
     {
       categoryName: 'name', 
-      image : 'home-images/two.jpg'
+      image : 'home-images/one.jpg'
     } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
-    {
-      categoryName: 'name', 
-      image : 'home-images/two.jpg'
-    } , 
+  
   ] 
   
   

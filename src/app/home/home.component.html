@@ -1,5 +1,5 @@
 <app-navbar />
-<div class="w-full h-[60vh] bg-secondary  grid grid-cols-1 md:grid-cols-2 md:gap-3 px-4 md:px-[3%] xl:px-[8%]">
+<div class="w-full h-[50vh] bg-secondary  grid grid-cols-1 md:grid-cols-2 md:gap-3 px-4 md:px-[3%] xl:px-[8%]">
     <!-- the text box  -->
      <div class="w-full h-full flex items-center justify-center py-5">
         <div class="w-[80%] capitalize text-xl flex flex-col gap-8 justify-center items-center md:items-start">
@@ -58,9 +58,9 @@
    </div>
 
    <!-- the product category part  -->
-    <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto relative">
+    <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto">
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize-">Browse Categories</h1>
-            <div class="flex items-center gap-5  w-full overflow-auto no-scrollbar" #scrollContainer>
+            <div class="flex items-center justify-between gap-5  w-full overflow-auto no-scrollbar" #scrollContainer>
                 @for (item of categoryItems; track $index) {
                    <div class="flex flex-col gap-1  items-center">
                     <div class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center">
@@ -86,19 +86,28 @@
 
      
         <div class="py-5 grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5">
-
-            <div class="w-full h-[23rem] bg-secondary shadow-sm rounded-sm cursor-pointer">
-                <img src="auth-images/login.jpg" alt="...product-image" class=" w-full h-[60%] object-cover object-center">
-                <div class="w-full h-[40%] p-3 flex flex-col justify-center gap-2">
-                    <h3 class="text-sm md:text-[16px] font-semibold">Product Name</h3>
-                    <p class="text-xs sm:text-sm">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, asperiores.</p>
-                    <div class="flex items-center gap-4">
-                        <h3 class="text-primary text-sm md:text-[16px]">$400</h3>
-                        <h5 class=" text-sm md:text-[16px] opacity-8 line-through">$600</h5>
+            @for (item of categoryItems; track $index) {
+                <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
+                    <div class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer">
+                        <img src="home-images/electronics.jpg" alt="...product-image" class=" w-[80%] h-[80%] object-contain object-center rounded-sm">
                     </div>
+                    <div class="w-full h-[40%] p-3 flex flex-col justify-center items-center gap-3">
+                        <h3 class="text-sm md:text-[16px] font-semibold">Product Name</h3>
+                        <p class="text-xs sm:text-sm text-center text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, asperiores.</p>
+                       <div class="flex items-center justify-between w-full px-1">
+                        <div class="flex items-center gap-2 text-sm">
+                            <h3 class="text-black">$400</h3>
+                            <h5 class="text-gray-500 line-through">$600</h5>
+                        </div>
+                        <button class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm">
+                            <span class="mdi mdi-cart-plus"></span>
+                        </button>
+                       </div>
+                    </div>
+    
                 </div>
 
-            </div>
+            }
             
         </div>
       </div>

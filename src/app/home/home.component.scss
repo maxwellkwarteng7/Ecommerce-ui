@@ -12,4 +12,10 @@
     display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
   }
 
+@media (min-width: 475px) {
+   #input-field {
+    width: 220px !important ; 
+   }
+}
+
 

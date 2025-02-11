@@ -13,9 +13,14 @@
   }
 
 @media (min-width: 475px) {
-   #input-field {
-    width: 220px !important ; 
+   .input-field {
+    width: 220px ; 
    }
 }
 
+@media(min-width: 775px){
+  .input-field {
+    width : 320px; 
+  }
+}
 

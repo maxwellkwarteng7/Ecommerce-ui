@@ -13,7 +13,8 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {  
-  @ViewChild('scrollContainer' , {static : false}) scrollContainer!: ElementRef; 
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef; 
+  currentYear: number = new Date().getFullYear();
   ngOnInit(): void {
     
   }

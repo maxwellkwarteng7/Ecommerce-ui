@@ -3,13 +3,14 @@ import {  RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProductServiceService } from '../services/product-service/product-service.service';
 import { Category } from '../models/productTemplate';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent , CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -38,7 +39,6 @@ export class HomeComponent implements OnInit {
   }
   
 
-  
   handleScroll(type: string) {
     const container = this.scrollContainer.nativeElement; 
     const scrollamount = 200;

@@ -70,14 +70,7 @@
                     <h2 class="text-[13.5px] sm:text-sm text-center">{{item.name}}</h2>
                    </div>
                 }
-                 <div class="flex items-center justify-between px-2 py-3">
-                <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
-                    <span class="mdi mdi-arrow-left"></span>
-                </button>
-                <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
-                    <span class="mdi mdi-arrow-right"></span>
-                </button>
-               </div>
+               
                }@else {
                 <div class="flex items-center justify-center py-3  w-full">
                     <div class="spinner" style="border-top-color : black ; width: 40px ; height: 40px ">
@@ -85,6 +78,14 @@
                     </div>
                 </div>
                }
+               </div>
+                <div class="flex items-center justify-between px-2 py-3" *ngIf="categoryItems.length > 0">
+                <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
+                    <span class="mdi mdi-arrow-left"></span>
+                </button>
+                <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
+                    <span class="mdi mdi-arrow-right"></span>
+                </button>
                </div>
     </div>
 
@@ -94,7 +95,7 @@
 
      
         <div class="py-5 grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5">
-            @for (item of categoryItems; track $index) {
+        
                 <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
                     <div class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer">
                         <img src="home-images/electronics.jpg" alt="...product-image" class=" w-[80%] h-[80%] object-contain object-center rounded-sm">
@@ -115,7 +116,6 @@
     
                 </div>
 
-            } 
         </div>
         <div class="py-5 w-full flex items-center justify-center">
             <button class="py-2 rounded-sm bg-black text-white text-sm px-3">

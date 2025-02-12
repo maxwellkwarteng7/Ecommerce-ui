@@ -4,6 +4,8 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { ProductServiceService } from '../services/product-service/product-service.service';
 import { Category } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+
 
 
 
@@ -19,15 +21,12 @@ export class HomeComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   categoryItems: Category[] = []; 
 
-  // productService = inject(ProductServiceService);
-  // toaster = inject(ToastrService); 
-
-  constructor(private productService: ProductServiceService) {
-    
+  constructor(private productService: ProductServiceService, private toaster: ToastrService) {   
   }
+
   
   ngOnInit(): void {
-    this.getAllCategories(); 
+    this.getAllCategories();  
   }
 
   getAllCategories() {
@@ -37,7 +36,7 @@ export class HomeComponent implements OnInit {
         this.categoryItems = data
       },
       error: (error) => {
-        // this.toaster.error('error fetching categories'); 
+        this.toaster.error('error fetching categories'); 
         console.log(error);
       }
     });

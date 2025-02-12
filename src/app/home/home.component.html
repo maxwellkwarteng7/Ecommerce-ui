@@ -70,14 +70,7 @@
                     <h2 class="text-[13.5px] sm:text-sm text-center">{{item.name}}</h2>
                    </div>
                 }
-                 <div class="flex items-center justify-between px-2 py-3">
-                <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
-                    <span class="mdi mdi-arrow-left"></span>
-                </button>
-                <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
-                    <span class="mdi mdi-arrow-right"></span>
-                </button>
-               </div>
+               
                }@else {
                 <div class="flex items-center justify-center py-3  w-full">
                     <div class="spinner" style="border-top-color : black ; width: 40px ; height: 40px ">
@@ -85,6 +78,14 @@
                     </div>
                 </div>
                }
+               </div>
+                <div class="flex items-center justify-between px-2 py-3" *ngIf="categoryItems.length > 0">
+                <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
+                    <span class="mdi mdi-arrow-left"></span>
+                </button>
+                <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
+                    <span class="mdi mdi-arrow-right"></span>
+                </button>
                </div>
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProductServiceService } from '../services/product-service/product-service.service';
@@ -19,9 +19,13 @@ export class HomeComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   categoryItems: Category[] = []; 
 
+  // productService = inject(ProductServiceService);
+  // toaster = inject(ToastrService); 
 
-
-  constructor(private productService : ProductServiceService) {}
+  constructor(private productService: ProductServiceService) {
+    
+  }
+  
   ngOnInit(): void {
     this.getAllCategories(); 
   }
@@ -33,6 +37,7 @@ export class HomeComponent implements OnInit {
         this.categoryItems = data
       },
       error: (error) => {
+        // this.toaster.error('error fetching categories'); 
         console.log(error);
       }
     });

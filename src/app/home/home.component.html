@@ -61,22 +61,30 @@
     <div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto">
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize-">Browse Categories</h1>
             <div class="flex items-center justify-between gap-5  w-full overflow-auto no-scrollbar" #scrollContainer>
-                @for (item of categoryItems; track $index) {
+               @if(categoryItems.length > 0){
+                 @for (item of categoryItems; track $index) {
                    <div class="flex flex-col gap-1  items-center">
                     <div class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center">
                     <img src="{{item.image}}" alt="..category-image" class="text-xs w-full h-full object-cover  rounded-full">
                     </div>
-                    <h2 class="text-[13.5px] sm:text-sm text-center">category name</h2>
+                    <h2 class="text-[13.5px] sm:text-sm text-center">{{item.name}}</h2>
                    </div>
                 }
-               </div>
-               <div class="flex items-center justify-between px-2 py-3">
+                 <div class="flex items-center justify-between px-2 py-3">
                 <button (click)="handleScroll('previous')"  class="  w-[30px] h-[30px]  sm:w-[40px] sm:h-[40px]  top-[50%] left-[3%]  bg-primary text-white  rounded-full text-sm">
                     <span class="mdi mdi-arrow-left"></span>
                 </button>
                 <button (click)="handleScroll('next')" class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  top-[50%] right-[3%]  rounded-full bg-primary text-white text-sm">
                     <span class="mdi mdi-arrow-right"></span>
                 </button>
+               </div>
+               }@else {
+                <div class="flex items-center justify-center py-3  w-full">
+                    <div class="spinner" style="border-top-color : black ; width: 40px ; height: 40px ">
+
+                    </div>
+                </div>
+               }
                </div>
     </div>
 

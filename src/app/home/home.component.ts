@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 
 
 
+
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -16,17 +17,17 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent implements OnInit {  
-  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef; 
+export class HomeComponent implements OnInit {
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   currentYear: number = new Date().getFullYear();
-  categoryItems: Category[] = []; 
+  categoryItems: Category[] = [];
 
-  constructor(private productService: ProductServiceService, private toaster: ToastrService) {   
+  constructor(private productService: ProductServiceService, private toaster: ToastrService) {
   }
 
-  
+
   ngOnInit(): void {
-    this.getAllCategories();  
+    this.getAllCategories();
   }
 
   getAllCategories() {
@@ -36,15 +37,17 @@ export class HomeComponent implements OnInit {
         this.categoryItems = data
       },
       error: (error) => {
-        this.toaster.error('error fetching categories'); 
+        this.toaster.error('error fetching categories');
         console.log(error);
       }
     });
   }
-  
+
+
+
 
   handleScroll(type: string) {
-    const container = this.scrollContainer.nativeElement; 
+    const container = this.scrollContainer.nativeElement;
     const scrollamount = 200;
     type && type === 'previous' ? container.scrollLeft -= scrollamount : container.scrollLeft += scrollamount;
   }

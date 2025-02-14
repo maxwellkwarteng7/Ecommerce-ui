@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   currentYear: number = new Date().getFullYear();
   categoryItems: Category[] = [];
-  featuredProducts = Product[]= [];
+  featuredProducts : Product[]= [];
 
   constructor(private productService: ProductServiceService, private toaster: ToastrService) {
   }
@@ -31,6 +31,7 @@ export class HomeComponent implements OnInit {
     this.getAllCategories();
     this.getFeaturedProducts();
   }
+
 
   getAllCategories() {
     this.productService.getCategories().subscribe({
@@ -45,8 +46,11 @@ export class HomeComponent implements OnInit {
   // get featured products
   getFeaturedProducts () {
     this.productService.getProductByTag('featured').subscribe({
-      next : (data) => featuredProducts = data ,
-      error : (error) => console.log(error)
+      next : (data) => this.featuredProducts = data ,
+      error : (error) => {
+        this.toaster.error('error fetching featured products');
+        console.log(error);    
+    }
     });
   }
 

@@ -8,7 +8,7 @@
             <p>Make a rich life </p>
             <div>
                 <button class="bg-primary text-white py-2 px-5 rounded-sm shadow-lg text-lg">
-                    shop now 
+                    shop now
                 </button>
             </div>
         </div>
@@ -36,12 +36,12 @@
         <div class="w-1/2 h-full overflow-hidden flex items-center">
            <img src="home-images/electronics.jpg" class="h-full w-[90%] object-contain rounded-sm object-center"  alt="...best-deal image">
         </div>
-        
+
     </div>
     <div class="min-h-[18rem] bg-secondary w-full rounded-sm flex items-center gap-2">
         <div class="w-1/2 h-full flex items-center justify-center">
             <div class="w-[80%]">
-                <h1 class="font-bold xl:text-xl  tracking-wide">New 
+                <h1 class="font-bold xl:text-xl  tracking-wide">New
                     Arrivals
                 </h1>
                 <p class="mt-4 text-sm xl:text-[16px]">Explore the latest trends and must-have products—just in! </p>
@@ -70,7 +70,7 @@
                     <h2 class="text-xs mt-1 sm:text-sm text-center">{{item.name}}</h2>
                    </div>
                 }
-               
+
                }@else {
                 <div class="flex items-center justify-center py-3  w-full">
                     <div class="spinner" style="border-top-color : black ; width: 40px ; height: 40px ">
@@ -93,28 +93,44 @@
      <div class="px-4 md:px-[3%] xl:px-[8%]" >
         <h1 class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-5 pb-3 capitalize">Featured Collection</h1>
 
-     
+
         <div class="py-5 grid grid-cols-1 sm:grid-cols-2  md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5">
-        
+           @if(featuredProducts.length > 0){
+                @for(item of featuredProducts ; track $index){
                 <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
                     <div class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer">
-                        <img src="home-images/electronics.jpg" alt="...product-image" class=" w-[80%] h-[80%] object-contain object-center rounded-sm">
+                        <img src="{{item.image}}" alt="...product-image" class=" w-[80%] h-[80%] object-contain object-center rounded-sm">
                     </div>
                     <div class="w-full h-[40%] py-3 px-5 flex flex-col justify-center items-center gap-3">
-                        <h3 class="text-sm md:text-[16px] font-semibold">Product Name</h3>
-                        <p class="text-xs sm:text-sm text-center text-gray-500">Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore, asperiores.</p>
+                        <h3 class="text-sm md:text-[16px] font-semibold"> {{item.name}}</h3>
+                        <p class="text-xs sm:text-sm text-center text-gray-500"> {{item.description}} </p>
                        <div class="flex items-center justify-between w-full px-1">
                         <div class="flex items-center gap-2 text-sm">
-                            <h3 class="text-black">$400</h3>
-                            <h5 class="text-gray-500 line-through">$600</h5>
+                          @if(item.discountPrice){
+                            <h3 class="text-black">{{item.discountPrice}}</h3>
+                            <h5 class="text-gray-500 line-through">{{item.price}}</h5>
+                          }@else {
+                            <h3 class="text-black">{{item.price}}</h3>
+                          }
+                        </div>
+                        <div class="text-xs md:text-sm">
+                          <h4>Stock : {{item.stock}}</h4>
                         </div>
                         <button class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm">
                             <span class="mdi mdi-cart-plus"></span>
                         </button>
                        </div>
                     </div>
-    
+
                 </div>
+              }
+            }@else {
+             <div class="flex items-center justify-center py-3  w-full">
+                 <div class="spinner" style="border-top-color : black ; width: 40px ; height: 40px ">
+
+                 </div>
+             </div>
+            }
 
         </div>
         <div class="py-5 w-full flex items-center justify-center">
@@ -151,9 +167,9 @@
        <div class="bg-black py-4 md:py-7 w-full text-center text-sm text-white md:text-[16px]">
         <p> &copy; {{currentYear}} MXShop</p>
        </div>
-  
-  
-   
+
+
+
 
 
 <router-outlet />

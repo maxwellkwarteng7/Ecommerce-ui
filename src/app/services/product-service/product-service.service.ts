@@ -17,6 +17,6 @@ export class ProductServiceService {
   }
 
   getProductByTag(tag : string) : Observable<Product[]>{
-    return this.http.get<Product[]>(`${baseUrl}/tag/products?tag=${tag}`);
+    return this.http.get<Product[]>(`${environment.baseUrl}/product/tag/products?tag=${tag}`);
   }
 }

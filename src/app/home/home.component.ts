@@ -2,7 +2,7 @@ import { Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {  RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProductServiceService } from '../services/product-service/product-service.service';
-import { Category } from '../models/productTemplate';
+import { Category , Product } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   currentYear: number = new Date().getFullYear();
   categoryItems: Category[] = [];
+  featuredProducts = Product[]= [];
 
   constructor(private productService: ProductServiceService, private toaster: ToastrService) {
   }
@@ -28,18 +29,24 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getAllCategories();
+    this.getFeaturedProducts();
   }
 
   getAllCategories() {
     this.productService.getCategories().subscribe({
-      next: (data) => {
-        console.log(data)
-        this.categoryItems = data
-      },
+      next: (data) => this.categoryItems = data,
       error: (error) => {
         this.toaster.error('error fetching categories');
         console.log(error);
       }
+    });
+  }
+
+  // get featured products
+  getFeaturedProducts () {
+    this.productService.getProductByTag('featured').subscribe({
+      next : (data) => featuredProducts = data ,
+      error : (error) => console.log(error)
     });
   }
 

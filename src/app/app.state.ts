@@ -1,5 +1,5 @@
-import { Category } from "./models/productTemplate";
+import { Category, Product } from "./models/productTemplate";
 
 export interface AppState {
-    readonly category : Category[]
+    readonly category: any; 
 }

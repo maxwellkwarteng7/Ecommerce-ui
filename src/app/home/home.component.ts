@@ -5,6 +5,11 @@ import { ProductServiceService } from '../services/product-service/product-servi
 import { Category , Product } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
+import { TruncatePipe } from '../truncate.pipe';
+import { Store } from '@ngrx/store';
+import {  initializeCategoryLoad } from '../States/CategoryState/category.actions';
+import { map, Observable } from 'rxjs';
+import { AppState } from '../app.state';
 
 
 
@@ -13,34 +18,24 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent , CommonModule],
+  imports: [RouterOutlet, NavbarComponent , CommonModule , TruncatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   currentYear: number = new Date().getFullYear();
-  categoryItems: Category[] = [];
+  categories$!: Observable<Category[]>;  
+
   featuredProducts : Product[]= [];
 
-  constructor(private productService: ProductServiceService, private toaster: ToastrService) {
+  constructor(private productService: ProductServiceService, private toaster: ToastrService , private store : Store<AppState>) {
+    this.categories$ = this.store.select((state) => state.category).pipe(map(({categories})  => categories  || []));
   }
 
 
   ngOnInit(): void {
-    this.getAllCategories();
-    this.getFeaturedProducts();
-  }
-
-
-  getAllCategories() {
-    this.productService.getCategories().subscribe({
-      next: (data) => this.categoryItems = data,
-      error: (error) => {
-        this.toaster.error('error fetching categories');
-        console.log(error);
-      }
-    });
+    this.store.dispatch(initializeCategoryLoad());
   }
 
   // get featured products
@@ -54,9 +49,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-
-
-
+ 
   handleScroll(type: string) {
     const container = this.scrollContainer.nativeElement;
     const scrollamount = 200;

@@ -8,20 +8,21 @@ import { Toast, ToastrService } from "ngx-toastr";
 
 export class tagProductEffect  {
     
-    loadTagProducts$: Observable<any>; 
+    loadTagProducts$!: Observable<any>; 
 
 
     constructor(private actions$: Actions, private toaster: ToastrService, private productService: ProductServiceService) {
-        
+
         this.loadTagProducts$ = createEffect(() => this.actions$.pipe(
-            ofType(initializeTagProductLoad), 
+            ofType(initializeTagProductLoad),
             mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
-                map((data) => console.log(data)), 
-                catchError((error) =>{
-                    this.toaster.error('error fetching Tag Product');
-                    return of(tagProductLoadFailure({error}))
+                map((data) => console.log(data)),
+                catchError((error) => {
+                    this.toaster.error('Error fetching tag products');
+                    return of(tagProductLoadFailure({ error }))
                 })
-            )
+            )) 
         ))
+
    }
 }

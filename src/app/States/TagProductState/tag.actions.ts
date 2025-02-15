@@ -6,4 +6,4 @@ export const initializeTagProductLoad = createAction('[Product] load tag product
 
 export const tagProductLoadSuccess = createAction('[Product] tag product load success', props<{ tagProducts: Product[] }>()); 
 
-export const tagProductLoadFailure = createAction('[Product] tag product load failure', props<{ error: string }>()); 
+export const tagProductLoadFailure = createAction('[Product] tag product load failure', props<{ error: any }>()); 

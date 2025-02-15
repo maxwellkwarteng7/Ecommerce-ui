@@ -2,7 +2,7 @@ import { createAction, props } from "@ngrx/store";
 import { Product } from "../../models/productTemplate"; 
 
 
-export const initializeTagProductLoad = createAction('[Product] load tag products'); 
+export const initializeTagProductLoad = createAction('[Product] load tag products' , props<{tag : string}>()); 
 
 export const tagProductLoadSuccess = createAction('[Product] tag product load success', props<{ tagProducts: Product[] }>()); 
 

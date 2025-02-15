@@ -13,4 +13,8 @@ export const categoryReducer = createReducer(
         ...state,
         categories
     })),
+    on(categoryLoadFailure, (state, { error }) => ({
+        ...state, 
+        error
+    }))
 )

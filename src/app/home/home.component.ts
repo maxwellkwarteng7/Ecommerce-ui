@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   featuredProducts : Product[]= [];
 
   constructor(private productService: ProductServiceService, private toaster: ToastrService , private store : Store<AppState>) {
-    this.categories$ = this.store.select((state) => state.category).pipe(map(({categories})  => categories  || []));
+    this.categories$ = this.store.select((state) => state.category).pipe(map( ({categories})  => categories  || []));
   }
 
 

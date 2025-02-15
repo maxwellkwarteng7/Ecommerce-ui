@@ -1,28 +1,28 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { ProductServiceService } from "../../services/product-service/product-service.service";
-import { inject } from "@angular/core";
-import { initializeTagProductLoad, tagProductLoadFailure } from "./tag.actions";
-import { catchError, map, mergeMap, Observable, of } from "rxjs";
-import { Toast, ToastrService } from "ngx-toastr";
+import { inject, Injectable } from "@angular/core";
+import { initializeTagProductLoad, tagProductLoadFailure, tagProductLoadSuccess } from "./tag.actions";
+import { catchError, map, mergeMap, of } from "rxjs";
+import { ToastrService } from "ngx-toastr";
 
-
-export class tagProductEffect  {
+@Injectable()
+export class TagProductEffect {
     
-    loadTagProducts$!: Observable<any>; 
+    private actions$ = inject(Actions);
+    private toaster = inject(ToastrService);
+    private productService = inject(ProductServiceService);
 
-
-    constructor(private actions$: Actions, private toaster: ToastrService, private productService: ProductServiceService) {
-
-        this.loadTagProducts$ = createEffect(() => this.actions$.pipe(
-            ofType(initializeTagProductLoad),
-            mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
-                map((data) => console.log(data)),
-                catchError((error) => {
-                    this.toaster.error('Error fetching tag products');
-                    return of(tagProductLoadFailure({ error }))
-                })
-            )) 
-        ))
-
-   }
+    loadTagProducts$ = createEffect(() => this.actions$.pipe(
+        ofType(initializeTagProductLoad),
+        mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
+            map((data) => {
+                console.log(data);  // This is fine for debugging but should be removed in production
+                return tagProductLoadSuccess({ tagProducts : data });
+            }),
+            catchError((error) => {
+                this.toaster.error('Error fetching tag products');
+                return of(tagProductLoadFailure({ error }));
+            })
+        )) 
+    ));
 }

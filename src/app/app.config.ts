@@ -7,9 +7,14 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppState } from './app.state';
 import { provideAnimations } from '@angular/platform-browser/animations'; 
 import {provideToastr} from 'ngx-toastr'; 
+import { categoryReducer } from './States/CategoryState/category.reducers';
+import { provideEffects } from '@ngrx/effects';
+import { CategoryEffect } from './States/CategoryState/category.effects';
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(), provideAnimations(), provideToastr({
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient(), provideStore<AppState>({
+    category : categoryReducer
+  }), provideEffects(CategoryEffect) ,  provideAnimations(), provideToastr({
     timeOut: 3000, 
     progressAnimation: 'increasing',
     progressBar : true ,

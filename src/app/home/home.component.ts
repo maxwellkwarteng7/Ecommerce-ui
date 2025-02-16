@@ -6,10 +6,11 @@ import { Category , Product } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { TruncatePipe } from '../truncate.pipe';
-import { Store } from '@ngrx/store';
+import { select, Store } from '@ngrx/store';
 import {  initializeCategoryLoad } from '../States/CategoryState/category.actions';
-import { map, Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { AppState } from '../app.state';
+import { initializeTagProductLoad } from '../States/TagProductState/tag.actions';
 
 
 
@@ -27,28 +28,19 @@ export class HomeComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   categories$!: Observable<Category[]>;  
 
-  featuredProducts : Product[]= [];
+  featuredProducts$!: Observable<Product[]>;
 
   constructor(private productService: ProductServiceService, private toaster: ToastrService , private store : Store<AppState>) {
-    this.categories$ = this.store.select((state) => state.category).pipe(map( ({categories})  => categories  || []));
+    this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
+    
+    this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map( ({tagProducts}) => tagProducts || []));
   }
 
 
   ngOnInit(): void {
     this.store.dispatch(initializeCategoryLoad());
+    this.store.dispatch(initializeTagProductLoad({ tag: 'featured' })); 
   }
-
-  // get featured products
-  getFeaturedProducts () {
-    this.productService.getProductByTag('featured').subscribe({
-      next : (data) => this.featuredProducts = data ,
-      error : (error) => {
-        this.toaster.error('error fetching featured products');
-        console.log(error);    
-    }
-    });
-  }
-
  
   handleScroll(type: string) {
     const container = this.scrollContainer.nativeElement;

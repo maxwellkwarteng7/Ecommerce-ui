@@ -154,8 +154,11 @@
 
   <div
     class="py-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5"
+    *ngIf="(featuredProducts$ | async) as products"
   >
-    @if(featuredProducts.length > 0){ @for(item of featuredProducts ; track
+  
+  @if (products.length > 0) {
+    @for(item of featuredProducts$ | async; track
     $index){
     <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
       <div
@@ -196,14 +199,16 @@
         </div>
       </div>
     </div>
-    } }@else {
+    } 
+  }@else {
     <div class="flex items-center justify-center py-3 w-full">
       <div
         class="spinner"
         style="border-top-color: black; width: 40px; height: 40px"
       ></div>
     </div>
-    }
+  }
+  
   </div>
   <div class="py-5 w-full flex items-center justify-center">
     <button class="py-2 rounded-sm bg-black text-white text-sm px-3">

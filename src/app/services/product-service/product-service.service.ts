@@ -19,4 +19,8 @@ export class ProductServiceService {
   getProductByTag(tag : string) : Observable<Product[]>{
     return this.http.get<Product[]>(`${environment.baseUrl}/product/tag/products?tag=${tag}`);
   }
+
+  getSingleProduct(id: number): Observable<Product>{
+    return this.http.get<Product>(`${environment.baseUrl}/product/${id}`); 
+  }
 }

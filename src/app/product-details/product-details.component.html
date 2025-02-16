@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 
 <div class="px-4 md:px-[3%] xl:px-[8%]  w-full py-5">
-    <div class="w-full grid grid-cols-2 sm:gap-2 md:gap-4">
+    <div class="w-full grid grid-cols-2 sm:gap-2 md:gap-4" *ngIf="singleProduct"  >
         <!-- The image part  -->
         <div class="w-full bg-secondary rounded-sm min-h-[18rem] sm:min-h-[22rem] md:min-h-[26rem] xl:min-h-[30rem] max-h-[30rem] flex items-center justify-center">
             <img src="{{singleProduct.image}}" alt="..product-image" class="w-[80%] h-[80%] object-center object-contain rounded-sm">
@@ -28,9 +28,9 @@
 
              <div class="flex items-center gap-2 sm:gap-4 md:gap-5 xl:gap-7">
                 <div class="flex items-center gap-1 sm:gap-2 text-sm">
-                    <button class="py-1 px-2 sm:py-2 sm:px-3 bg-secondary rounded-sm border-solid border-[0.1px]">-</button>
-                    <h3 class="rounded-sm py-1 sm:py-2 px-2 sm:px-3 border-solid border-[0.1px]">1</h3>
-                   <button class="py-1 px-2 sm:py-2 sm:px-3  bg-secondary rounded-sm border-solid border-[0.1px]">+</button>
+                    <button (click)="decreaseQuantity()" class="py-1 px-2 sm:py-2 sm:px-3 bg-secondary rounded-sm border-solid border-[0.1px]">-</button>
+                    <h3 class="rounded-sm py-1 sm:py-2 px-2 sm:px-3 border-solid border-[0.1px]">{{quantity}}</h3>
+                   <button (click)="increaseQuantity()" class="py-1 px-2 sm:py-2 sm:px-3  bg-secondary rounded-sm border-solid border-[0.1px]">+</button>
                 </div>
                 <button class="flex items-center gap-2 py-2 px-3 bg-black rounded-sm text-white text-sm">
                     <span class="hidden sm:block">Add to cart</span>

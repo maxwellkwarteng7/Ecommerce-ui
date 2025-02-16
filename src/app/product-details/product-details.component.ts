@@ -4,22 +4,26 @@ import { ActivatedRoute } from '@angular/router';
 import { ProductServiceService } from '../services/product-service/product-service.service';
 import { ToastrService } from 'ngx-toastr';
 import { singleProduct } from '../models/productTemplate';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-product-details',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent , CommonModule],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.scss'
 })
 export class ProductDetailsComponent implements OnInit {
 
-  singleProduct!: singleProduct;   
+  singleProduct!: singleProduct;  
+  quantity: number = 1; 
   
   private activeRoute = inject(ActivatedRoute); 
   private productService = inject(ProductServiceService); 
   private toaster = inject(ToastrService); 
+
+
   
   
 
@@ -43,6 +47,18 @@ export class ProductDetailsComponent implements OnInit {
         console.log(error);
       }
     })
+  }
+
+  decreaseQuantity() {
+    if (this.quantity > 1) {
+      this.quantity -= 1; 
+    }
+  }
+
+  increaseQuantity() {
+    if (this.quantity < this.singleProduct.stock) {
+      this.quantity += 1;
+    }
   }
 
 }

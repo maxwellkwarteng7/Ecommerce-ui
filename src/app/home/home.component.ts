@@ -1,5 +1,5 @@
 import { Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
-import {  RouterOutlet } from '@angular/router';
+import {  Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ProductServiceService } from '../services/product-service/product-service.service';
 import { Category , Product } from '../models/productTemplate';
@@ -19,7 +19,7 @@ import { initializeTagProductLoad } from '../States/TagProductState/tag.actions'
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent , CommonModule , TruncatePipe],
+  imports: [RouterOutlet, NavbarComponent , CommonModule , TruncatePipe ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
   featuredProducts$!: Observable<Product[]>;
 
-  constructor(private productService: ProductServiceService, private toaster: ToastrService , private store : Store<AppState>) {
+  constructor(private router :  Router, private store : Store<AppState>) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
     
     this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map( ({tagProducts}) => tagProducts || []));
@@ -46,6 +46,10 @@ export class HomeComponent implements OnInit {
     const container = this.scrollContainer.nativeElement;
     const scrollamount = 300;
     type && type === 'previous' ? container.scrollLeft -= scrollamount : container.scrollLeft += scrollamount;
+  }
+
+  navigateToSingleProduct(id: number) {
+    this.router.navigate(['product', id]); 
   }
 
 }

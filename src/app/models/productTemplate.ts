@@ -16,3 +16,15 @@ export interface Product {
   stock : number ,
   description : string
 }
+
+export interface reviews {
+  rating: number, 
+  comment: string, 
+  userId: number, 
+  productId : number
+}
+
+
+export interface singleProduct extends Product {
+  reviews : reviews[]
+}

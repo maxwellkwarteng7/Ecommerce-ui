@@ -16,7 +16,6 @@ export class TagProductEffect {
         ofType(initializeTagProductLoad),
         mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
             map((data) => {
-                console.log("data coming " , data);  // This is fine for debugging but should be removed in production
                 return tagProductLoadSuccess({ tagProducts : data });
             }),
             catchError((error) => {

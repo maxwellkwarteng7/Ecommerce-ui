@@ -93,7 +93,7 @@
 </div>
 
 <!-- the product category part  -->
-<div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto">
+<div class="px-4 md:px-[3%] xl:px-[8%] bg-secondary py-[3%] h-auto" *ngIf="categories$ | async as categories">
   <h1
     class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-3 capitalize-"
   >
@@ -102,33 +102,32 @@
   <div
     class="flex items-center justify-between gap-5 w-full overflow-auto no-scrollbar"
     #scrollContainer
-    *ngIf="(categories$ | async) as categories"
+    
   >
-      @if(categories.length > 0){
-       @for (item of categories$ | async; track $index) {
-        <div class="flex flex-col gap-1 items-center">
-          <div
-            class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center cursor-pointer"
-          >
-            <img
-              src="{{ item.image }}"
-              alt="..category-image"
-              class="text-xs w-full h-full object-cover rounded-full"
-            />
-          </div>
-          <h2 class="text-xs mt-1 sm:text-sm text-center">{{ item.name }}</h2>
-        </div>
-       }
-      }@else {
-        <div class="flex w-full  items-center justify-center py-3">
-          <div
-            class="spinner"
-            style="border-top-color: black; width: 40px; height: 40px"
-          ></div>
-        </div>
-      }
+    @if(categories.length > 0){ @for (item of categories$ | async; track $index)
+    {
+    <div class="flex flex-col gap-1 items-center">
+      <div
+        class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center cursor-pointer"
+      >
+        <img
+          src="{{ item.image }}"
+          alt="..category-image"
+          class="text-xs w-full h-full object-cover rounded-full"
+        />
+      </div>
+      <h2 class="text-xs mt-1 sm:text-sm text-center">{{ item.name }}</h2>
+    </div>
+    } }@else {
+    <div class="flex w-full items-center justify-center py-3">
+      <div
+        class="spinner"
+        style="border-top-color: black; width: 40px; height: 40px"
+      ></div>
+    </div>
+    }
   </div>
-  <div class="flex items-center justify-between px-2 py-3">
+  <div class="flex items-center justify-between px-2 py-3" *ngIf="categories.length > 0">
     <button
       (click)="handleScroll('previous')"
       class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px] top-[50%] left-[3%] bg-primary text-white rounded-full text-sm"
@@ -151,65 +150,63 @@
   >
     Featured Collection
   </h1>
-
-  <div
-    class="py-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5"
-    *ngIf="(featuredProducts$ | async) as products"
-  >
-  
-  @if (products.length > 0) {
-    @for(item of featuredProducts$ | async; track
-    $index){
-    <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
-      <div
-        class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
-      >
-        <img
-          src="{{ item.image }}"
-          alt="...product-image"
-          class="w-[80%] h-[80%] object-contain object-center rounded-sm"
-        />
-      </div>
-      <div
-        class="w-full h-[40%] py-3 px-5 flex flex-col justify-center items-center gap-3"
-      >
-        <h3 class="text-sm md:text-[16px] font-semibold">
-          {{ item.name | truncate : 30 : true }}
-        </h3>
-        <p class="text-xs sm:text-sm text-center text-gray-500">
-          {{ item.description | truncate : 100 : true }}
-        </p>
-        <div class="flex items-center justify-between w-full px-1">
-          <div class="flex items-center gap-2 text-sm">
-            @if(item.discountPrice){
-            <h3 class="text-black">$ {{ item.discountPrice }}</h3>
-            <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
-            }@else {
-            <h3 class="text-black">$ {{ item.price }}</h3>
-            }
+  <div class="w-full" *ngIf="featuredProducts$ | async as products">
+    @if (products.length > 0) {
+    <div
+      class="py-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5 w-full bg-blue-500"
+    >
+      @for(item of featuredProducts$ | async; track $index){
+      <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
+        <div
+          class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
+        >
+          <img
+            src="{{ item.image }}"
+            alt="...product-image"
+            class="w-[80%] h-[80%] object-contain object-center rounded-sm"
+          />
+        </div>
+        <div
+          class="w-full h-[40%] py-3 px-5 flex flex-col justify-center items-center gap-3"
+        >
+          <h3 class="text-sm md:text-[16px] font-semibold">
+            {{ item.name | truncate : 30 : true }}
+          </h3>
+          <p class="text-xs sm:text-sm text-center text-gray-500">
+            {{ item.description | truncate : 100 : true }}
+          </p>
+          <div class="flex items-center justify-between w-full px-1">
+            <div class="flex items-center gap-2 text-sm">
+              @if(item.discountPrice){
+              <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+              <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+              }@else {
+              <h3 class="text-black">$ {{ item.price }}</h3>
+              }
+            </div>
+            <div class="text-sm">
+              <p><span class="text-gray-500">Stock</span> : {{ item.stock }}</p>
+            </div>
+            <button
+              class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+            >
+              <span class="mdi mdi-cart-plus"></span>
+            </button>
           </div>
-          <div class="text-sm">
-            <p><span class="text-gray-500">Stock</span> : {{ item.stock }}</p>
-          </div>
-          <button
-            class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
-          >
-            <span class="mdi mdi-cart-plus"></span>
-          </button>
         </div>
       </div>
+      }
     </div>
-    } 
-  }@else {
-    <div class="flex items-center justify-center py-3 w-full">
+    }@else {
+    <div class="w-full flex items-center justify-center py-3">
       <div
         class="spinner"
         style="border-top-color: black; width: 40px; height: 40px"
       ></div>
     </div>
-  }
-  
+    }
   </div>
+
   <div class="py-5 w-full flex items-center justify-center">
     <button class="py-2 rounded-sm bg-black text-white text-sm px-3">
       Browse More

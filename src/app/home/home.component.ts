@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
  
   handleScroll(type: string) {
     const container = this.scrollContainer.nativeElement;
-    const scrollamount = 200;
+    const scrollamount = 300;
     type && type === 'previous' ? container.scrollLeft -= scrollamount : container.scrollLeft += scrollamount;
   }
 

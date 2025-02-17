@@ -1,5 +1,5 @@
 import { ApplicationConfig, provideZoneChangeDetection } from "@angular/core";
-import { provideRouter } from "@angular/router";
+import { provideRouter, withInMemoryScrolling, withRouterConfig } from "@angular/router";
 import { provideStore } from "@ngrx/store";
 
 import { routes } from "./app.routes";
@@ -16,7 +16,10 @@ import { TagProductEffect } from "./States/TagProductState/tag.effects";
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
-    provideRouter(routes),
+    provideRouter(routes, withInMemoryScrolling({
+      scrollPositionRestoration: 'enabled', 
+      anchorScrolling : 'enabled'
+    })),
     provideHttpClient(),
     provideStore(appStore),
     provideEffects(CategoryEffect, TagProductEffect),

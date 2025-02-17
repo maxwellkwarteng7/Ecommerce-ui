@@ -1,3 +1,5 @@
+import { Product } from "./productTemplate"
+
 export interface registerTemplate {
     username: string, 
     password: string, 
@@ -26,4 +28,8 @@ export interface userDetails  {
     username: string, 
     userRole: string, 
     userEmail : string 
+}
+
+export interface Cart extends Product{
+    quantity : number 
 }

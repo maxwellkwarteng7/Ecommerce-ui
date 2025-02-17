@@ -41,4 +41,18 @@
         </div>
 
     </div>
+    <!-- other images and product description -->
+     <div class="w-full grid grid-cols-1 md:grid-cols-2 sm:gap-2 md:gap-4 mt-2 lg:mt-4">
+        <!-- related images section -->
+         <div class="w-full  h-[7rem] sm:h-[8rem] lg:h-[9rem] xl:h-[10rem] grid grid-cols-4 gap-2 lg:gap-4">
+            <div class="w-full h-full overflow-hidden flex items-center justify-center bg-secondary cursor-pointer">
+                <img src="home-images/hero-image.png" alt="...related-image" class="w-[90%] h-[90%] xl:w-[80%] xl:h-[80%]  object-contain" loading="lazy">
+            </div>
+         </div>
+         <!-- the product description here -->
+          <div class="p-3 text-[13px] sm:text-sm lg:text-[15px]">
+            <h1 class="font-semibold text-sm sm:text-[15px] md:text-[16px] py-2">About this Item</h1>
+            <p> {{singleProduct.description}} </p>
+          </div>
+     </div>
 </div>

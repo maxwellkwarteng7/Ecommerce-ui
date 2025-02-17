@@ -58,7 +58,7 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  addItemToCart(product: any) {
+  addItemToCart(product: singleProduct) {
     this.cartService.prepareAndAddToCart(product, this.quantity);
   }
 }

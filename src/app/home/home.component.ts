@@ -11,6 +11,7 @@ import {  initializeCategoryLoad } from '../States/CategoryState/category.action
 import { map, Observable, tap } from 'rxjs';
 import { AppState } from '../app.state';
 import { initializeTagProductLoad } from '../States/TagProductState/tag.actions';
+import { CartServiceService } from '../services/cart-service/cart-service.service';
 
 
 
@@ -30,7 +31,7 @@ export class HomeComponent implements OnInit {
 
   featuredProducts$!: Observable<Product[]>;
 
-  constructor(private router :  Router, private store : Store<AppState>) {
+  constructor(private router :  Router, private store : Store<AppState> , private cartService : CartServiceService) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
     
     this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map( ({tagProducts}) => tagProducts || []));
@@ -50,6 +51,10 @@ export class HomeComponent implements OnInit {
 
   navigateToSingleProduct(id: number) {
     this.router.navigate(['product', id]); 
+  }
+
+  addToCart(product: Product) {
+    this.cartService.prepareAndAddToCart(product, 1); 
   }
 
 }

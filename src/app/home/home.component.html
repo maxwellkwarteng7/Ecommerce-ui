@@ -153,12 +153,12 @@
   <div class="w-full" *ngIf="featuredProducts$ | async as products">
     @if (products.length > 0) {
     <div
-      class="py-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 gap-3 md:gap-5 w-full"
+      class="py-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 w-full"
     >
       @for(item of featuredProducts$ | async; track $index){
-      <div class="w-full h-[23rem] bg-white shadow-lg rounded-sm">
+      <div class="w-full min-h-[23rem]  bg-white shadow-lg rounded-sm">
         <div
-          class="w-full h-[60%] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
+          class="w-full h-[13.8rem] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
           (click)="navigateToSingleProduct(item.id)"
         >
           <img
@@ -174,7 +174,7 @@
             {{ item.name | truncate : 30 : true }}
           </h3>
           <p class="text-xs sm:text-sm text-center text-gray-500">
-            {{ item.description | truncate : 100 : true }}
+            {{ item.description | truncate : 50 : true }}
           </p>
           <div class="flex items-center justify-between w-full px-1">
             <div class="flex items-center gap-2 text-sm">

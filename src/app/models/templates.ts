@@ -30,6 +30,12 @@ export interface userDetails  {
     userEmail : string 
 }
 
-export interface Cart extends Product{
+export interface Cart {
+    id: number, 
+    name: string, 
+    image: string, 
+    price: number, 
+    discountPrice : number , 
+    stock: number, 
     quantity : number 
 }

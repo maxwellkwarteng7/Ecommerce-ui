@@ -5,6 +5,8 @@ export interface Category {
     image : string
 }
 
+
+
 export interface Product {
   id : number ,
   name : string ,

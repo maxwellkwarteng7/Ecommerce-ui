@@ -16,7 +16,7 @@ export class CartServiceService {
     } else {
       this.userCart = [...this.userCart, cartItem];
     }
-    console.log("userCart", this.userCart);
+    this.saveCartToLocalStorage(); 
     this.toaster.success("Added to Cart");
   }
 
@@ -32,5 +32,9 @@ export class CartServiceService {
       quantity,
     };
     this.addToCart(cartItem);
+  }
+
+  saveCartToLocalStorage() {
+    localStorage.setItem('UserCart', JSON.stringify(this.userCart)); 
   }
 }

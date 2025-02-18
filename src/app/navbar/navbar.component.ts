@@ -1,5 +1,6 @@
-import { Component, Input, InputDecorator } from '@angular/core';
+import { Component, Input, InputDecorator, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { CartServiceService } from '../services/cart-service/cart-service.service';
 
 @Component({
   selector: 'app-navbar',
@@ -8,11 +9,20 @@ import { RouterLink } from '@angular/router';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  @Input() childMessage!: string; 
 
   hamburger: boolean = false; 
+  cartNumber!: number; 
+
+
+  constructor(private cartService: CartServiceService) {
+    
+  }
+
+  ngOnInit(): void {
+    
+  }
 
  
   toggleHamburger() {

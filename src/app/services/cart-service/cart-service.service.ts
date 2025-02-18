@@ -1,26 +1,39 @@
 import { Injectable, signal } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Cart } from "../../models/templates";
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: "root",
 })
 export class CartServiceService {
-  userCart: Cart[] = [];
-  
+  cartCount = new BehaviorSubject<number>(this.cartValue()); 
+  cartCount$ = this.cartCount.asObservable(); 
+
   constructor(private toaster: ToastrService) {
   
   }
 
-  addToCart(cartItem: Cart) {
-    const Product = this.userCart.find((cart) => cart.id === cartItem.id);
-    if (Product) {
-      Product.quantity = cartItem.quantity;
-    } else {
-      this.userCart = [cartItem , ...this.userCart];
+  cartValue(): number {
+    let cartContainer = []; 
+    const cart = localStorage.getItem('userCart');
+    if (cart) {
+      cartContainer = JSON.parse(cart); 
     }
-    this.saveCartToLocalStorage(); 
-    this.toaster.success("Added to Cart");
+    return cartContainer.length;
+  }
+
+  addToCart(cartItem: Cart) {    
+    const cart = JSON.parse(localStorage.getItem('userCart') || '[]'); 
+      let  existingProduct: Cart = cart.find((item : Cart)=> item.id === cartItem.id);  
+      if (existingProduct) {
+        existingProduct.quantity = cartItem.quantity;  
+      } else {
+        cart.push(cartItem); 
+      }
+      localStorage.setItem('userCart', JSON.stringify(cart));
+      this.cartCount.next(cart.length); 
+      this.toaster.success('Added to cart'); 
   }
 
   prepareAndAddToCart(product: any, quantity: number) {
@@ -37,9 +50,7 @@ export class CartServiceService {
     this.addToCart(cartItem);
   }
 
-  saveCartToLocalStorage() {
-    localStorage.setItem('userCart', JSON.stringify(this.userCart)); 
-  }
+ 
 
   
 }

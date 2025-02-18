@@ -1,10 +1,8 @@
 import { Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {  Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { ProductServiceService } from '../services/product-service/product-service.service';
 import { Category , Product } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
-import { ToastrService } from 'ngx-toastr';
 import { TruncatePipe } from '../truncate.pipe';
 import { select, Store } from '@ngrx/store';
 import {  initializeCategoryLoad } from '../States/CategoryState/category.actions';
@@ -12,6 +10,7 @@ import { map, Observable, tap } from 'rxjs';
 import { AppState } from '../app.state';
 import { initializeTagProductLoad } from '../States/TagProductState/tag.actions';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
+import { FooterComponent } from "../footer/footer.component";
 
 
 
@@ -20,13 +19,12 @@ import { CartServiceService } from '../services/cart-service/cart-service.servic
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent , CommonModule , TruncatePipe ],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, TruncatePipe, FooterComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
-  currentYear: number = new Date().getFullYear();
   categories$!: Observable<Category[]>;  
 
   featuredProducts$!: Observable<Product[]>;

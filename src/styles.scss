@@ -15,6 +15,7 @@
     margin: 0 ; 
     font-family: 'Cabin', sans-serif;
     scroll-behavior: smooth!important;
+    scroll-margin-top: 10vh !important;
 }
 
 .spinner {
@@ -25,6 +26,20 @@
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
+
+  .no-scrollbar {
+    scroll-behavior:  smooth;
+     
+     /* Hide scrollbar for Firefox */
+     scrollbar-width: none;
+     
+     /* Hide scrollbar for Webkit-based browsers */
+     -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
+   }
+   
+   .no-scrollbar::-webkit-scrollbar {
+     display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
+   }
   
   @keyframes spin {
     to {

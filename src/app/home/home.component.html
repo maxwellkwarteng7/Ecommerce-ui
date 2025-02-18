@@ -168,7 +168,7 @@
           />
         </div>
         <div
-          class="w-full h-[40%] py-3 px-5 flex flex-col justify-center items-center gap-3"
+          class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
         >
           <h3 class="text-sm md:text-[16px] font-semibold">
             {{ item.name | truncate : 30 : true }}
@@ -249,10 +249,5 @@
 </div>
 
 <!-- the footer part  -->
-<div
-  class="bg-black py-4 md:py-7 w-full text-center text-sm text-white md:text-[16px]"
->
-  <p>&copy; {{ currentYear }} MXShop</p>
-</div>
-
-<router-outlet />
+ <app-footer></app-footer>
+<router-outlet></router-outlet>

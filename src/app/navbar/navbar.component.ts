@@ -17,11 +17,10 @@ export class NavbarComponent implements OnInit {
 
 
   constructor(private cartService: CartServiceService) {
-    
   }
 
   ngOnInit(): void {
-    
+    this.cartService.cartCount$.subscribe(count => this.cartNumber = count); 
   }
 
  

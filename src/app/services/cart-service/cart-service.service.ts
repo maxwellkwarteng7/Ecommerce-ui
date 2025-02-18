@@ -7,9 +7,9 @@ import { Cart } from "../../models/templates";
 })
 export class CartServiceService {
   userCart: Cart[] = [];
-  cartCount = signal<number>(0);
+  
   constructor(private toaster: ToastrService) {
-    this.getCartCount(); 
+  
   }
 
   addToCart(cartItem: Cart) {
@@ -20,7 +20,6 @@ export class CartServiceService {
       this.userCart = [...this.userCart, cartItem];
     }
     this.saveCartToLocalStorage(); 
-    this.getCartCount(); 
     this.toaster.success("Added to Cart");
   }
 
@@ -42,13 +41,5 @@ export class CartServiceService {
     localStorage.setItem('userCart', JSON.stringify(this.userCart)); 
   }
 
-  getCartCount() {
-    const cart = localStorage.getItem('userCart'); 
-    if (cart) {
-      const cartItems = JSON.parse(cart);
-      console.log(cartItems); 
-      this.cartCount.set(cartItems.length);
-      console.log("this is it " , this.cartCount()); 
-    }
-  }
+  
 }

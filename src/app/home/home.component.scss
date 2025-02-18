@@ -1,16 +1,4 @@
-.no-scrollbar {
-   scroll-behavior:  smooth;
-    
-    /* Hide scrollbar for Firefox */
-    scrollbar-width: none;
-    
-    /* Hide scrollbar for Webkit-based browsers */
-    -ms-overflow-style: none; /* Hides scrollbar in IE and Edge */
-  }
-  
-  .no-scrollbar::-webkit-scrollbar {
-    display: none; /* Hides scrollbar in Chrome, Safari, and Edge */
-  }
+
 
 @media (min-width: 475px) {
    .input-field {

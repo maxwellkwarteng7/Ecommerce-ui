@@ -7,20 +7,20 @@
             <img src="{{singleProduct.image}}" alt="..product-image" class="w-[80%] h-[80%] object-center object-contain rounded-sm">
         </div>
         <!-- the details of the product -->
-        <div class="w-full shadow-sm bg-white min-h-[20rem] sm:min-h-[22rem] md:min-h-[26rem] xl:min-h-[30rem] px-2 sm:px-4 md:px-5 xl:px-7 py-3 flex flex-col justify-evenly items-center lg:items-start">
-            <h1 class="text-xs sm:text-sm md:text-[16px] xl:text-xl">{{singleProduct.name}}</h1>
+        <div class="w-full shadow-sm bg-white min-h-[20rem] sm:min-h-[22rem] md:min-h-[26rem] xl:min-h-[30rem] px-2 sm:px-4 md:px-5 xl:px-7 py-3 flex flex-col justify-evenly gap-3 items-center lg:items-start">
+            <h1 class="text-sm  sm:text-[16px] xl:text-xl">{{singleProduct.name}}</h1>
             <!-- reviews part -->
-             <div class="flex items-center gap-3 justify-between text-xs sm:text-sm md:text-[16px] w-full">
+             <div class="flex flex-wrap items-center gap-3 justify-between text-[13px] sm:text-sm md:text-[16px] w-full">
                 <h3 class="text-gray-500" >Stock : <span class="text-black">{{singleProduct.stock}}</span> </h3>
-                <h3 class="text-gray-500 text-xs md:text-sm xl:text-[15px] cursor-pointer">Reviews<span class="text-black">({{singleProduct.reviews.length}})</span></h3>
+                <a  [routerLink]="[]" fragment="reviews" class="text-gray-500 cursor-pointer underline underline-offset-5">Reviews<span class="text-black">(5000)</span></a>
              </div>
 
-             <div class="flex items-center gap-2 sm:gap-3 md:gap-4 text-xs sm:text-[15px] md:text-[18px]">
+             <div class="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-4  text-[15px] sm:text-[16.5px] md:text-[18px] xl:text-[21px]">
                 @if(singleProduct.discountPrice){
-                    <b class="font-bold">Price : ${{singleProduct.discountPrice}}</b>
+                    <b class="font-bold text-primary">Price : ${{singleProduct.discountPrice}}</b>
                     <span class="line-through text-gray-500">${{singleProduct.price}}</span>
                 }@else {
-                    <b class="font-bold">Price : ${{singleProduct.price}}</b>
+                    <b class="font-bold text-primary">Price : ${{singleProduct.price}}</b>
                 }
              </div>
             
@@ -50,9 +50,494 @@
             </div>
          </div>
          <!-- the product description here -->
-          <div class="p-3 text-[13px] sm:text-sm lg:text-[15px]">
-            <h1 class="font-semibold text-sm sm:text-[15px] md:text-[16px] py-2">About this Item</h1>
-            <p> {{singleProduct.description}} </p>
+          <div class="p-3 text-[13px]">
+            <h1 class="font-bold text-[16px] md:text-[18.5px]  py-2">About this Item</h1>
+            <p class="text-sm sm:text-[16px] leading-6"> {{singleProduct.description}} </p>
           </div>
      </div>
+
+     <!-- The reviews section -->
+      <div class="w-full py-[3%]" id="reviews">
+        <h1 class="text-sm font-semibold md:text-lg pb-2">Reviews({{singleProduct.reviews.length}})</h1>
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <h1 class="text-[15px] font-bold sm:text-[16px] md:text-lg xl:text-[22px]">4.9</h1>
+                 <div class="flex items-center gap-1 text-yellow-500">
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star-half"></span>
+                 </div>
+            </div>
+            <button class="rounded-sm bg-gray-200 text-black py-2 px-3 flex items-center gap-1 text-sm">
+              <span >Add Review</span>
+              <span class="mdi mdi-plus"></span>
+            </button>
+        </div>
+        <!-- individual reviews -->
+         <div class="w-full py-5 border-solid border-[1px] rounded-sm shadow-sm px-3 my-3">
+            
+                <div class="flex items-center gap-3 sm:gap-5">
+                    <h1 class="text-sm sm:text-[15px]">John Doe</h1>
+                    <div class="text-xs sm:text-sm text-gray-500">
+                        <p>23 February, 2015</p>
+                     </div>
+                </div>
+                <div class="flex items-center gap-1 text-yellow-500 py-2">
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star-half"></span>
+                 </div>
+           
+            <!-- comment on this  -->
+             <p class="text-sm md:text-[16px] py-2 leading-5">This oraimo fan is a real deal....so powerful and efficient in all aspects. It's foldable and easily portable to move around with. It's rotation ability and the eight speed levels offers variety of cooling rates for you to select the ideal speed you want depending on the temperature. But it’s too expensive</p>
+             
+         </div>
+      </div>
+
+
+      <!-- You may also like section-->
+       <div class="py-4">
+            <h1 class="font-bold text-[15px] sm:text-[16.5px] md:text-lg pb-5">You may also like </h1>
+
+            <!-- related products container -->
+             <div class="w-full overflow-auto flex items-center justify-between  gap-3 sm:gap-4 md:gap-5 py-4  no-scrollbar" #scrollContainer>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="min-w-[310px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
+                    <div class="flex items-center justify-center h-[9rem] w-full bg-secondary">
+                        <img src="home-images/two.jpg" alt="...related-product-image" class="w-[80%] h-[80%] object-contain object-fit">
+                    </div>
+                    <div
+                    class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                  >
+                    <h3 class="text-sm md:text-[16px] font-semibold">
+                      <!-- {{ item.name | truncate : 30 : true }} -->
+                        product name 
+                    </h3>
+                    <p class="text-xs sm:text-sm text-center text-gray-500">
+                      <!-- {{ item.description | truncate : 50 : true }} -->
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nobis, necessitatibus?
+                    </p>
+                    <div class="flex items-center justify-between w-full px-1">
+                      <div class="flex items-center gap-2 text-sm">
+                        <!-- @if(item.discountPrice){
+                        <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                        <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                        }@else {
+                        <h3 class="text-black">$ {{ item.price }}</h3>
+                        } -->
+                        Price : $300
+                      </div>
+                      <div class="text-sm">
+                        <p><span class="text-gray-500">Stock</span> : 10
+                        </p>
+                      </div>
+                      <button
+                        class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                      >
+                        <span class="mdi mdi-cart-plus"></span>
+                      </button>
+                    </div>
+                  </div>
+
+                </div>
+             </div>
+             <div class="flex items-center justify-between px-2 py-3">
+                <button
+                  (click)="handleScroll('previous')"
+                  class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  bg-black text-white rounded-full text-sm"
+                >
+                  <span class="mdi mdi-arrow-left"></span>
+                </button>
+                <button
+                  (click)="handleScroll('next')"
+                  class="w-[30px] h-[30px] sm:w-[40px] sm:h-[40px]  rounded-full bg-black text-white text-sm"
+                >
+                  <span class="mdi mdi-arrow-right"></span>
+                </button>
+              </div>
+       </div>
 </div>
+<app-footer></app-footer>

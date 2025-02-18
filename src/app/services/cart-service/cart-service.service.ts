@@ -17,7 +17,7 @@ export class CartServiceService {
     if (Product) {
       Product.quantity = cartItem.quantity;
     } else {
-      this.userCart = [...this.userCart, cartItem];
+      this.userCart = [cartItem , ...this.userCart];
     }
     this.saveCartToLocalStorage(); 
     this.toaster.success("Added to Cart");

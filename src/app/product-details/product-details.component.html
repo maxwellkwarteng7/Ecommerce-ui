@@ -13,7 +13,7 @@
             <!-- reviews part -->
              <div class="flex flex-wrap items-center gap-3 justify-between text-[13px] sm:text-sm md:text-[16px] w-full">
                 <h3 class="text-gray-500" >Stock : <span class="text-black">{{singleProduct.stock}}</span> </h3>
-                <a  [routerLink]="[]" fragment="reviews" class="text-gray-500 cursor-pointer underline underline-offset-5">Reviews<span class="text-black">(5000)</span></a>
+                <a  [routerLink]="[]" fragment="reviews" class="text-gray-500 cursor-pointer underline underline-offset-5">Reviews<span class="text-black">({{userReview.totalReviews}})</span></a>
              </div>
 
              <div class="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-4  text-[15px] sm:text-[16.5px] md:text-[18px] xl:text-[21px]">
@@ -56,57 +56,6 @@
             <p class="text-sm sm:text-[16px] leading-6"> {{singleProduct.description}} </p>
           </div>
      </div>
-
-     <!-- The reviews section -->
-      <div class="w-full py-5" id="reviews">
-        <h1 class="text-sm font-semibold md:text-lg pb-2">Reviews(9)</h1>
-        <div class="flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <h1 class="text-[15px] font-bold sm:text-[16px] md:text-lg xl:text-[22px]">4.9</h1>
-                 <div class="flex items-center gap-1 text-yellow-500">
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star-half"></span>
-                 </div>
-            </div>
-            <button class="rounded-sm bg-gray-200 text-black py-2 px-3 flex items-center gap-1 text-sm">
-              <span >Add Review</span>
-              <span class="mdi mdi-plus"></span>
-            </button>
-        </div>
-        <!-- individual reviews -->
-         <div class="w-full py-3 border-solid border-[1px] rounded-sm shadow-sm px-3 my-3">
-            
-                <div class="flex items-center gap-3 sm:gap-5">
-                    <h1 class="text-sm sm:text-[15px]">John Doe</h1>
-                    <div class="text-xs sm:text-sm text-gray-500">
-                        <p>23 February, 2015</p>
-                     </div>
-                </div>
-                <div class="flex items-center gap-1 text-yellow-500 py-2">
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star"></span>
-                    <span class="mdi mdi-star-half"></span>
-                 </div>
-           
-            <!-- comment on this  -->
-             <p class="text-sm md:text-[16px] py-2 leading-5">This oraimo fan is a real deal....so powerful and efficient in all aspects. It's foldable and easily portable to move around with. It's rotation ability and the eight speed levels offers variety of cooling rates for you to select the ideal speed you want depending on the temperature. But it’s too expensive</p>
-             
-         </div>
-      </div>
-      <div class="flex items-center gap-2 justify-end text-sm">
-        <button
-        class="py-2 px-3 rounded-sm shadow-sm bg-secondary"  
-        >Prev</button>
-        <p>1 of 3</p>
-        <button
-        class="py-2 px-3 rounded-sm shadow-sm bg-secondary"    
-        >Next</button>
-      </div>
     }@else {
       <div class="flex items-center justify-center py-5">
           <div class="spinner" style="width: 30px; height: 30px; border-top-color: black;">
@@ -115,6 +64,68 @@
       </div>
     }
 
+
+     <!-- The reviews section -->
+      @if(userReview){
+        <div class="w-full py-5" id="reviews">
+          <h1 class="text-sm font-semibold md:text-lg pb-2">Reviews({{userReview.totalReviews}})</h1>
+          <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                  <h1 class="text-[15px] font-bold sm:text-[16px] md:text-lg xl:text-[22px]">{{averageRating}}</h1>
+                   <div class="flex items-center gap-1 text-yellow-500">
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star"></span>
+                    <span class="mdi mdi-star-half"></span>
+                   </div>
+              </div>
+              <button class="rounded-sm bg-gray-200 text-black py-2 px-3 flex items-center gap-1 text-sm">
+                <span >Add Review</span>
+                <span class="mdi mdi-plus"></span>
+              </button>
+          </div>
+          <!-- individual reviews -->
+          @for (item of userReview.reviews; track $index) {
+           <div class="w-full py-3 border-solid border-[1px] rounded-sm shadow-sm px-3 my-3">
+                  <div class="flex items-center gap-3 sm:gap-5">
+                      <h1 class="text-sm sm:text-[15px]">{{item.User.username}}</h1>
+                      <div class="text-xs sm:text-sm text-gray-500">
+                          <p>{{item.updatedAt | date : 'dd-mm-yy'}}</p>
+                       </div>
+                  </div>
+                  <div class="flex items-center gap-1 text-yellow-500 py-2">
+                      <span class="mdi mdi-star"></span>
+                      <span class="mdi mdi-star"></span>
+                      <span class="mdi mdi-star"></span>
+                      <span class="mdi mdi-star"></span>
+                      <span class="mdi mdi-star-half"></span>
+                   </div>
+             
+              <!-- comment on this  -->
+               <p class="text-sm md:text-[16px] py-2 leading-5">{{item.comment}}</p>
+              </div>
+            }
+           <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm py-3" *ngIf="userReview.totalPages > 1">
+            <button
+            class="py-2 px-3 rounded-sm shadow-sm bg-secondary"  
+            >Prev</button>
+            <p> {{userReview.currentPage}} of {{userReview.totalPages}}</p>
+            <button
+            class="py-2 px-3 rounded-sm shadow-sm bg-secondary"    
+            >Next</button>
+          </div>
+        </div>
+      }@else {
+        <div class="flex items-center justify-center py-5">
+            <div class="spinner" style="width: 30px; height: 30px; border-top-color: black;">
+  
+            </div>
+        </div>
+      }
+    
+     
+   
 
       <!-- You may also like section-->
        <div class="py-4">

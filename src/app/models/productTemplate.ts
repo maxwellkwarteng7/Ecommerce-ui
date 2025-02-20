@@ -30,7 +30,7 @@ export interface reviews {
     username : string
   }
 }
-export interface reviewsTemplate extends reviews {
+export interface reviewsTemplate {
   totalReviews: number,
   currentPage: number,
   totalPages: number,

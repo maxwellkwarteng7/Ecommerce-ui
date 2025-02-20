@@ -3,7 +3,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProductServiceService } from "../services/product-service/product-service.service";
 import { ToastrService } from "ngx-toastr";
-import { Product } from "../models/productTemplate";
+import { Product, reviewsTemplate } from "../models/productTemplate";
 import { CommonModule } from "@angular/common";
 import { Cart } from "../models/templates";
 import { CartServiceService } from "../services/cart-service/cart-service.service";
@@ -20,6 +20,7 @@ export class ProductDetailsComponent implements OnInit {
   singleProduct!: Product;
   quantity: number = 1;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+  userReview!: reviewsTemplate; 
 
   private activeRoute = inject(ActivatedRoute);
   private productService = inject(ProductServiceService);
@@ -38,15 +39,24 @@ export class ProductDetailsComponent implements OnInit {
 
   getSingleProduct(productId: number) {
     this.productService.getSingleProduct(productId).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.singleProduct = data;
-      },
+      next: (data) => this.singleProduct = data ,  
       error: (error) => {
         this.toaster.error("error fetching product details");
         console.log(error);
       },
     });
+  }
+
+  getProductReviews() {
+    if (this.singleProduct) {
+      this.productService.getProductReviews(this.singleProduct.id).subscribe({
+        next: (data) => this.userReview = data,
+        error: (error) => {
+          this.toaster.error('Error fetching product reviews');
+          console.log(error); 
+        }
+      })
+    }
   }
 
   decreaseQuantity() {

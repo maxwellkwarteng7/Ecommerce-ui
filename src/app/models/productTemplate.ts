@@ -20,13 +20,19 @@ export interface Product {
 }
 
 export interface reviews {
+  id : number , 
   rating: number, 
   comment: string, 
   userId: number, 
-  productId : number
+  productId: number
+  updatedAt: Date, 
+  User: {
+    username : string
+  }
 }
-
-
-export interface singleProduct extends Product {
-  reviews : reviews[]
+export interface reviewsTemplate extends reviews {
+  totalReviews: number,
+  currentPage: number,
+  totalPages: number,
+  reviews :  reviews[] 
 }

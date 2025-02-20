@@ -3,7 +3,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProductServiceService } from "../services/product-service/product-service.service";
 import { ToastrService } from "ngx-toastr";
-import { Product, singleProduct } from "../models/productTemplate";
+import { Product } from "../models/productTemplate";
 import { CommonModule } from "@angular/common";
 import { Cart } from "../models/templates";
 import { CartServiceService } from "../services/cart-service/cart-service.service";
@@ -17,7 +17,7 @@ import { FooterComponent } from "../footer/footer.component";
   styleUrl: "./product-details.component.scss",
 })
 export class ProductDetailsComponent implements OnInit {
-  singleProduct!: singleProduct;
+  singleProduct!: Product;
   quantity: number = 1;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
 
@@ -61,7 +61,7 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
-  addItemToCart(product: singleProduct) {
+  addItemToCart(product: Product) {
     this.cartService.prepareAndAddToCart(product, this.quantity);
   }
 

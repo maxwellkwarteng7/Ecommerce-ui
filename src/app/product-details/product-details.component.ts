@@ -8,11 +8,12 @@ import { CommonModule } from "@angular/common";
 import { Cart } from "../models/templates";
 import { CartServiceService } from "../services/cart-service/cart-service.service";
 import { FooterComponent } from "../footer/footer.component";
+import { StarRatingComponent } from "../star-rating/star-rating.component";
 
 @Component({
   selector: "app-product-details",
   standalone: true,
-  imports: [NavbarComponent, CommonModule, RouterLink, FooterComponent],
+  imports: [NavbarComponent, CommonModule, RouterLink, FooterComponent, StarRatingComponent],
   templateUrl: "./product-details.component.html",
   styleUrl: "./product-details.component.scss",
 })
@@ -21,6 +22,12 @@ export class ProductDetailsComponent implements OnInit  {
   quantity: number = 1;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   userReview!: reviewsTemplate; 
+  
+  loading: { product: boolean, image: boolean, reviews: boolean } = {
+    product: true  ,  
+    image: true, 
+    reviews : true
+  }
 
   private activeRoute = inject(ActivatedRoute);
   private productService = inject(ProductServiceService);
@@ -50,6 +57,7 @@ export class ProductDetailsComponent implements OnInit  {
         this.toaster.error("error fetching product details");
         console.log(error);
       },
+      complete: () => this.loading.product = false 
     });
   }
 
@@ -63,7 +71,8 @@ export class ProductDetailsComponent implements OnInit  {
         error: (error) => {
           this.toaster.error('Error fetching product reviews');
           console.log(error); 
-        }
+        }, 
+        complete: () => this.loading.reviews = false 
       })
     }
   }

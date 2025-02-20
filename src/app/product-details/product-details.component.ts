@@ -1,4 +1,4 @@
-import { Component, inject, OnInit , ViewChild , ElementRef } from "@angular/core";
+import { Component, inject, OnInit , ViewChild , ElementRef, AfterViewInit } from "@angular/core";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProductServiceService } from "../services/product-service/product-service.service";
@@ -16,7 +16,7 @@ import { FooterComponent } from "../footer/footer.component";
   templateUrl: "./product-details.component.html",
   styleUrl: "./product-details.component.scss",
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnInit  {
   singleProduct!: Product;
   quantity: number = 1;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
@@ -37,9 +37,15 @@ export class ProductDetailsComponent implements OnInit {
     }
   }
 
+ 
+
+
   getSingleProduct(productId: number) {
     this.productService.getSingleProduct(productId).subscribe({
-      next: (data) => this.singleProduct = data ,  
+      next: (data) => {
+        this.singleProduct = data 
+        this.getProductReviews(); 
+      },  
       error: (error) => {
         this.toaster.error("error fetching product details");
         console.log(error);
@@ -50,7 +56,10 @@ export class ProductDetailsComponent implements OnInit {
   getProductReviews() {
     if (this.singleProduct) {
       this.productService.getProductReviews(this.singleProduct.id).subscribe({
-        next: (data) => this.userReview = data,
+        next: (data) => {
+          console.log(data)
+          this.userReview = data
+        },
         error: (error) => {
           this.toaster.error('Error fetching product reviews');
           console.log(error); 
@@ -87,6 +96,18 @@ export class ProductDetailsComponent implements OnInit {
 
   navigateToSingleProduct(id: number) {
     this.router.navigate(['product', id]); 
+  }
+
+  get averageRating() { 
+    let average = 0; 
+    if (this.userReview) {
+      let reviews = this.userReview.reviews;
+      for (let i = 0; i < reviews.length; i++){
+        average += reviews[i].rating; 
+      }
+      average = average / reviews.length; 
+    }
+    return average;  
   }
  
 }

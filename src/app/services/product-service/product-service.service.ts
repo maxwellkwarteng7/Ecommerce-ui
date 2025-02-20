@@ -25,6 +25,7 @@ export class ProductServiceService {
   }
 
   getProductReviews(productId: number): Observable<reviewsTemplate> {
+    console.log(productId);
     return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/${productId}`); 
   }
 }

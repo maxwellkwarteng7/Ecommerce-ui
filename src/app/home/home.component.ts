@@ -26,8 +26,11 @@ import { FooterComponent } from "../footer/footer.component";
 export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   categories$!: Observable<Category[]>;  
-
   featuredProducts$!: Observable<Product[]>;
+  loading: { category: boolean, featured: boolean } = {
+    featured: true, 
+    category : true 
+  }
 
   constructor(private router :  Router, private store : Store<AppState> , private cartService : CartServiceService) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));

@@ -22,6 +22,7 @@ export class ProductDetailsComponent implements OnInit  {
   quantity: number = 1;
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   userReview!: reviewsTemplate; 
+  page: number = 1; 
   
   loading: { product: boolean, image: boolean, reviews: boolean } = {
     product: true  ,  
@@ -51,7 +52,7 @@ export class ProductDetailsComponent implements OnInit  {
     this.productService.getSingleProduct(productId).subscribe({
       next: (data) => {
         this.singleProduct = data 
-        this.getProductReviews(); 
+        this.getProductReviews(this.page); 
       },  
       error: (error) => {
         this.toaster.error("error fetching product details");
@@ -61,9 +62,10 @@ export class ProductDetailsComponent implements OnInit  {
     });
   }
 
-  getProductReviews() {
+  getProductReviews(page: number) {
+    console.log(page); 
     if (this.singleProduct) {
-      this.productService.getProductReviews(this.singleProduct.id).subscribe({
+      this.productService.getProductReviews(this.singleProduct.id , page).subscribe({
         next: (data) => {
           console.log(data)
           this.userReview = data
@@ -118,5 +120,15 @@ export class ProductDetailsComponent implements OnInit  {
     }
     return average;  
   }
+
+  nextPage() {
+    this.getProductReviews(this.page + 1); 
+  }
+
+  previousPage() {
+      this.getProductReviews(this.page - 1);
+  }
+  
+
  
 }

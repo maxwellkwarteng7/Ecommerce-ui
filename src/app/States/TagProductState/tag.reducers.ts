@@ -10,15 +10,17 @@ const initialState: productsTemplate = {
     products
 }
 
-export const tagProductReducer = createReducer(
+export const tagProductReducer  = createReducer(
     initialState, 
     on(initializeTagProductLoad, (state, { tag }) => ({
         ...state, 
         tag
     })), 
-    on(tagProductLoadSuccess, (state, { tagProducts }) => ({
-        ...state, 
-        tagProducts
+    on(tagProductLoadSuccess, (state , {products , currentPage , totalPages}) => ({
+        ...state,
+        currentPage, 
+        totalPages,
+        products, 
     })),
     
     on(tagProductLoadFailure, (state, { error }) => ({

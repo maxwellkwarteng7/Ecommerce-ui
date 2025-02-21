@@ -13,6 +13,7 @@ export class StarRatingComponent {
 
   // get the stars 
   getStars(): number { 
+    if (this.rating >= 4.5) return 5;  
     return Math.round(this.rating); 
   }
 

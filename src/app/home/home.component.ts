@@ -1,7 +1,7 @@
 import { Component, ElementRef, inject, OnInit, ViewChild} from '@angular/core';
 import {  Router, RouterLink, RouterOutlet } from '@angular/router';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { Category , Product } from '../models/productTemplate';
+import { Category , Product, productsTemplate } from '../models/productTemplate';
 import { CommonModule } from '@angular/common';
 import { TruncatePipe } from '../truncate.pipe';
 import { select, Store } from '@ngrx/store';
@@ -26,7 +26,7 @@ import { FooterComponent } from "../footer/footer.component";
 export class HomeComponent implements OnInit {
   @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
   categories$!: Observable<Category[]>;  
-  featuredProducts$!: Observable<Product[]>;
+  featuredProducts$!: Observable<productsTemplate>;
   loading: { category: boolean, featured: boolean } = {
     featured: true, 
     category : true 
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
   constructor(private router :  Router, private store : Store<AppState> , private cartService : CartServiceService) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
     
-    this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map( ({tagProducts}) => tagProducts || []));
+    this.featuredProducts$ = this.store.select((state) => state.tagProducts); 
   }
 
 

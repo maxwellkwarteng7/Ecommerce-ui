@@ -105,7 +105,7 @@
                <p class="text-sm md:text-[16px] py-2 leading-5">{{item.comment}}</p>
               </div>
             }
-           <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm py-3" *ngIf="userReview.totalPages > 1">
+           <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm py-3" *ngIf="userReview.totalPages > 1"> 
             <button
             *ngIf="userReview.currentPage > 1"
             (click)="previousPage()"

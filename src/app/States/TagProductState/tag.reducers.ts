@@ -1,9 +1,14 @@
 import { createReducer, on } from "@ngrx/store";
-import { Product } from "../../models/productTemplate";
+import { Product, productsTemplate } from "../../models/productTemplate";
 import { initializeTagProductLoad, tagProductLoadFailure, tagProductLoadSuccess } from "./tag.actions";
 
+let products: Product[] = [];
 
-const initialState: Product[] = []; 
+const initialState: productsTemplate = {
+    currentPage: 0, 
+    totalPages: 0, 
+    products
+}
 
 export const tagProductReducer = createReducer(
     initialState, 
@@ -14,7 +19,8 @@ export const tagProductReducer = createReducer(
     on(tagProductLoadSuccess, (state, { tagProducts }) => ({
         ...state, 
         tagProducts
-    })), 
+    })),
+    
     on(tagProductLoadFailure, (state, { error }) => ({
         ...state, 
         error

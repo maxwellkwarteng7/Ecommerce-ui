@@ -5,6 +5,11 @@ export interface Category {
     image : string
 }
 
+export interface productsTemplate {
+  currentPage: number, 
+  totalPages: number, 
+  products : Product[]
+}
 
 
 export interface Product {

@@ -16,7 +16,7 @@ export class TagProductEffect {
         ofType(initializeTagProductLoad),
         mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
             map((data) => {
-                return tagProductLoadSuccess({ tagProducts : data });
+                return tagProductLoadSuccess(data);
             }),
             catchError((error) => {
                 this.toaster.error('Error fetching tag products');

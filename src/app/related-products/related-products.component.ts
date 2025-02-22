@@ -3,7 +3,9 @@ import {
   ElementRef,
   inject,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from "@angular/core";
 import { ProductServiceService } from "../services/product-service/product-service.service";
@@ -21,7 +23,7 @@ import { CartServiceService } from "../services/cart-service/cart-service.servic
   templateUrl: "./related-products.component.html",
   styleUrl: "./related-products.component.scss",
 })
-export class RelatedProductsComponent implements OnInit {
+export class RelatedProductsComponent implements OnChanges {
   @ViewChild("scrollContainer", { static: false }) scrollContainer!: ElementRef;
 
   @Input() categoryId!: number; 
@@ -35,16 +37,22 @@ export class RelatedProductsComponent implements OnInit {
   cartService = inject(CartServiceService); 
 
 
-  ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['categoryId'] || changes['productId']) {
+      this.getRelatedProducts(); 
+    }
+  }
+
+
+  getRelatedProducts() {
     if (this.categoryId && this.productId) {
       this.productService.getProductsByCategory(this.categoryId, 1, 12).subscribe({
-        next: (data) => this.relatedProducts = data.products.filter((item) => item.id !== this.productId ),
+        next: (data) => this.relatedProducts = data.products.filter((item) => item.id !== this.productId),
         error: (error) => this.toaster.error('Error fetching related products'),
         complete: () => this.loading = false
       });
     }
-  }
-
+ }
 
 
   handleScroll(type: string) {
@@ -57,7 +65,7 @@ export class RelatedProductsComponent implements OnInit {
 
   
   navigateToSingleProduct(id: number) {
-      this.router.navigate(['product', id]); 
+      this.router.navigate(['product-detail', id]); 
     }
   
     addToCart(product: Product) {

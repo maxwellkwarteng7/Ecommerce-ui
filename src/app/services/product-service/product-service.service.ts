@@ -25,8 +25,12 @@ export class ProductServiceService {
     return this.http.get<Product>(`${environment.baseUrl}/product/${id}`); 
   }
 
-  getProductReviews(productId: number , page : number): Observable<reviewsTemplate> {
-    return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/${productId}?page=${page}`); 
+  getProductsByCategory(categoryId: number , page : number , limit : number): Observable<productsTemplate>{
+    return this.http.get<productsTemplate>(`${environment.baseUrl}/category/${categoryId}?limit=${limit}&page=${page}`); 
+  }
+
+  getProductReviews(productId: number , page : number , limit : number): Observable<reviewsTemplate> {
+    return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/${productId}?page=${page}&limit=${limit}`); 
   }
 
  

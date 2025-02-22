@@ -16,8 +16,8 @@ export const tagProductReducer  = createReducer(
         ...state, 
         tag
     })), 
-    on(tagProductLoadSuccess, (state , {products , currentPage , totalPages}) => ({
-        ...state,
+    on(tagProductLoadSuccess, (state, { products, currentPage, totalPages }) => ({
+        ...state , 
         currentPage, 
         totalPages,
         products, 

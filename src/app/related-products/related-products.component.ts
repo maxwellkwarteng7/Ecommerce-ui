@@ -57,7 +57,6 @@ export class RelatedProductsComponent implements OnInit {
 
   
   navigateToSingleProduct(id: number) {
-    alert(id); 
       this.router.navigate(['product', id]); 
     }
   

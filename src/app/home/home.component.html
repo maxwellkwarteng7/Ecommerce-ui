@@ -144,18 +144,18 @@
 </div>
 
 <!-- the products  -->
-<!-- <div class="px-4 md:px-[3%] xl:px-[8%]">
+<div class="px-4 md:px-[3%] xl:px-[8%]">
   <h1
     class="text-center font-bold tracking-wide text-lg sm:text-xl md:text-2xl py-5 pb-3 capitalize"
   >
     Featured Collection
   </h1>
-  <div class="w-full" *ngIf="featuredProducts$ | async as products">
+  <div class="w-full" *ngIf=" (featuredProducts$ | async)?.products as  products">
     @if (products.length > 0) {
     <div
       class="py-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 w-full"
     >
-      @for(item of featuredProducts$ | async; track $index){
+      @for(item of products ; track $index){
       <div class="w-full min-h-[23rem]  bg-white shadow-lg rounded-sm">
         <div
           class="w-full h-[13.8rem] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
@@ -214,7 +214,7 @@
       Browse More
     </button>
   </div>
-</div> -->
+</div>
 
 <!-- the subscribe part -->
 <div

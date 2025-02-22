@@ -9,18 +9,19 @@ import { Cart } from "../models/templates";
 import { CartServiceService } from "../services/cart-service/cart-service.service";
 import { FooterComponent } from "../footer/footer.component";
 import { StarRatingComponent } from "../star-rating/star-rating.component";
+import { RelatedProductsComponent } from "../related-products/related-products.component";
 
 @Component({
   selector: "app-product-details",
   standalone: true,
-  imports: [NavbarComponent, CommonModule, RouterLink, FooterComponent, StarRatingComponent],
+  imports: [NavbarComponent, CommonModule, RouterLink, FooterComponent, StarRatingComponent, RelatedProductsComponent],
   templateUrl: "./product-details.component.html",
   styleUrl: "./product-details.component.scss",
 })
 export class ProductDetailsComponent implements OnInit  {
   singleProduct!: Product;
   quantity: number = 1;
-  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+ 
   userReview!: reviewsTemplate; 
   page: number = 1; 
   
@@ -65,7 +66,7 @@ export class ProductDetailsComponent implements OnInit  {
   getProductReviews(page: number) {
     console.log(page); 
     if (this.singleProduct) {
-      this.productService.getProductReviews(this.singleProduct.id , page).subscribe({
+      this.productService.getProductReviews(this.singleProduct.id , page , 8).subscribe({
         next: (data) => {
           console.log(data)
           this.userReview = data
@@ -95,11 +96,6 @@ export class ProductDetailsComponent implements OnInit  {
     this.cartService.prepareAndAddToCart(product, this.quantity);
   }
 
-  handleScroll(type: string) {
-    const container = this.scrollContainer.nativeElement;
-    const scrollamount = 310;
-    type && type === 'previous' ? container.scrollLeft -= scrollamount : container.scrollLeft += scrollamount;
-  }
 
   addToCart(product: Product) {
     this.cartService.prepareAndAddToCart(product, 1); 

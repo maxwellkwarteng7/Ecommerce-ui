@@ -35,14 +35,8 @@ export class HomeComponent implements OnInit {
   constructor(private router :  Router, private store : Store<AppState> , private cartService : CartServiceService) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
     
-    this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(
-      tap(products => {
-        console.log('Selected Products:', products);
-        if (!products) {
-          console.log('Products state is undefined! Check reducer and action payloads.');
-        }
-      })
-    );
+    this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map((state: productsTemplate) => state),
+    ); 
   }
 
 

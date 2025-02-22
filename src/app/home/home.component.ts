@@ -52,7 +52,7 @@ export class HomeComponent implements OnInit {
   }
 
   navigateToSingleProduct(id: number) {
-    this.router.navigate(['product', id]); 
+    this.router.navigate(['product-detail', id]); 
   }
 
   addToCart(product: Product) {

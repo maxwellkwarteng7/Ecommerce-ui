@@ -35,15 +35,16 @@ export class ProductDetailsComponent implements OnInit  {
   private productService = inject(ProductServiceService);
   private toaster = inject(ToastrService);
   private cartService = inject(CartServiceService);
-  private  router = inject(Router);
+  private router = inject(Router);
 
   ngOnInit(): void {
-    const id = this.activeRoute.snapshot.paramMap.get("id");
-    let productId = null;
-    if (id) {
-      productId = parseInt(id);
-      this.getSingleProduct(productId);
-    }
+    this.activeRoute.paramMap.subscribe(params => {
+      const id = params.get('id');
+      if (id) {
+        const productId = parseInt(id);
+        this.getSingleProduct(productId);
+      }
+    }); 
   }
 
  
@@ -63,12 +64,12 @@ export class ProductDetailsComponent implements OnInit  {
     });
   }
 
+
   getProductReviews(page: number) {
     console.log(page); 
     if (this.singleProduct) {
       this.productService.getProductReviews(this.singleProduct.id , page , 8).subscribe({
         next: (data) => {
-          console.log(data)
           this.userReview = data
         },
         error: (error) => {

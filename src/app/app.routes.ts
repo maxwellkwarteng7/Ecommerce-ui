@@ -32,7 +32,7 @@ export const routes: Routes = [
         component : PasscodeComponent
     },
     {
-        path: 'product/:id', 
+        path: 'product-detail/:id', 
         component : ProductDetailsComponent
     }
 ];

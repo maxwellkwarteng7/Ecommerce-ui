@@ -14,7 +14,7 @@
             <!-- reviews part -->
              <div class="flex flex-wrap items-center gap-3 justify-between text-[13px] sm:text-sm md:text-[16px] w-full">
                 <h3 class="text-gray-500" >Stock : <span class="text-black">{{singleProduct.stock}}</span> </h3>
-                <a  [routerLink]="[]" fragment="reviews" class="text-gray-500 cursor-pointer underline underline-offset-5">Reviews<span class="text-black">({{userReview.totalReviews}})</span></a>
+                <a  [routerLink]="[]" fragment="reviews" class="text-gray-500 cursor-pointer underline underline-offset-5">Reviews<span class="text-black" *ngIf="userReview">({{userReview.totalReviews}})</span></a>
              </div>
 
              <div class="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-4  text-[15px] sm:text-[16.5px] md:text-[18px] xl:text-[21px]">
@@ -136,7 +136,9 @@
    
 
       <!-- You may also like section-->
-       <app-related-products></app-related-products>
+      <div *ngIf="singleProduct">
+        <app-related-products [categoryId]="singleProduct.categoryId" [productId]="singleProduct.id"></app-related-products>
+      </div>
        
 </div>
 <app-footer></app-footer>

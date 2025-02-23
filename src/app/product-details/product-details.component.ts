@@ -1,4 +1,4 @@
-import { Component, inject, OnInit , ViewChild , ElementRef, AfterViewInit } from "@angular/core";
+import { Component, inject, OnInit , ViewChild , ElementRef, AfterViewInit, OnDestroy } from "@angular/core";
 import { NavbarComponent } from "../navbar/navbar.component";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { ProductServiceService } from "../services/product-service/product-service.service";
@@ -10,6 +10,7 @@ import { CartServiceService } from "../services/cart-service/cart-service.servic
 import { FooterComponent } from "../footer/footer.component";
 import { StarRatingComponent } from "../star-rating/star-rating.component";
 import { RelatedProductsComponent } from "../related-products/related-products.component";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-product-details",
@@ -18,7 +19,7 @@ import { RelatedProductsComponent } from "../related-products/related-products.c
   templateUrl: "./product-details.component.html",
   styleUrl: "./product-details.component.scss",
 })
-export class ProductDetailsComponent implements OnInit  {
+export class ProductDetailsComponent implements OnInit , OnDestroy  {
   singleProduct!: Product;
   quantity: number = 1;
  
@@ -30,6 +31,7 @@ export class ProductDetailsComponent implements OnInit  {
     image: true, 
     reviews : true
   }
+  private routeSub!: Subscription; 
 
   private activeRoute = inject(ActivatedRoute);
   private productService = inject(ProductServiceService);
@@ -38,13 +40,17 @@ export class ProductDetailsComponent implements OnInit  {
   private router = inject(Router);
 
   ngOnInit(): void {
-    this.activeRoute.paramMap.subscribe(params => {
+    this.routeSub = this.activeRoute.paramMap.subscribe(params => {
       const id = params.get('id');
       if (id) {
         const productId = parseInt(id);
         this.getSingleProduct(productId);
       }
     }); 
+  }
+
+  ngOnDestroy(): void {
+    this.routeSub.unsubscribe(); 
   }
 
  

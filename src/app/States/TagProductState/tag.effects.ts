@@ -14,7 +14,7 @@ export class TagProductEffect {
 
     loadTagProducts$ = createEffect(() => this.actions$.pipe(
         ofType(initializeTagProductLoad),
-        mergeMap(({ tag }) => this.productService.getProductByTag(tag).pipe(
+        mergeMap(({ tag }) => this.productService.getProductByTag(tag ,1,12).pipe(
             map((data) => {
                 return tagProductLoadSuccess(data);
             }),

@@ -19,7 +19,7 @@ import { FooterComponent } from "../footer/footer.component";
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterOutlet, NavbarComponent, CommonModule, TruncatePipe, FooterComponent],
+  imports: [RouterOutlet, NavbarComponent, CommonModule, TruncatePipe, FooterComponent , RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -57,6 +57,10 @@ export class HomeComponent implements OnInit {
 
   addToCart(product: Product) {
     this.cartService.prepareAndAddToCart(product, 1); 
+  }
+
+  goToProducts(type: number | string) {
+    this.router.navigate(['/products'], { queryParams: { type } }); 
   }
 
 }

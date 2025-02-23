@@ -4,6 +4,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { PasscodeComponent } from './passcode/passcode.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { ProductsComponent } from './products/products.component';
 
 export const routes: Routes = [
     {
@@ -34,5 +35,9 @@ export const routes: Routes = [
     {
         path: 'product-detail/:id', 
         component : ProductDetailsComponent
+    },
+    {
+        path: 'products', 
+        component : ProductsComponent
     }
 ];

@@ -17,8 +17,8 @@ export class ProductServiceService {
     return this.http.get<Category[]>(`${environment.baseUrl}/category`);
   }
 
-  getProductByTag(tag : string) : Observable<productsTemplate>{
-    return this.http.get<productsTemplate>(`${environment.baseUrl}/product/tag/products?tag=${tag}`);
+  getProductByTag(tag : string , page : number , limit : number) : Observable<productsTemplate>{
+    return this.http.get<productsTemplate>(`${environment.baseUrl}/product/tag/products?tag=${tag}&page=${page}&limit=${limit}`);
   }
 
   getSingleProduct(id: number): Observable<Product>{
@@ -31,6 +31,10 @@ export class ProductServiceService {
 
   getProductReviews(productId: number , page : number , limit : number): Observable<reviewsTemplate> {
     return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/${productId}?page=${page}&limit=${limit}`); 
+  }
+
+  getAllProducts(page: number, limit: number): Observable<productsTemplate>{
+    return this.http.get<productsTemplate>(`${environment.baseUrl}/product?page=${page}&limit=${limit}`);
   }
 
  

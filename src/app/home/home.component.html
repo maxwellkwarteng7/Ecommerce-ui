@@ -16,6 +16,7 @@
       <p>Make a rich life</p>
       <div>
         <button
+        [routerLink]="['/products']"
           class="bg-primary text-white py-2 px-5 rounded-sm shadow-lg text-lg"
         >
           shop now
@@ -51,6 +52,7 @@
         </p>
         <button
           class="mt-4 py-2 px-3 bg-black text-white text-sm md:text-[16px] flex items-center gap-1"
+          (click)="goToProducts('deals')"
         >
           <span>Deals</span>
           <span class="mdi mdi-arrow-right"></span>
@@ -76,6 +78,7 @@
         </p>
         <button
           class="mt-4 py-2 px-3 bg-black text-white text-sm md:text-[16px] flex items-center gap-1"
+          (click)="goToProducts('arrivals')"
         >
           <span>Arrivals</span>
           <span class="mdi mdi-arrow-right"></span>
@@ -109,6 +112,7 @@
     <div class="flex flex-col gap-1 items-center">
       <div
         class="w-[60px] h-[60px] sm:w-[90px] sm:h-[90px] md:w-[100px] md:h-[100px] rounded-full flex items-center justify-center cursor-pointer"
+        (click)="goToProducts(item.id)"
       >
         <img
           src="{{ item.image }}"
@@ -210,7 +214,7 @@
   </div>
 
   <div class="py-5 w-full flex items-center justify-center">
-    <button class="py-2 rounded-sm bg-black text-white text-sm px-3">
+    <button class="py-2 rounded-sm bg-black text-white text-sm px-3" [routerLink]="['/products']">
       Browse More
     </button>
   </div>

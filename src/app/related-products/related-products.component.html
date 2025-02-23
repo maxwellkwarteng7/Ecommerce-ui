@@ -4,7 +4,7 @@
     <!-- related products container -->
      @if (!loading) {
        @if(relatedProducts.length > 0){
-        <div class="w-full overflow-auto flex items-center justify-between  gap-3 sm:gap-4 md:gap-5 py-4  no-scrollbar" #scrollContainer>
+        <div class="w-full overflow-auto flex items-center justify-start  gap-3 sm:gap-4 md:gap-5 py-4  no-scrollbar" #scrollContainer>
         @for (item of relatedProducts; track $index) {
           <div class="min-w-[300px] max-w-[350px] min-h-[18rem] rounded-sm shadow-md">
             <div class="flex items-center justify-center h-[9rem] w-full bg-secondary cursor-pointer"

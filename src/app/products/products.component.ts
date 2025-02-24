@@ -103,6 +103,7 @@ export class ProductsComponent implements OnInit , OnDestroy {
   }
   
   nextPage() {
+    this.loading = true; 
     if (this.type) {
       if (!isNaN(Number(this.type))) {
         this.getCategoryProducts(this.products.currentPage + 1); 
@@ -116,6 +117,7 @@ export class ProductsComponent implements OnInit , OnDestroy {
    
 
   previousPage() {
+    this.loading = true; 
     if (this.type) {
       if (!isNaN(Number(this.type))) {
         this.getCategoryProducts(this.products.currentPage - 1); 

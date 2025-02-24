@@ -23,12 +23,15 @@ export class ProductsComponent implements OnInit , OnDestroy {
   private querySub!: Subscription; 
   products!: productsTemplate;
   loading: boolean = true; 
+  heading: string = ''; 
+  currentPage: number = 1; 
 
   private activeRoute = inject(ActivatedRoute); 
   private productService = inject(ProductServiceService); 
   private toaster = inject(ToastrService);
   private cartService = inject(CartServiceService); 
   private router = inject(Router);
+
   
 
   ngOnInit(): void {
@@ -36,15 +39,15 @@ export class ProductsComponent implements OnInit , OnDestroy {
       this.type = params['type'] || null; 
       if (this.type) {
         if (!isNaN(Number(this.type))) {
-          this.getCategoryProducts();
-          this.type = 'Category Products'; 
+          this.getCategoryProducts(1);
+          this.heading = "Category Products"; 
         } else {
-          this.getTagProducts(); 
-          this.type = this.type + ' Products'; 
+          this.getTagProducts(1); 
+          this.heading = this.type + ' Products';
         }
       } else {
-        this.getAllProducts();
-        this.type = 'Browse All Products'; 
+        this.getAllProducts(1);
+        this.heading = "Browse Products";
       }
     })
   }
@@ -53,10 +56,10 @@ export class ProductsComponent implements OnInit , OnDestroy {
     this.querySub.unsubscribe(); 
   }
 
-  getCategoryProducts() {
+  getCategoryProducts( page : number ) {
     if (this.type) {
       const categoryId = parseInt(this.type); 
-      this.productService.getProductsByCategory(categoryId, 1, 12).subscribe({
+      this.productService.getProductsByCategory(categoryId, page , 12).subscribe({
         next: (data) => {
           console.log(data);
           this.products = data
@@ -67,9 +70,9 @@ export class ProductsComponent implements OnInit , OnDestroy {
     }
   }
 
-  getTagProducts() {
+  getTagProducts( page : number) {
     if (this.type) {
-      this.productService.getProductByTag(this.type, 1, 12).subscribe({
+      this.productService.getProductByTag(this.type, page , 12).subscribe({
         next: (data) => {
           console.log(data); 
           this.products = data;
@@ -80,8 +83,8 @@ export class ProductsComponent implements OnInit , OnDestroy {
     }
   }
 
-  getAllProducts() {
-    this.productService.getAllProducts(1, 6).subscribe({
+  getAllProducts(page : number) {
+    this.productService.getAllProducts(page, 6).subscribe({
       next: (data) => {
         console.log(data); 
         this.products = data;
@@ -100,12 +103,28 @@ export class ProductsComponent implements OnInit , OnDestroy {
   }
   
   nextPage() {
-  
+    if (this.type) {
+      if (!isNaN(Number(this.type))) {
+        this.getCategoryProducts(this.products.currentPage + 1); 
+      }else {
+        this.getTagProducts(this.products.currentPage + 1 );
+    } 
+    } else {
+    this.getAllProducts(this.products.currentPage + 1); 
+    }
   }
    
 
   previousPage() {
-      
+    if (this.type) {
+      if (!isNaN(Number(this.type))) {
+        this.getCategoryProducts(this.products.currentPage - 1); 
+      }else {
+        this.getTagProducts(this.products.currentPage - 1 );
+    } 
+    } else {
+    this.getAllProducts(this.products.currentPage - 1); 
+    }
   }
 
 }

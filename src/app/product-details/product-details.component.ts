@@ -129,7 +129,9 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
   }
 
   previousPage() {
+    if (this.page > 1) {
       this.getProductReviews(this.page - 1);
+      }
   }
   
 

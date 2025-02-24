@@ -8,11 +8,12 @@ import { Subscription } from "rxjs";
 import { Product, productsTemplate } from "../models/productTemplate";
 import { CommonModule } from "@angular/common";
 import { TruncatePipe } from "../truncate.pipe";
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: "app-products",
   standalone: true,
-  imports: [NavbarComponent, CommonModule, TruncatePipe],
+  imports: [NavbarComponent, CommonModule, TruncatePipe, FooterComponent],
   templateUrl: "./products.component.html",
   styleUrl: "./products.component.scss",
 })
@@ -70,7 +71,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   getTagProducts(page: number) {
     if (this.type) {
-      this.productService.getProductByTag(this.type, page, 3).subscribe({
+      this.productService.getProductByTag(this.type, page, 12).subscribe({
         next: (data) => {
           console.log(data);
           this.products = data;
@@ -82,7 +83,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   getAllProducts(page: number) {
-    this.productService.getAllProducts(page, 6).subscribe({
+    this.productService.getAllProducts(page, 12).subscribe({
       next: (data) => {
         console.log(data);
         this.products = data;

@@ -1,11 +1,104 @@
 <app-navbar></app-navbar>
-<div class="w-full h-[12rem] md:h-[17rem]" style="background-image: url('home-images/products.jpg');background-position: bottom; background-attachment: fixed; background-repeat: no-repeat; background-size: cover;">
-    <div class="w-full h-full flex flex-col gap-3 items-center justify-center">
-        <h3 class="text-white text-xl  md:text-2xl lg:text-3xl xl:text-4xl" >Best Deals</h3>
-        <input type="text" name="" id="" placeholder="Search product" class="py-2 px-3 text-sm md:text-lg outline-none mt-2 bg-[whitesmoke]">
-    </div>
+<div
+  class="w-full h-[12rem] md:h-[17rem]"
+  style="
+    background-image: url('home-images/products.jpg');
+    background-position: bottom;
+ 
+    background-repeat: no-repeat;
+    background-size: cover;
+  "
+>
+  <div class="w-full h-full flex flex-col gap-3 items-center justify-center">
+    <h3 class="text-white text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+      {{this.heading}}
+    </h3>
+    <input
+      type="text"
+      name=""
+      id=""
+      placeholder="Search product"
+      class="py-2 px-3 text-sm md:text-lg outline-none mt-2 bg-[whitesmoke]"
+    />
+  </div>
 </div>
-<div class="px-4 md:px-[3%] xl:px-[8%]">
+<div class="w-full px-4 md:px-[3%] xl:px-[8%] py-[3%]">
+ 
 
-
+    @if (!loading) {
+        @if(products.products.length > 0){
+            <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 w-full"
+          >
+            @for (item of products.products; track $index) {
+              
+                <div class="w-full min-h-[23rem]  bg-white shadow-lg rounded-sm">
+                    <div
+                      class="w-full h-[13.8rem] overflow-hidden flex items-center justify-center bg-secondary cursor-pointer"
+                      (click)="navigateToSingleProduct(item.id)"
+                    >
+                      <img
+                        src="{{ item.image }}"
+                        alt="...product-image"
+                        class="w-[80%] h-[80%] object-contain object-center rounded-sm"
+                      />
+                    </div>
+                    <div
+                      class="w-full py-3 px-5 flex flex-col justify-center items-center gap-3"
+                    >
+                      <h3 class="text-sm md:text-[16px] font-semibold">
+                        {{ item.name | truncate : 30 : true }}
+                      </h3>
+                      <p class="text-xs sm:text-sm text-center text-gray-500">
+                        {{ item.description | truncate : 50 : true }}
+                      </p>
+                      <div class="flex items-center justify-between w-full px-1">
+                        <div class="flex items-center gap-2 text-sm">
+                          @if(item.discountPrice){
+                          <h3 class="text-black">$ {{ item.discountPrice }}</h3>
+                          <h5 class="text-gray-500 line-through">$ {{ item.price }}</h5>
+                          }@else {
+                          <h3 class="text-black">$ {{ item.price }}</h3>
+                          }
+                        </div>
+                        <div class="text-sm">
+                          <p><span class="text-gray-500">Stock</span> : {{ item.stock }}</p>
+                        </div>
+                        <button
+                         (click)="addToCart(item)"
+                          class="px-4 py-2 text-xs sm:text-sm bg-black text-white rounded-sm"
+                        >
+                          <span class="mdi mdi-cart-plus"></span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+            }
+        </div>
+        <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm  py-[5%]" *ngIf="products.totalPages > 1"> 
+            <button
+            *ngIf="products.currentPage > 1"
+            (click)="previousPage()"
+            class="py-2 px-3 rounded-sm shadow-sm bg-secondary"  
+            >Prev</button>
+            <p> {{products.currentPage}} of {{products.totalPages}}</p>
+            <button
+            *ngIf="products.currentPage < products.totalPages"
+            (click)="nextPage()"
+            class="py-2 px-3 rounded-sm shadow-sm bg-secondary"    
+            >Next</button>
+          </div>
+        }@else {
+            <div class="center py-6 text-sm md:text-lg">
+                No products found or updated ...
+            </div>
+        }
+      }@else {
+        <div class="flex items-center justify-center py-3">
+            <div
+              class="spinner"
+              style="border-top-color: black; width: 40px; height: 40px"
+            ></div>
+          </div>
+      }
 </div>

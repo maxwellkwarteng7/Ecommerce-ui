@@ -1,15 +1,7 @@
-<app-navbar></app-navbar>
-<div
-  class="w-full h-[12rem] md:h-[17rem]"
-  style="
-    background-position: bottom;
- 
-    background-repeat: no-repeat;
-    background-size: cover;
-  "
->
-  <div class="w-full h-full flex flex-col gap-3 items-center justify-center">
-    <h3 class="text-black text-xl md:text-2xl lg:text-3xl xl:text-4xl">
+<div class="w-full min-h-[100vh]">
+  <app-navbar></app-navbar>
+  <div class="w-full flex flex-col gap-3 items-center justify-center py-5">
+    <h3 class="text-black text-xl md:text-2xl lg:text-3xl xl:text-[34px]">
       {{this.heading}}
     </h3>
     <input
@@ -17,17 +9,17 @@
       name=""
       id=""
       placeholder="Search product"
-      class="py-2 px-3 text-sm md:text-lg outline-none mt-2 bg-[whitesmoke]"
+      class="py-2 px-3 text-sm md:text-lg outline-none mt-2 bg-[whitesmoke] border-black border-[0.5px] border-dashed"
     />
   </div>
-</div>
-<div class="w-full px-4 md:px-[3%] xl:px-[8%] py-[3%]">
+
+<div class="w-full  px-4 md:px-[3%] xl:px-[8%] py-[3%]">
  
 
     @if (!loading) {
         @if(products.products.length > 0){
             <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 w-full"
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-5 w-full pb-5"
           >
             @for (item of products.products; track $index) {
               
@@ -74,7 +66,7 @@
                   </div>
             }
         </div>
-        <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm  py-[5%]" *ngIf="products.totalPages > 1"> 
+        <div class="flex items-center gap-2 justify-end text-[12.5px] sm:text-sm  py-[3%]" *ngIf="products.totalPages > 1"> 
             <button
             *ngIf="products.currentPage > 1"
             (click)="previousPage()"
@@ -88,10 +80,11 @@
             >Next</button>
           </div>
         }@else {
-            <div class="center py-6 text-sm md:text-lg">
+            <div class="text-center py-6 text-sm md:text-lg">
                 No products found or updated ...
             </div>
         }
+       
       }@else {
         <div class="flex items-center justify-center py-3">
             <div
@@ -101,4 +94,7 @@
           </div>
       }
 </div>
+</div>
 <app-footer></app-footer>
+
+

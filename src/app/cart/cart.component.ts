@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, Inject } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { FooterComponent } from "../footer/footer.component";
+import { FooterComponent } from "../footer/footer.component"; 
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-cart',
@@ -10,5 +11,16 @@ import { FooterComponent } from "../footer/footer.component";
   styleUrl: './cart.component.scss'
 })
 export class CartComponent {
+ 
+
+  private location = inject(Location); 
+
+
+
+
+
+  goBack() {
+    this.location.back();
+  }
 
 }

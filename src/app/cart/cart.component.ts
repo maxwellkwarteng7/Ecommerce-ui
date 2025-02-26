@@ -43,7 +43,7 @@ export class CartComponent implements OnInit {
         let itemPrice = (item.discountPrice !== null ? item.discountPrice : item.price) * item.quantity;
         return itemPrice + acc; 
       }, 0); 
-      this.subTotal = Math.ceil(this.subTotal); 
+      this.subTotal = Math.round(this.subTotal);
     } else {
       this.subTotal = 0; 
     }
@@ -70,6 +70,11 @@ export class CartComponent implements OnInit {
     localStorage.setItem('userCart', JSON.stringify(this.cartItems));
     this.getLocalCartItems(); 
     this.getSubTotal(); 
- }
+  }
+  
+   itemSubTotalPrice(price : number , quantity : number) {
+    const newPrice = price * quantity; 
+    return newPrice.toFixed(2);
+  }
 
 }

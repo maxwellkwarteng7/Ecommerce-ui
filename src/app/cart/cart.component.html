@@ -31,9 +31,9 @@
                      <h3 class="text-sm sm:text-[16px] text-wrap">{{item.name | truncate : 70 }}</h3>
                      <b class="lg:hidden">
                       @if(item.discountPrice){
-                        ${{item.discountPrice * item.quantity}}
+                        {{itemSubTotalPrice(item.discountPrice , item.quantity)}}
                       }@else {
-                        ${{item.price * item.quantity}}
+                        {{itemSubTotalPrice(item.price , item.quantity)}}
                       }
                      </b>
                      <span class="text-sm md:text-[16px] text-wrap"><span class="text-gray-500">Stock</span> : {{item.stock}}</span>
@@ -54,9 +54,9 @@
                     <div class=" hidden lg:flex flex-col item-center gap-3 text-wrap">
                      <b class="text-[15px] sm:text-[16px] md:text-lg">
                       @if(item.discountPrice){
-                        ${{item.discountPrice * item.quantity}}
+                        {{itemSubTotalPrice(item.discountPrice , item.quantity)}}
                       }@else {
-                        ${{item.price * item.quantity}}
+                        {{itemSubTotalPrice(item.price , item.quantity)}}
                       }
                      </b>
                      <button class="flex items-center gap-1 text-sm text-gray-400" (click)="removeCartItem(item.id)">

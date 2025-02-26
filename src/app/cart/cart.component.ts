@@ -1,7 +1,7 @@
 import { Component, inject, Inject, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component"; 
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 import { Cart } from '../models/templates';
@@ -10,7 +10,7 @@ import { CartServiceService } from '../services/cart-service/cart-service.servic
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent , TruncatePipe],
+  imports: [NavbarComponent, FooterComponent , TruncatePipe , CommonModule],
   templateUrl: './cart.component.html',
   styleUrl: './cart.component.scss'
 })
@@ -60,5 +60,16 @@ export class CartComponent implements OnInit {
     this.getLocalCartItems(); 
     this.getSubTotal();
   }
+
+  handleItemQuantity (item : Cart , type : string){
+    //  find the item 
+    let productItem = this.cartItems.find((product) => product.id === item.id); 
+    if (productItem) {
+      type == 'increase' ? productItem.quantity += 1 : productItem.quantity -= 1;
+    } 
+    localStorage.setItem('userCart', JSON.stringify(this.cartItems));
+    this.getLocalCartItems(); 
+    this.getSubTotal(); 
+ }
 
 }

@@ -39,9 +39,9 @@
                      <span class="text-sm md:text-[16px] text-wrap"><span class="text-gray-500">Stock</span> : {{item.stock}}</span>
                      <div class="flex flex-wrap items-center justify-between gap-3">
                        <div class="flex items-center gap-2 md:gap-3 text-sm sm:text-[15px] md:text-[16px]">
-                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary">-</button>
+                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary" [disabled]="item.quantity <= 1" (click)="handleItemQuantity(item , 'decrease')">-</button>
                          <span>{{item.quantity}}</span>
-                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary">+</button>
+                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary" [disabled]="item.quantity >= item.stock" (click)="handleItemQuantity(item , 'increase')" >+</button>
                        </div>
                        <button class="flex items-center gap-1 text-sm text-gray-500 py-2 lg:hidden" (click)="removeCartItem(item.id)">
                          <span>Remove</span>

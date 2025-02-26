@@ -50,6 +50,13 @@ export class CartServiceService {
     this.addToCart(cartItem);
   }
 
+  removeFromCart(newItems : Cart[]) {
+    localStorage.setItem('userCart', JSON.stringify(newItems)); 
+    this.cartCount.next(newItems.length); 
+  }
+
+ 
+
  
 
   

@@ -71,7 +71,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   getTagProducts(page: number) {
     if (this.type) {
-      this.productService.getProductByTag(this.type, page, 12).subscribe({
+      this.productService.getProductByTag(this.type, page, 3).subscribe({
         next: (data) => {
           console.log(data);
           this.products = data;

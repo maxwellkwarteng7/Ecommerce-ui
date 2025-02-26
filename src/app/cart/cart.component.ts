@@ -18,7 +18,7 @@ export class CartComponent implements OnInit {
  
   cartItems: Cart[] = []; 
   loading: boolean = true; 
-  subTotal: number = 0; 
+  subTotal: any = 0; 
   tax: number = 0; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
@@ -43,7 +43,7 @@ export class CartComponent implements OnInit {
         let itemPrice = (item.discountPrice !== null ? item.discountPrice : item.price) * item.quantity;
         return itemPrice + acc; 
       }, 0); 
-      this.subTotal = Math.round(this.subTotal);
+      this.subTotal = this.subTotal.toFixed(2);
     } else {
       this.subTotal = 0; 
     }

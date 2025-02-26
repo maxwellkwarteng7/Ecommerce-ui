@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 import { Cart } from '../models/templates';
+import { CartServiceService } from '../services/cart-service/cart-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -18,8 +19,9 @@ export class CartComponent implements OnInit {
   cartItems: Cart[] = []; 
   loading: boolean = true; 
   subTotal: number = 0; 
-  tax: number = 20; 
+  tax: number = 0; 
   private location = inject(Location); 
+  private cartService = inject(CartServiceService);
 
   ngOnInit(): void {
     this.getLocalCartItems(); 
@@ -42,18 +44,21 @@ export class CartComponent implements OnInit {
         return itemPrice + acc; 
       }, 0); 
       this.subTotal = Math.ceil(this.subTotal); 
+    } else {
+      this.subTotal = 0; 
     }
   }
 
   get TotalPrice() : number {
-    return this.subTotal + this.tax;
+    return this.subTotal;
   }
   
   removeCartItem(cartId: number) {
     this.loading = true;
     const newItems = this.cartItems.filter((item) => item.id !== cartId); 
-    localStorage.setItem('userCart', JSON.stringify(newItems)); 
+    this.cartService.removeFromCart(newItems); 
     this.getLocalCartItems(); 
     this.getSubTotal();
   }
+
 }

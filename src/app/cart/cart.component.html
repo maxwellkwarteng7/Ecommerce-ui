@@ -111,7 +111,7 @@
                </div>
                <!-- the checkout button  -->
                 <div class="py-3 w-full">
-                  <button class="uppercase py-2 px-3 w-full rounded-sm text-white bg-black text-[14px]">proceed to checkout</button>
+                  <button [disabled]="this.cartItems.length == 0" class="uppercase py-2 px-3 w-full rounded-sm text-white bg-black text-[14px]">proceed to checkout</button>
                 </div>
                 <button class=" w-full flex items-center gap-1  justify-center" (click)="goBack()">
                   <span class="mdi mdi-chevron-left"></span>

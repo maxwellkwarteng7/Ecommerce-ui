@@ -13,50 +13,110 @@
           </div>
 
           <!-- the cart container -->
-           <div class="my-[2%] flex flex-col md:flex-row gap-3 md:gap-5 w-[100%]">
-            <div class="bg-white rounded-sm shadow-lg w-full md:w-[75%] min-h-[20rem] md:min-h-[30rem] p-6 flex flex-col gap-2">
+           <div class="my-[2%] flex flex-col lg:flex-row gap-3 lg:gap-5 w-[100%]">
+            <div class="bg-white rounded-sm shadow-lg w-full lg:w-[75%] min-h-[20rem] md:min-h-[30rem] p-6 flex flex-col gap-2">
+              @if(!loading){
+               @if(this.cartItems.length > 0){
+                @for(item of cartItems ; track $index){
+                  <!-- the list of carts heres  -->
+              <div class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem]">
 
-              <!-- the list of carts heres  -->
-               <div class="py-3 border-b-solid border-b-[0.5px] border-b-gray-300 min-h-[8rem]">
+               <!-- the image and text  -->
+                <div class="flex items-start gap-5 justify-between">
+                 <!-- the image -->
+                  <img src="{{item.image}}" alt="...cart-image" class="w-[100px] h-[100px]  object-cover object-center rounded-sm">
 
-                <!-- the image and text  -->
-                 <div class="flex items-start gap-5 justify-between">
-                  <!-- the image -->
-                   <img src="home-images/one.jpg" alt="...cart-image" class="w-[100px] h-[100px] object-cover object-center rounded-sm">
+                  <!-- the name , buttons to change quantity -->
+                   <div class="flex flex-col gap-3">
+                     <h3 class="text-sm sm:text-[16px] text-wrap">{{item.name | truncate : 70 }}</h3>
+                     <b class="lg:hidden">
+                      @if(item.discountPrice){
+                        ${{item.discountPrice * item.quantity}}
+                      }@else {
+                        ${{item.price * item.quantity}}
+                      }
+                     </b>
+                     <span class="text-sm md:text-[16px] text-wrap"><span class="text-gray-500">Stock</span> : {{item.stock}}</span>
+                     <div class="flex flex-wrap items-center justify-between gap-3">
+                       <div class="flex items-center gap-2 md:gap-3 text-sm sm:text-[15px] md:text-[16px]">
+                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary">-</button>
+                         <span>{{item.quantity}}</span>
+                         <button class="w-[30px] h-[30px] rounded-sm bg-secondary">+</button>
+                       </div>
+                       <button class="flex items-center gap-1 text-sm text-gray-500 py-2 lg:hidden" (click)="removeCartItem(item.id)">
+                         <span>Remove</span>
+                         <span class="mdi mdi-delete"></span>
+                       </button>
+                     </div>
+                   </div>
 
-                   <!-- the name , buttons to change quantity -->
-                    <div class="flex flex-col gap-3">
-                      <h3 class="text-sm sm:text-[15px] md:text-[16px] text-wrap">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maiores, inventore!</h3>
-                      <b class="md:hidden">$50</b>
-                      <span class="text-sm md:text-[16px] text-wrap">Stock : 12</span>
-                      <div class="flex flex-wrap items-center justify-between gap-3">
-                        <div class="flex items-center gap-2 md:gap-3 text-sm sm:text-[15px] md:text-[16px]">
-                          <button class="w-[30px] h-[30px] rounded-sm bg-secondary">-</button>
-                          <span>1</span>
-                          <button class="w-[30px] h-[30px] rounded-sm bg-secondary">+</button>
-                        </div>
-                        <button class="flex items-center gap-1 text-sm text-gray-400 py-2 md:hidden">
-                          <span>Remove</span>
-                          <span class="mdi mdi-delete"></span>
-                        </button>
-                      </div>
+                   <!-- the price and delete cart button -->
+                    <div class=" hidden lg:flex flex-col item-center gap-3 text-wrap">
+                     <b class="text-[15px] sm:text-[16px] md:text-lg">
+                      @if(item.discountPrice){
+                        ${{item.discountPrice * item.quantity}}
+                      }@else {
+                        ${{item.price * item.quantity}}
+                      }
+                     </b>
+                     <button class="flex items-center gap-1 text-sm text-gray-400" (click)="removeCartItem(item.id)">
+                       <span>Remove</span>
+                       <span class="mdi mdi-cart-remove"></span>
+                     </button>
                     </div>
 
-                    <!-- the price and delete cart button -->
-                     <div class=" hidden md:flex flex-col item-center gap-3 text-wrap">
-                      <b class="text-[15px] sm:text-[16px] md:text-lg">$50</b>
-                      <button class="flex items-center gap-1 text-sm text-gray-400">
-                        <span>Remove</span>
-                        <span class="mdi mdi-delete"></span>
-                      </button>
-                     </div>
+                </div>
 
-                 </div>
+              </div>
+               }
+               }@else {
+                <div class="py-[5%] text-sm sm:text-[16px] md:text-lg">
+                  <p>No cart Item added ...</p>
+                </div>
+               }
 
-               </div>
+              }@else {
+                <div class="w-full flex items-center justify-center py-3">
+                  <div
+                    class="spinner"
+                    style="border-top-color: black; width: 40px; height: 40px"
+                  ></div>
+                </div>
+              }
+             
+            
 
             </div>
-            <div class="bg-white rounded-sm shadow-lg w-full md:w-[25%] h-[13rem]">
+            <div class="bg-white rounded-sm shadow-lg w-full lg:w-[25%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]">
+               <div class="pb-3 border-b-gray-200 border-b-[0.5px]">
+                Cart Subtotal
+               </div>
+               <div class="flex flex-col gap-1 pb-3 border-b-gray-200 border-b-[0.5px]">
+                 <div class="flex items-center gap-2 justify-between">
+                  <span class="text-gray-500">Shipping</span>
+                  <span>Free</span>
+                 </div>
+                 <div class="flex items-center gap-2 justify-between">
+                  <span class="text-gray-500">Tax</span>
+                  <span>${{tax}}</span>
+                 </div>
+                 <div class="flex items-center gap-2 justify-between">
+                  <span class="text-gray-500">SubTotal</span>
+                  <span>${{subTotal}}</span>
+                 </div>
+               </div>
+               <div class="flex items-center gap-2 justify-between">
+                <span>Total</span>
+                <b>${{TotalPrice}}</b>
+               </div>
+               <!-- the checkout button  -->
+                <div class="py-3 w-full">
+                  <button class="uppercase py-2 px-3 w-full rounded-sm text-white bg-black text-[14px]">proceed to checkout</button>
+                </div>
+                <button class=" w-full flex items-center gap-1  justify-center" (click)="goBack()">
+                  <span class="mdi mdi-chevron-left"></span>
+                  <span> countinue shopping</span>
+                </button>
 
             </div>
            </div>

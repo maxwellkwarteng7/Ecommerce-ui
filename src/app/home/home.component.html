@@ -181,7 +181,7 @@
           <p class="text-xs sm:text-sm text-center text-gray-500">
             {{ item.description | truncate : 50 : true }}
           </p>
-          <div class="flex items-center justify-between w-full px-1">
+          <div class="flex items-center flex-wrap justify-between w-full px-1">
             <div class="flex items-center gap-2 text-sm">
               @if(item.discountPrice){
               <h3 class="text-black">$ {{ item.discountPrice }}</h3>

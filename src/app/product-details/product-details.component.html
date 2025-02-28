@@ -19,10 +19,10 @@
 
              <div class="flex items-center flex-wrap gap-2 sm:gap-3 md:gap-4  text-[15px] sm:text-[16.5px] md:text-[18px] xl:text-[21px]">
                 @if(singleProduct.discountPrice){
-                    <b class="font-bold text-primary">Price : ${{singleProduct.discountPrice}}</b>
+                    <b class="font-bold">Price :<span class="text-primary"> ${{singleProduct.discountPrice}}</span></b>
                     <span class="line-through text-gray-500">${{singleProduct.price}}</span>
                 }@else {
-                    <b class="font-bold text-primary">Price : ${{singleProduct.price}}</b>
+                    <b class="font-bold">Price : <span class="text-primary">${{singleProduct.price}}</span></b>
                 }
              </div>
             

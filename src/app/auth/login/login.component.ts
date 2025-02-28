@@ -64,10 +64,12 @@ export class LoginComponent implements OnInit {
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
       this.auth.storeToken(res.message.token); 
       this.loading = false;  
-    }, (error) => {
+    }, (error) => {  
+      console.log(error); 
       this.loginErrorMessage = error.error.error; 
       this.resetForm(loginDetails.email); 
       this.loading = false; 
+      
     }); 
   }
 

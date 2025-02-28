@@ -11,6 +11,7 @@ import { AppState } from '../app.state';
 import { initializeTagProductLoad } from '../States/TagProductState/tag.actions';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
 import { FooterComponent } from "../footer/footer.component";
+import { AuthServiceService } from '../services/auth-service/auth-service.service';
 
 
 
@@ -31,8 +32,9 @@ export class HomeComponent implements OnInit {
     featured: true, 
     category : true 
   }
+  UserLoggedIn!: boolean; 
 
-  constructor(private router :  Router, private store : Store<AppState> , private cartService : CartServiceService) {
+  constructor(private router: Router, private store: Store<AppState>, private cartService: CartServiceService , private authService : AuthServiceService) {
     this.categories$ = this.store.select((state) => state.category).pipe(map(({ categories }) => categories || []));
     
     this.featuredProducts$ = this.store.select((state) => state.tagProducts).pipe(map((state: productsTemplate) => state),
@@ -43,6 +45,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.store.dispatch(initializeCategoryLoad());
     this.store.dispatch(initializeTagProductLoad({ tag: 'featured' })); 
+    console.log(this.authService.isAuthenticated()); 
   }
  
   handleScroll(type: string) {

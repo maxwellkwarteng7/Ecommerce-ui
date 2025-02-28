@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component  , inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 import { loginSuccessMessage, loginTemplate } from '../../models/templates';
 
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
 
   // injecting the auth service 
   auth = inject(AuthServiceService); 
+  router = inject(Router); 
  
 
   ngOnInit(): void { 
@@ -60,10 +61,11 @@ export class LoginComponent implements OnInit {
   submitLoginForm() {
     this.loading = true; 
     const loginDetails : loginTemplate  = this.loginForm.value; 
-    console.log(loginDetails); 
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
       this.auth.storeToken(res.message.token); 
+      this.auth.isLoggedIn = true; 
       this.loading = false;  
+      this.router.navigate(['/home']); 
     }, (error) => {  
       console.log(error); 
       this.loginErrorMessage = error.error.error; 

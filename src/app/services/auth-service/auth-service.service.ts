@@ -18,7 +18,8 @@ export class AuthServiceService {
   constructor(private http: HttpClient, private cookie: CookieService) {}
 
   userDetails!: userDetails;
-  expirationDays: number = 7;
+  expirationDays: number = 1;
+  isLoggedIn: boolean = false ; 
 
   postRegistrationDetails(
     payload: registerTemplate
@@ -45,6 +46,19 @@ export class AuthServiceService {
       sameSite: "Strict",
       secure: true,
     });
+  }
+
+ isAuthenticated() {
+   const token = this.cookie.get("token"); 
+   if (token) {
+     return true; 
+   } else {
+     return false;
+   }
+  }
+
+  Logout() {
+    this.cookie.delete("token"); 
   }
 
   //post pin

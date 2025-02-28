@@ -34,11 +34,12 @@
             <ul class="list-none text-sm text-tertiary flex flex-col  gap-5 md:gap-8 md:flex-row  ">
               <li><a  class="uppercase" [routerLink]="['/home']">Home</a></li>
               <li><a class="uppercase"  [routerLink]="['/products']" >Products</a></li>
+              <li *ngIf="isLoggedIn"><a class="uppercase cursor-pointer">Orders</a></li>
               <li><a class="uppercase"  href="">Events</a></li>
               <li><a class="uppercase"  href="">Company</a></li>
             </ul>
             <!-- auth links and cart -->
-            <div class="flex flex-col pt-4 md:hidden">
+            <div class="flex flex-col pt-4 md:hidden" *ngIf="!isLoggedIn">
                <div class="flex items-center gap-2  text-sm text-tertiary ">
                 <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
                 <span class="mdi mdi-account text-black"></span>
@@ -49,13 +50,17 @@
   
         <!-- the login and the cart  -->
          <div class="flex items-center pr-4  gap-2 md:gap-4 md:pr-[3%] xl:pr-[8%]">
-          <div class="hidden items-center gap-2 text-xs md:text-sm text-tertiary md:flex ">
-            <a href="" [routerLink]="['/sign-up']" class="uppercase">Register</a>
+          <div class="hidden items-center gap-2 text-xs md:text-sm text-tertiary md:flex " *ngIf="!isLoggedIn">
+            <a [routerLink]="['/sign-up']" class="uppercase">Register</a>
             <span class="mdi mdi-account text-black"></span>
            </div> 
-            <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary">
-                <a href="" [routerLink]="['/login']" class="uppercase">Login</a>
+            <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary" *ngIf="!isLoggedIn">
+                <a [routerLink]="['/login']" class="uppercase cursor-pointer">Login</a>
                 <span class="mdi mdi-login text-black"></span>
+            </div>
+            <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary" *ngIf="isLoggedIn"  >
+                <a  (click)="logUserOut()" class="uppercase cursor-pointer">Logout</a>
+                <span class="mdi mdi-logout text-black"></span>
             </div>
   
             <div class="flex items-center gap-2 px-4 text-xs md:text-sm text-tertiary cursor-pointer" [routerLink]="['/cart']">

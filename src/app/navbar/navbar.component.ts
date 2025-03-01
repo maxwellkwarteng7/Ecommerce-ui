@@ -24,8 +24,9 @@ export class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.cartService.cartCount$.subscribe(count => this.cartNumber = count); 
     this.isLoggedIn = this.authService.isAuthenticated(); 
+    this.cartService.updateCartCount(); 
+    this.cartService.cartCount$.subscribe(count => this.cartNumber = count); 
   }
 
  

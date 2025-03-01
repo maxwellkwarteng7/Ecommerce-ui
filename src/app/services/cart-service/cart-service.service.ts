@@ -34,13 +34,19 @@ export class CartServiceService implements OnInit {
 
 
   addToCart(cartItem: Cart) {    
-    const cart = this.isLoggedIn ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]');
-      let  existingProduct: Cart = cart.find((item : Cart)=> item.id === cartItem.id);  
+    let cart = []; 
+    if (this.isLoggedIn) {
+      cart = JSON.parse(localStorage.getItem('userCart') || '[]') ; 
+    } else {
+      cart = JSON.parse(localStorage.getItem('guestCart') || '[]');
+    }
+      let  existingProduct: Cart = cart && cart.find((item : Cart)=> item.id === cartItem.id);  
       if (existingProduct) {
         existingProduct.quantity = cartItem.quantity;  
       } else {
         cart.push(cartItem); 
-      }
+    }
+    console.log('logged in :', this.isLoggedIn); 
     if (this.isLoggedIn) {
       localStorage.setItem('userCart', JSON.stringify(cart));
     } else {
@@ -87,7 +93,7 @@ export class CartServiceService implements OnInit {
       userCart.forEach((userItem : Cart)  => {
         let existingItem = localCart.find((localItem) => userItem.id === localItem.id);
         if (existingItem) {
-          existingItem.quantity += userItem.quantity;
+          existingItem.quantity = userItem.quantity;
           existingItem.isAuthenticated = userItem.isAuthenticated;
         } else {
           localCart.push(userItem);

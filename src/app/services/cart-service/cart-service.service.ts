@@ -13,9 +13,12 @@ export class CartServiceService implements OnInit {
   cartCount = new BehaviorSubject<number>(this.cartValue); 
   cartCount$ = this.cartCount.asObservable(); 
   isLoggedIn: boolean; 
+  cart: Cart[] = []; 
 
-  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth : AuthServiceService) {
+  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth: AuthServiceService) {
     this.isLoggedIn = this.auth.isAuthenticated(); 
+    this.cart = this.getStoredCart();
+    this.cartCount.next(this.cart.length); // Update cart count on initialization
   }
 
   ngOnInit(): void {
@@ -32,29 +35,32 @@ export class CartServiceService implements OnInit {
     return cartContainer.length
   }
 
-
-  addToCart(cartItem: Cart) {    
-    let cart = []; 
-    if (this.isLoggedIn) {
-      cart = JSON.parse(localStorage.getItem('userCart') || '[]') ; 
-    } else {
-      cart = JSON.parse(localStorage.getItem('guestCart') || '[]');
-    }
-      let  existingProduct: Cart = cart && cart.find((item : Cart)=> item.id === cartItem.id);  
-      if (existingProduct) {
-        existingProduct.quantity = cartItem.quantity;  
-      } else {
-        cart.push(cartItem); 
-    }
-    console.log('logged in :', this.isLoggedIn); 
-    if (this.isLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(cart));
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(cart));
-      }
-      this.cartCount.next(cart.length); 
-      this.toaster.success('Added to cart'); 
+  saveCartToStorage() {
+    const storageKey = this.isLoggedIn ? 'userCart' : 'guestCart';
+    localStorage.setItem(storageKey, JSON.stringify(this.cart));
   }
+
+  getStoredCart(): Cart[] {
+    const cart = this.isLoggedIn ? localStorage.getItem('userCart') : localStorage.getItem('guestCart');
+    return cart ? JSON.parse(cart) : [];
+  }
+
+
+ addToCart(cartItem: Cart) {    
+  this.cart = this.getStoredCart();
+  let existingProduct = this.cart.find((item: Cart) => item.id === cartItem.id);  
+
+  if (existingProduct) {
+    existingProduct.quantity = cartItem.quantity;  
+  } else {
+    this.cart.push(cartItem); 
+  }
+
+  this.saveCartToStorage(); // ✅ Ensure storage is updated before updating cart count
+  this.cartCount.next(this.cart.length); 
+  this.toaster.success('Added to cart'); 
+}
+
 
   prepareAndAddToCart(product: any, quantity: number) {
     const { id, name, image, price, discountPrice, stock } = product;
@@ -104,6 +110,7 @@ export class CartServiceService implements OnInit {
     localStorage.setItem('userCart', JSON.stringify(localCart));
     this.cartCount.next(localCart.length); 
   }
+
 
  
 

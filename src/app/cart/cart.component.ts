@@ -32,9 +32,10 @@ export class CartComponent implements OnInit {
   
 
   ngOnInit(): void {
-    this.getLocalCartItems(); 
-    this.getSubTotal(); 
-    console.log('this rendered'); 
+    this.cartService.cartCount$.subscribe(() => {
+      this.getLocalCartItems(); 
+      this.getSubTotal();
+    });
   }
 
   goBack() {
@@ -70,20 +71,17 @@ export class CartComponent implements OnInit {
     this.getSubTotal();
   }
 
-  handleItemQuantity (item : Cart , type : string){
-    //  find the item 
+  handleItemQuantity(item: Cart, type: string) {
     let productItem = this.cartItems.find((product) => product.id === item.id); 
     if (productItem) {
-      type == 'increase' ? productItem.quantity += 1 : productItem.quantity -= 1;
+      type === 'increase' ? productItem.quantity++ : productItem.quantity--;
     } 
-    if (this.isLoggedIn) {
-      localStorage.setItem('userCart', JSON.stringify(this.cartItems));
-    } else {
-      localStorage.setItem('guestCart', JSON.stringify(this.cartItems));
-    }
+    this.cartService.saveCartToStorage(); // Update storage
+    this.cartService.cartCount.next(this.cartItems.length); //  Update cart count
     this.getLocalCartItems(); 
     this.getSubTotal(); 
   }
+  
   
    itemSubTotalPrice(price : number , quantity : number) {
     const newPrice = price * quantity; 

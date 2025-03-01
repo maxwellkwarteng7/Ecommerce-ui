@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Category , Product, productsTemplate, reviewsTemplate } from '../../models/productTemplate';
 import { environment } from '../../../environments/environment.development';
 import { Observable } from 'rxjs';
 import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { CookieService } from 'ngx-cookie-service';
+import { Cart } from '../../models/templates';
 
 
 @Injectable({
@@ -11,7 +13,15 @@ import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/sign
 })
 export class ProductServiceService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private cookie : CookieService) { }
+
+  getHeaders(): HttpHeaders {
+    const token = this.cookie.get('token'); 
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  }
 
   getCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${environment.baseUrl}/category`);
@@ -35,6 +45,10 @@ export class ProductServiceService {
 
   getAllProducts(page: number, limit: number): Observable<productsTemplate>{
     return this.http.get<productsTemplate>(`${environment.baseUrl}/product?page=${page}&limit=${limit}`);
+  }
+
+  getUserProductCart(): Observable<Cart[] | []> {
+    return this.http.get<Cart[] | []>(`${environment.baseUrl}/cart` , {headers : this.getHeaders()});
   }
 
  

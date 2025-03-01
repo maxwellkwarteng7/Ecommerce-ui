@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 import { loginSuccessMessage, loginTemplate } from '../../models/templates';
+import { CartServiceService } from '../../services/cart-service/cart-service.service';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   // injecting the auth service 
   auth = inject(AuthServiceService); 
   router = inject(Router); 
+  cartService = inject(CartServiceService); 
  
 
   ngOnInit(): void { 
@@ -63,7 +65,8 @@ export class LoginComponent implements OnInit {
     const loginDetails : loginTemplate  = this.loginForm.value; 
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
       this.auth.storeToken(res.message.token); 
-      this.auth.isLoggedIn = true; 
+      this.auth.isLoggedIn = true;
+      this.cartService.getUserCart(); 
       this.loading = false;  
       this.router.navigate(['/home']); 
     }, (error) => {  

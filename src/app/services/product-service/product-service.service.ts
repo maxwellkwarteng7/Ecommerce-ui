@@ -47,8 +47,8 @@ export class ProductServiceService {
     return this.http.get<productsTemplate>(`${environment.baseUrl}/product?page=${page}&limit=${limit}`);
   }
 
-  getUserProductCart(): Observable<Cart[] | []> {
-    return this.http.get<Cart[] | []>(`${environment.baseUrl}/cart` , {headers : this.getHeaders()});
+  getUserProductCart(): Observable<Cart[]> {
+    return this.http.get<Cart[]>(`${environment.baseUrl}/cart` , {headers : this.getHeaders()});
   }
 
  

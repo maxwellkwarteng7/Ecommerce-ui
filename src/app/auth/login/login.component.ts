@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component  , inject, OnInit } from '@angular/core';
+import { Component  , Inject, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
@@ -18,6 +18,8 @@ export class LoginComponent implements OnInit {
   loading: boolean = false; 
   loginErrorMessage: string = ''; 
   userDetails!: loginSuccessMessage; 
+
+
   
 
   loginForm: FormGroup = new FormGroup({

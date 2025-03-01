@@ -6,6 +6,7 @@ import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 import { Cart } from '../models/templates';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
+import { AuthServiceService } from '../services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -20,10 +21,14 @@ export class CartComponent implements OnInit {
   loading: boolean = true; 
   subTotal: any = 0; 
   tax: number = 0; 
+  isLoggedIn!: boolean; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
+  private auth = inject(AuthServiceService); 
+  
 
   ngOnInit(): void {
+    this.isLoggedIn = this.auth.isLoggedIn;
     this.getLocalCartItems(); 
     this.getSubTotal(); 
   }
@@ -33,7 +38,7 @@ export class CartComponent implements OnInit {
   }
 
   getLocalCartItems() {
-    this.cartItems = JSON.parse(localStorage.getItem('userCart') || '[]'); 
+    this.cartItems = this.isLoggedIn ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]'); 
     this.loading = false; 
   }
 
@@ -67,7 +72,11 @@ export class CartComponent implements OnInit {
     if (productItem) {
       type == 'increase' ? productItem.quantity += 1 : productItem.quantity -= 1;
     } 
-    localStorage.setItem('userCart', JSON.stringify(this.cartItems));
+    if (this.isLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(this.cartItems));
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(this.cartItems));
+    }
     this.getLocalCartItems(); 
     this.getSubTotal(); 
   }

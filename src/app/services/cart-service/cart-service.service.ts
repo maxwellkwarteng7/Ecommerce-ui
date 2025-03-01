@@ -15,16 +15,20 @@ export class CartServiceService implements OnInit {
   isLoggedIn!: boolean; 
 
   constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth : AuthServiceService) {
-  
+    this.isLoggedIn = this.auth.isLoggedIn; 
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.auth.isLoggedIn; 
+   
+  }
+
+  updateCartCount() {
+    this.cartCount.next(this.cartValue()); 
   }
 
   cartValue(): number {
     let cartContainer = []; 
-    const cart = localStorage.getItem('userCart');
+    const cart = this.isLoggedIn ? localStorage.getItem('userCart') : localStorage.getItem('guestCart');
     if (cart) {
       cartContainer = JSON.parse(cart); 
     }
@@ -64,7 +68,11 @@ export class CartServiceService implements OnInit {
   }
 
   removeFromCart(newItems : Cart[]) {
-    localStorage.setItem('userCart', JSON.stringify(newItems)); 
+    if (this.isLoggedIn) {
+      localStorage.setItem('userCart', JSON.stringify(newItems)); 
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(newItems)); 
+    }
     this.cartCount.next(newItems.length); 
   }
 
@@ -75,8 +83,9 @@ export class CartServiceService implements OnInit {
     });
   }
 
-  handleAuthenticateUserCart(userCart: Cart[] | []) {
-    let localCart : Cart[]  = JSON.parse(localStorage.getItem('userCart') || '[]') as Cart[];
+  handleAuthenticateUserCart(userCart: Cart[]) {
+    console.log(userCart); 
+    let localCart : Cart[]  = JSON.parse(localStorage.getItem('guestCart') || '[]') as Cart[];
     if (userCart.length > 0) {
       userCart.forEach((userItem : Cart)  => {
         let existingItem = localCart.find((localItem) => userItem.id === localItem.id);

@@ -19,16 +19,16 @@
                @if(this.cartItems.length > 0){
                 @for(item of cartItems ; track $index){
                   <!-- the list of carts heres  -->
-              <div class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem]">
+              <div class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem] w-full">
 
                <!-- the image and text  -->
                 <div class="flex items-start gap-5 justify-between">
                  <!-- the image -->
-                 <div class="flex items-center gap-5">
+                 <div class="flex items-center gap-5 w-full">
                   <img src="{{item.image}}" alt="...cart-image" class="w-[100px] h-[100px]  object-cover object-center rounded-sm">
 
                   <!-- the name , buttons to change quantity -->
-                   <div class="flex flex-col gap-3">
+                   <div class="flex flex-col gap-3 w-full">
                      <h3 class="text-sm sm:text-[16px] text-wrap">{{item.name | truncate : 70 }}</h3>
                      <b class="lg:hidden">
                       @if(item.discountPrice){

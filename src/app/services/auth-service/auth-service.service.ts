@@ -58,6 +58,7 @@ export class AuthServiceService {
   }
 
   Logout() {
+    localStorage.removeItem('userCart'); 
     this.cookie.delete("token"); 
   }
 

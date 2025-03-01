@@ -10,30 +10,28 @@ import { AuthServiceService } from "../auth-service/auth-service.service";
   providedIn: "root",
 })
 export class CartServiceService implements OnInit {
-  cartCount = new BehaviorSubject<number>(this.cartValue()); 
+  cartCount = new BehaviorSubject<number>(this.cartValue); 
   cartCount$ = this.cartCount.asObservable(); 
-  isLoggedIn!: boolean; 
+  isLoggedIn: boolean; 
 
   constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth : AuthServiceService) {
-    this.isLoggedIn = this.auth.isLoggedIn; 
+    this.isLoggedIn = this.auth.isAuthenticated(); 
   }
 
   ngOnInit(): void {
    
   }
 
-  updateCartCount() {
-    this.cartCount.next(this.cartValue()); 
-  }
 
-  cartValue(): number {
+ get  cartValue() : number{
     let cartContainer = []; 
     const cart = this.isLoggedIn ? localStorage.getItem('userCart') : localStorage.getItem('guestCart');
     if (cart) {
       cartContainer = JSON.parse(cart); 
     }
-    return cartContainer.length;
+    return cartContainer.length
   }
+
 
   addToCart(cartItem: Cart) {    
     const cart = this.isLoggedIn ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]');
@@ -84,7 +82,6 @@ export class CartServiceService implements OnInit {
   }
 
   handleAuthenticateUserCart(userCart: Cart[]) {
-    console.log(userCart); 
     let localCart : Cart[]  = JSON.parse(localStorage.getItem('guestCart') || '[]') as Cart[];
     if (userCart.length > 0) {
       userCart.forEach((userItem : Cart)  => {
@@ -99,7 +96,7 @@ export class CartServiceService implements OnInit {
        
     } 
     localStorage.setItem('userCart', JSON.stringify(localCart));
-    this.cartCount.next(localCart.length);
+    this.cartCount.next(localCart.length); 
   }
 
  

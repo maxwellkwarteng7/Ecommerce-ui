@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
  
 
   ngOnInit(): void { 
-    
+   
   }
    
  
@@ -67,7 +67,6 @@ export class LoginComponent implements OnInit {
     const loginDetails : loginTemplate  = this.loginForm.value; 
     this.auth.postLoginDetails(loginDetails).subscribe((res) => {
       this.auth.storeToken(res.message.token); 
-      this.auth.isLoggedIn = true;
       this.cartService.getUserCart(); 
       this.loading = false;  
       this.router.navigate(['/home']); 

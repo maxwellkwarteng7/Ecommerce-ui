@@ -19,7 +19,7 @@ export class AuthServiceService {
 
   userDetails!: userDetails;
   expirationDays: number = 1;
-  isLoggedIn: boolean = false ; 
+
 
   postRegistrationDetails(
     payload: registerTemplate
@@ -60,6 +60,7 @@ export class AuthServiceService {
   Logout() {
     localStorage.removeItem('userCart'); 
     this.cookie.delete("token"); 
+
   }
 
   //post pin

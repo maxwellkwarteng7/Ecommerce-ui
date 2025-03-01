@@ -1,19 +1,25 @@
-import { Injectable, signal } from "@angular/core";
+import { Injectable, OnInit, signal } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Cart } from "../../models/templates";
 import { BehaviorSubject } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { ProductServiceService } from "../product-service/product-service.service";
+import { AuthServiceService } from "../auth-service/auth-service.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class CartServiceService {
+export class CartServiceService implements OnInit {
   cartCount = new BehaviorSubject<number>(this.cartValue()); 
   cartCount$ = this.cartCount.asObservable(); 
+  isLoggedIn!: boolean; 
 
-  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService) {
+  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth : AuthServiceService) {
   
+  }
+
+  ngOnInit(): void {
+    this.isLoggedIn = this.auth.isLoggedIn; 
   }
 
   cartValue(): number {
@@ -26,14 +32,18 @@ export class CartServiceService {
   }
 
   addToCart(cartItem: Cart) {    
-    const cart = JSON.parse(localStorage.getItem('userCart') || '[]'); 
+    const cart = this.isLoggedIn ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]');
       let  existingProduct: Cart = cart.find((item : Cart)=> item.id === cartItem.id);  
       if (existingProduct) {
         existingProduct.quantity = cartItem.quantity;  
       } else {
         cart.push(cartItem); 
       }
+    if (this.isLoggedIn) {
       localStorage.setItem('userCart', JSON.stringify(cart));
+    } else {
+      localStorage.setItem('guestCart', JSON.stringify(cart));
+      }
       this.cartCount.next(cart.length); 
       this.toaster.success('Added to cart'); 
   }
@@ -48,6 +58,7 @@ export class CartServiceService {
       discountPrice,
       stock,
       quantity,
+      isAuthenticated : false 
     };
     this.addToCart(cartItem);
   }
@@ -70,7 +81,8 @@ export class CartServiceService {
       userCart.forEach((userItem : Cart)  => {
         let existingItem = localCart.find((localItem) => userItem.id === localItem.id);
         if (existingItem) {
-          existingItem.quantity += userItem.quantity; 
+          existingItem.quantity += userItem.quantity;
+          existingItem.isAuthenticated = userItem.isAuthenticated;
         } else {
           localCart.push(userItem);
         }

@@ -37,7 +37,8 @@ export interface Cart {
     price: number, 
     discountPrice : number , 
     stock: number, 
-    quantity : number 
+    quantity: number, 
+    isAuthenticated: boolean;
 }
 
 

@@ -21,16 +21,20 @@ export class CartComponent implements OnInit {
   loading: boolean = true; 
   subTotal: any = 0; 
   tax: number = 0; 
-  isLoggedIn!: boolean; 
+  isLoggedIn: boolean; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
   private auth = inject(AuthServiceService); 
+
+  constructor() {
+    this.isLoggedIn = this.auth.isAuthenticated(); 
+  }
   
 
   ngOnInit(): void {
-    this.isLoggedIn = this.auth.isLoggedIn;
     this.getLocalCartItems(); 
     this.getSubTotal(); 
+    console.log('this rendered'); 
   }
 
   goBack() {
@@ -38,7 +42,7 @@ export class CartComponent implements OnInit {
   }
 
   getLocalCartItems() {
-    this.cartItems = this.isLoggedIn ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]'); 
+    this.cartItems = this.isLoggedIn == true ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]'); 
     this.loading = false; 
   }
 

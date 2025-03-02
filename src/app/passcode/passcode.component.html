@@ -48,6 +48,7 @@
         </div>
         <div class="mt-8">
           <button
+          (click)="handleSixDigit()"
             class="bg-primary text-white text-sm text-center py-2 rounded-sm w-full"
             [disabled]="!forgotPasswordForm.valid"
           >
@@ -60,7 +61,13 @@
     <!-- the authenticated email section -->
      <div *ngIf="currentRoute === 'verify-email'">
         <div class="text-center text-semibold text-lg mt-3">
-            <h5>Verify Email</h5>
+            <h5>
+              @if(currentRoute === 'verify-email'){
+                Verify Email
+              }@else {
+                Password Reset Pin
+              }
+            </h5>
             <p class="text-xs text-tertiary">
               6 digit pin has been sent to your email
             </p>

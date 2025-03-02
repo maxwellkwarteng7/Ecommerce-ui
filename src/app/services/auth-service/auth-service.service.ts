@@ -21,6 +21,7 @@ export class AuthServiceService {
 
   userDetails!: userDetails;
   expirationDays: number = 1;
+  userEmail: string = ''; 
 
 
   postRegistrationDetails(
@@ -68,9 +69,9 @@ export class AuthServiceService {
   }
 
   //post pin
-  postPinInfo(payload: string): Observable<string> {
+  postPinInfo(payload: any , url : string): Observable<string> {
     return this.http.post<string>(
-      `${environment.baseUrl}/verify-email`,
+      `${environment.baseUrl}/${url}`,
       payload
     );
    }

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthServiceService } from '../services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-passcode',
@@ -16,7 +17,7 @@ export class PasscodeComponent implements OnInit {
 
   currentRoute!: string;  
 
-  constructor(private router  : ActivatedRoute) {
+  constructor(private router  : ActivatedRoute , private auth : AuthServiceService) {
 
   }
 
@@ -67,6 +68,20 @@ export class PasscodeComponent implements OnInit {
   
     // parse it and make it an integer
     const sixDigits = parseInt(newValues); 
+    let payload : {email : string , pin: number , type : string}= {
+      pin: sixDigits, 
+      type: this.currentRoute ,
+      email : ''
+    }
+    if (this.currentRoute == 'verify-email') {
+      payload.email = this.auth.userEmail;
+      console.log(payload); 
+    } else {
+      let useremail = this.forgotPasswordForm.value;
+      payload.email = useremail.email;
+      console.log(payload); 
+
+    }
     
   }
 

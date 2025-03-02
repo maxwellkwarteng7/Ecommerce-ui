@@ -16,7 +16,11 @@ export class SignUpComponent implements OnInit {
 
   type: string = 'password'; 
   loading: boolean = false; 
-  registrationErrorMessage: string = ''; 
+  registrationErrorMessage: string = '';
+  
+    // inject the authentication service 
+    auth = inject(AuthServiceService); 
+    router = inject(Router); 
 
   registerForm: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -31,9 +35,7 @@ export class SignUpComponent implements OnInit {
    
   }
 
-  // inject the authentication service 
-  auth = inject(AuthServiceService); 
-  router = inject(Router); 
+
 
     // the password validator function 
     confirmPasswordValidator(): ValidatorFn {
@@ -71,20 +73,14 @@ export class SignUpComponent implements OnInit {
     delete body.confirmPassword; 
     body.role = 'customer'; 
     // make the api call 
-    this.auth.postRegistrationDetails(body).subscribe((res) => {
-      this.auth.postPinInfo(body.email).subscribe((res) => {
-      this.router.navigateByUrl('/verify-email');     
-      }, (error) => {
-        this.registrationErrorMessage = error.error.error; 
-      console.log(error); 
-      this.loading = false; 
-      })
+    this.auth.postRegistrationDetails(body).subscribe((res) => { 
+      this.auth.userEmail = body.email; 
+      this.router.navigateByUrl('/verify-email');
     }, (error) => {
-      this.registrationErrorMessage = error.error.error; 
-      console.log(error); 
-      this.loading = false; 
-    })
-
+      this.registrationErrorMessage = error.error.error;
+      console.log(error);
+      this.loading = false;
+    });
   }
 
 

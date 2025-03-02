@@ -6,7 +6,6 @@ import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 import { Cart } from '../models/templates';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
-import { AuthServiceService } from '../services/auth-service/auth-service.service';
 
 @Component({
   selector: 'app-cart',
@@ -21,21 +20,12 @@ export class CartComponent implements OnInit {
   loading: boolean = true; 
   subTotal: any = 0; 
   tax: number = 0; 
-  isLoggedIn: boolean; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
-  private auth = inject(AuthServiceService); 
-
-  constructor() {
-    this.isLoggedIn = this.auth.isAuthenticated(); 
-  }
-  
 
   ngOnInit(): void {
-    this.cartService.cartCount$.subscribe(() => {
-      this.getLocalCartItems(); 
-      this.getSubTotal();
-    });
+    this.getLocalCartItems(); 
+    this.getSubTotal(); 
   }
 
   goBack() {
@@ -43,7 +33,7 @@ export class CartComponent implements OnInit {
   }
 
   getLocalCartItems() {
-    this.cartItems = this.isLoggedIn == true ? JSON.parse(localStorage.getItem('userCart') || '[]') : JSON.parse(localStorage.getItem('guestCart') || '[]'); 
+    this.cartItems = JSON.parse(localStorage.getItem('userCart') || '[]'); 
     this.loading = false; 
   }
 
@@ -71,17 +61,16 @@ export class CartComponent implements OnInit {
     this.getSubTotal();
   }
 
-  handleItemQuantity(item: Cart, type: string) {
+  handleItemQuantity (item : Cart , type : string){
+    //  find the item 
     let productItem = this.cartItems.find((product) => product.id === item.id); 
     if (productItem) {
-      type === 'increase' ? productItem.quantity++ : productItem.quantity--;
+      type == 'increase' ? productItem.quantity += 1 : productItem.quantity -= 1;
     } 
-    this.cartService.saveCartToStorage(); // Update storage
-    this.cartService.cartCount.next(this.cartItems.length); //  Update cart count
+    localStorage.setItem('userCart', JSON.stringify(this.cartItems));
     this.getLocalCartItems(); 
     this.getSubTotal(); 
   }
-  
   
    itemSubTotalPrice(price : number , quantity : number) {
     const newPrice = price * quantity; 

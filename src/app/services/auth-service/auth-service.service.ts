@@ -10,12 +10,14 @@ import {
 import { environment } from "../../../environments/environment.development";
 import { Observable } from "rxjs";
 import { CookieService } from "ngx-cookie-service";
+import { Cart } from "../../models/templates";
+import { CartServiceService } from "../cart-service/cart-service.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthServiceService {
-  constructor(private http: HttpClient, private cookie: CookieService) {}
+  constructor(private http: HttpClient, private cookie: CookieService , private cartService : CartServiceService) {}
 
   userDetails!: userDetails;
   expirationDays: number = 1;
@@ -58,9 +60,11 @@ export class AuthServiceService {
   }
 
   Logout() {
-    localStorage.removeItem('userCart'); 
+    let cartItems : Cart[] = JSON.parse(localStorage.getItem('userCart') || '[]'); 
+    let guestCart = cartItems && cartItems.filter((item: Cart) => item.isAuthenticated !== true); 
+    localStorage.setItem('userCart', JSON.stringify(guestCart));
+    this.cartService.cartCount.next(guestCart.length); 
     this.cookie.delete("token"); 
-
   }
 
   //post pin

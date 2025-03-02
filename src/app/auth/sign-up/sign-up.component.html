@@ -1,5 +1,5 @@
 <!-- this is the content of the register / sign-up page  -->
-<div class="flex items-center justify-center w-full min-h-[100vh] bg-white">
+<div class="flex items-center justify-center w-full min-h-[100vh] bg-white pb-[20vh]">
   <!-- home button -->
   <button
     [routerLink]="['/home']"
@@ -11,10 +11,10 @@
 
   <!--  -->
   <div
-    class="w-[90%] shadow-2xl xl:w-[900px] h-[80vh] flex items-center rounded-sm"
+    class="w-[90%] shadow-2xl xl:w-[900px] min-h-[80vh] grid grid-cols-1 md:grid-cols-2  rounded-sm relative top-[10vh]"
   >
     <div
-      class="hidden md:block md:w-[50%] bg-tertiary h-full overflow-hidden z-40 rounded-sm"
+      class="hidden md:block md:w-full  h-full overflow-hidden z-40 rounded-sm relative"
     >
       <img
         src="/auth-images/register.jpg"
@@ -25,7 +25,7 @@
     </div>
 
     <!-- the registration part  -->
-    <div class="w-full md:w-[50%] h-full relative">
+    <div class="w-full md:w-full h-full relative py-5 xl:py-0">
       <div class="absolute right-[5px] top-[5px] w-[77px] my-5 mx-3">
         <a
           routerLink="/home"

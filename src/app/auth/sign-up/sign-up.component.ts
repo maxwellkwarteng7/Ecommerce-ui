@@ -12,7 +12,7 @@ import { AuthServiceService } from '../../services/auth-service/auth-service.ser
   templateUrl: './sign-up.component.html',
   styleUrl: './sign-up.component.scss'
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent  {
 
   type: string = 'password'; 
   loading: boolean = false; 
@@ -31,10 +31,7 @@ export class SignUpComponent implements OnInit {
       validators : this.confirmPasswordValidator()
   });
 
-  ngOnInit(): void {
-   
-  }
-
+ 
 
 
     // the password validator function 
@@ -75,7 +72,7 @@ export class SignUpComponent implements OnInit {
     // make the api call 
     this.auth.postRegistrationDetails(body).subscribe((res) => { 
       this.auth.userEmail = body.email; 
-      this.router.navigateByUrl('/verify-email');
+      this.router.navigateByUrl('/pin-verification');
     }, (error) => {
       this.registrationErrorMessage = error.error.error;
       console.log(error);

@@ -1,106 +1,91 @@
 <div class="w-full h-[100vh] flex items-center justify-center bg-[whitesmoke]">
   <!-- the card  -->
-  <div class="w-[95%] sm:w-[400px] bg-white min-h-[20rem] shadow-xl rounded-sm py-5 px-10">
+  <div
+    class="w-[95%] sm:w-[400px] bg-white min-h-[20rem] shadow-xl rounded-sm py-5 px-10"
+  >
     <div class="text-center text-2xl">
       <span class="mdi mdi-lock"></span>
     </div>
 
-    <!-- the forgot password section -->
-    <div *ngIf="currentRoute === 'forgot-password'">
-      <!-- title of the page  -->
+    <!-- the authenticated email section -->
+    <div>
       <div class="text-center text-semibold text-lg mt-3">
-        <h5>Reset Password</h5>
+        <h5>Pin Verification</h5>
         <p class="text-xs text-tertiary">
-          Enter your email to reset your password
+          6 digit pin has been sent to your email
         </p>
       </div>
 
-      <!-- enter your email field -->
-
-      <form [formGroup]="forgotPasswordForm">
-        <div class="my-3">
-          <label class="inline-block w-full text-gray-600" for="email"
-            >Email</label
-          >
+      <!-- the input fields to handle that  -->
+      <form [formGroup]="SixdigitPinForm">
+        <div
+          class="flex items-center gap-2 justify-evenly w-full h-full overflow-hidden mt-4"
+        >
           <input
-            class="w-full outline-none text-sm border-b-[0.5px] border-b-gray-500 text-gray-700 py-1"
-            placeholder="eg: Johndoe@gmail.com"
-            formControlName="email"
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text1
+            (keyup)="autoFocus($event, '', text1, text2)"
+            formControlName="one"
           />
-          <!-- error message -->
-          <div
-            *ngIf="
-              forgotPasswordFields['email']['errors'] &&
-              forgotPasswordFields['email']['touched']
-            "
-            class="text-red-500 text-xs"
-          >
-            <p *ngIf="forgotPasswordFields['email']['errors']['required']">
-              Email is required
-            </p>
-            <p
-              *ngIf="forgotPasswordFields['email']['errors']['email']"
-              class="mt-1"
-            >
-              Must be a valid email and not more than 255 characters
-            </p>
-          </div>
+          <input
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text2
+            (keyup)="autoFocus($event, text1, text2, text3)"
+            formControlName="two"
+          />
+          <input
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text3
+            (keyup)="autoFocus($event, text2, text3, text4)"
+            formControlName="three"
+          />
+          <input
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text4
+            (keyup)="autoFocus($event, text3, text4, text5)"
+            formControlName="four"
+          />
+          <input
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text5
+            (keyup)="autoFocus($event, text4, text5, text6)"
+            formControlName="five"
+          />
+          <input
+            class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary"
+            type="text"
+            maxlength="1"
+            #text6
+            (keyup)="autoFocus($event, text5, text6, '')"
+            formControlName="six"
+          />
         </div>
-        <div class="mt-8">
+        <div class="my-5">
           <button
-          (click)="handleSixDigit()"
-            class="bg-primary text-white text-sm text-center py-2 rounded-sm w-full"
-            [disabled]="!forgotPasswordForm.valid"
+            (click)="handleSixDigit()"
+            [disabled]="!SixdigitPinForm.valid"
+            class="w-full text-white rounded-sm py-2 bg-primary text-center"
           >
             Submit
           </button>
         </div>
       </form>
+
+      <!-- facing issues  -->
+      <div class="text-sm text-tertiary text-center">
+        <span>Are you facing any problems receiving the code ?</span>
+        <a class="text-gray-700">Resend Code</a>
+      </div>
     </div>
-
-    <!-- the authenticated email section -->
-     <div *ngIf="currentRoute === 'verify-email'">
-        <div class="text-center text-semibold text-lg mt-3">
-            <h5>
-              @if(currentRoute === 'verify-email'){
-                Verify Email
-              }@else {
-                Password Reset Pin
-              }
-            </h5>
-            <p class="text-xs text-tertiary">
-              6 digit pin has been sent to your email
-            </p>
-          </div>
-
-          <!-- the input fields to handle that  -->
-           <form  [formGroup]="SixdigitPinForm">
-            <div class="flex items-center gap-2 justify-evenly  w-full h-full overflow-hidden mt-4">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text1 (keyup)="autoFocus($event , '' , text1 , text2)" formControlName="one">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text2 (keyup)="autoFocus($event , text1 , text2 , text3)" formControlName="two">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text3 (keyup)="autoFocus($event , text2 , text3 , text4)" formControlName="three">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text4 (keyup)="autoFocus($event , text3 , text4 , text5)" formControlName="four">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text5 (keyup)="autoFocus($event , text4 , text5 , text6)" formControlName="five">
-                <input class="py-2 w-full border-solid border-[1px] border-gray-500 rounded-sm text-sm text-center outline-none focus:border-primary focus:text-primary" type="text" maxlength="1" #text6 (keyup)="autoFocus($event , text5 , text6 , '')" formControlName="six">
-            </div>
-            <div class="my-5">
-                <button (click)="handleSixDigit()" [disabled]="!SixdigitPinForm.valid" class="w-full text-white rounded-sm py-2 bg-primary text-center">
-                    Verify
-                </button>
-            </div>
-           </form>
-
-           <!-- facing issues  -->
-            <div  class="text-sm text-tertiary text-center">
-                <span>Are you facing any problems receiving the code ?</span>
-                <a class="text-gray-700">Resend Code</a>
-            </div>
-
-     </div>
-
-
-
   </div>
 </div>
-
-

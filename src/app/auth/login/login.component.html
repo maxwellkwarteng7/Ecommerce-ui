@@ -62,10 +62,10 @@
                             </div> 
                         </div>
                         <div class="mb-2 mt-5 flex items-center justify-end text-[13px] text-gray-800">
-                           <a class="underline underline-offset-2"
-                           routerLink="/forgot-password">forgot Password ?</a>
+                           <a (click)="handleForgotPassword()" class="underline underline-offset-2"
+                           >forgot Password ?</a>
                         </div> 
-
+                        
                         <!-- the button to send the details  -->
                          <div class="mt-8">
                           @if (loading === false) {

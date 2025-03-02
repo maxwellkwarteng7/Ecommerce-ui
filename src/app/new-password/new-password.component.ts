@@ -47,7 +47,9 @@ export class NewPasswordComponent {
   }
   
   handleNewPassword() {
-    
+    let values = this.PasswordForm.value; 
+    delete values.confirmPassword; 
+    console.log(values); 
   }
  
 }

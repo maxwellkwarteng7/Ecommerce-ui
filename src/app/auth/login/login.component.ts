@@ -36,6 +36,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void { 
    
   }
+
+
+  handleForgotPassword() {
+    localStorage.setItem('type', 'forgot-password'); 
+    this.router.navigate(['/forgot-password']);
+  }
    
  
 

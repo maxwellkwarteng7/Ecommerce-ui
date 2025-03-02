@@ -40,8 +40,8 @@ export class ForgotPasswordComponent {
     console.log(values); 
     this.auth.initiateForgotPassword(values).subscribe({
       next: () => {
-        this.auth.userEmail = values.email;
-        this.auth.type = 'forgot-password';
+        localStorage.setItem('type', 'forgot-password');
+        localStorage.setItem('userEmail', JSON.stringify(values.email)); 
         this.router.navigate(['/pin-verification']);
       },
       error: (err) => {

@@ -21,8 +21,7 @@ export class AuthServiceService {
 
   expirationDays: number = 1;
   // using this  2 variables in  forgot password and pin components 
-  userEmail: string = ''; 
-  type: string = ''; 
+ 
 
 
   postRegistrationDetails(
@@ -71,7 +70,7 @@ export class AuthServiceService {
 
   //post pin
   postPin(payload: { pin: string, email: string, type: string }): Observable<string> {
-    let url = this.type; 
+    let url = JSON.parse(localStorage.getItem('type') || '');
     return this.http.post<string>(
       `${environment.baseUrl}/${url}`,
       payload

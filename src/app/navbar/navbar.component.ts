@@ -5,6 +5,8 @@ import { AuthServiceService } from '../services/auth-service/auth-service.servic
 import { CommonModule } from '@angular/common';
 import { AlertServiceService } from '../services/sweetAlert/alert-service.service';
 
+
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -27,6 +29,7 @@ export class NavbarComponent implements OnInit {
     this.isLoggedIn = this.authService.isAuthenticated(); 
     this.cartService.cartCount$.subscribe(count => this.cartNumber = count); 
   }
+
 
  
   toggleHamburger() {

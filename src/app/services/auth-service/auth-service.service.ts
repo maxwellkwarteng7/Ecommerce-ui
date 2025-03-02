@@ -19,9 +19,9 @@ import { CartServiceService } from "../cart-service/cart-service.service";
 export class AuthServiceService {
   constructor(private http: HttpClient, private cookie: CookieService , private cartService : CartServiceService) {}
 
-  userDetails!: userDetails;
   expirationDays: number = 1;
-  userEmail: string = ''; 
+  // using this  2 variables in  forgot password and pin components 
+ 
 
 
   postRegistrationDetails(
@@ -69,10 +69,15 @@ export class AuthServiceService {
   }
 
   //post pin
-  postPinInfo(payload: any , url : string): Observable<string> {
+  postPin(payload: { pin: string, email: string, type: string }): Observable<string> {
+    let url = JSON.parse(localStorage.getItem('type') || '');
     return this.http.post<string>(
       `${environment.baseUrl}/${url}`,
       payload
     );
-   }
+  }
+  
+  initiateForgotPassword(email : string): Observable<string>{
+    return this.http.post<string>(`${environment.baseUrl}/initiate-password-reset`, email);
+  }
 }

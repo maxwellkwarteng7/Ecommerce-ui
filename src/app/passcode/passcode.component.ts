@@ -1,14 +1,17 @@
 import { CommonModule } from "@angular/common";
 import { Component, OnInit } from "@angular/core";
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { filter } from "rxjs";
+import { Router } from "@angular/router";
 import { AuthServiceService } from "../services/auth-service/auth-service.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-passcode",
@@ -17,11 +20,26 @@ import { AuthServiceService } from "../services/auth-service/auth-service.servic
   templateUrl: "./passcode.component.html",
   styleUrl: "./passcode.component.scss",
 })
-export class PasscodeComponent {
+export class PasscodeComponent implements OnInit{
+  errorMessage: string = ''; 
+  loading: boolean = false; 
+  type: string = 'password'; 
+  processingType!: string; 
+
   constructor(
-    private router: ActivatedRoute,
-    private auth: AuthServiceService
-  ) {}
+    private router: Router,
+    private auth: AuthServiceService,
+    private toaster: ToastrService
+  ) { }
+
+  ngOnInit(): void {
+    this.getType();
+  }
+  
+
+  getType() {
+     this.processingType = localStorage.getItem('type') || ''; 
+  }
 
   // the 6 digit form
   SixdigitPinForm: FormGroup = new FormGroup({
@@ -32,6 +50,19 @@ export class PasscodeComponent {
     five: new FormControl("", [Validators.required]),
     six: new FormControl("", [Validators.required]),
   });
+
+  PasswordForm: FormGroup = new FormGroup({
+    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+  }, {
+      validators : this.confirmPasswordValidator()
+  });
+  
+
+  
+  get Fields() {
+    return this.PasswordForm.controls; 
+  }
 
   // function to handle the event to focus the input to the next and backspace to the previous
 
@@ -50,18 +81,44 @@ export class PasscodeComponent {
     }
   }
 
+
+       confirmPasswordValidator(): ValidatorFn {
+          return (control: AbstractControl): ValidationErrors | null => {
+            if (control instanceof FormGroup) {
+              const password = control.get('password')?.value; 
+              const confirmPassword = control.get('confirmPassword')?.value; 
+              // checking if the two of the passwords match 
+              return password && confirmPassword && password !== confirmPassword ? { mismatch: true } : null;
+              
+            }
+            return null; 
+          }
+  }
+  
+  togglePassword() {
+    if (this.type === 'password') {
+      this.type = 'text'; 
+    } else {
+      this.type = 'password'; 
+    }
+  }
+    
+
   // handle 6 digit
   handleSixDigit() {
+    this.loading = true; 
     const values = this.SixdigitPinForm.value;
+    console.log(values);
     // get all values as one into newValues variable
-    const newValues: string = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
+    const newValues = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
 
-    // parse it and make it an integer
-    const sixDigits = parseInt(newValues);
-    let payload: { email: string; pin: number; type: string } = {
-      pin: sixDigits,
-      type: "",
-      email: "",
+    let payload: { email: string; pin: string ; type: string } = {
+      pin: newValues,
+      type: '',
+      email: '',
     };
+    //  now that you have the payload make the api request 
+    
+
   }
 }

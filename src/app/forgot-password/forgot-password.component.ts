@@ -1,6 +1,10 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { CommonModule, Location } from '@angular/common';
+import { Component, inject } from '@angular/core';
 import { FormGroup , ReactiveFormsModule , Validators , FormControl } from '@angular/forms';
+import { AuthServiceService } from '../services/auth-service/auth-service.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+
 
 @Component({
   selector: 'app-forgot-password',
@@ -11,9 +15,21 @@ import { FormGroup , ReactiveFormsModule , Validators , FormControl } from '@ang
 })
 export class ForgotPasswordComponent {
 
+  auth = inject(AuthServiceService); 
+  router = inject(Router); 
+  toaster = inject(ToastrService); 
+  location = inject(Location); 
+
+  errorMessage: string = ''; 
+
   forgotPasswordForm: FormGroup = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
   });
+
+  handleGoBack() {
+    this.location.back(); 
+  }
+
 
   get forgotPasswordFields() {
     return this.forgotPasswordForm.controls;
@@ -21,8 +37,17 @@ export class ForgotPasswordComponent {
 
   handleForgotPassword() {
     const values = this.forgotPasswordForm.value; 
-    
-
+    console.log(values); 
+    this.auth.initiateForgotPassword(values).subscribe({
+      next: () => {
+        localStorage.setItem('type', 'forgot-password');
+        localStorage.setItem('userEmail', JSON.stringify(values.email)); 
+        this.router.navigate(['/pin-verification']);
+      },
+      error: (err) => {
+        this.errorMessage = err.error.error
+      }
+    }); 
   }
 
 

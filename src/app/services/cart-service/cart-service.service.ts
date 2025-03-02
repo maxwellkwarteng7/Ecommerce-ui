@@ -12,17 +12,17 @@ import { AuthServiceService } from "../auth-service/auth-service.service";
 export class CartServiceService implements OnInit {
   cartCount = new BehaviorSubject<number>(this.cartValue); 
   cartCount$ = this.cartCount.asObservable(); 
-  isLoggedIn: boolean; 
+  isLoggedIn!: boolean; 
   cart: Cart[] = []; 
 
   constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService, private auth: AuthServiceService) {
+    // Update cart count on initialization
     this.isLoggedIn = this.auth.isAuthenticated(); 
-    this.cart = this.getStoredCart();
-    this.cartCount.next(this.cart.length); // Update cart count on initialization
   }
 
   ngOnInit(): void {
-   
+    this.cart = this.getStoredCart();
+    this.cartCount.next(this.cart.length); 
   }
 
 
@@ -37,6 +37,7 @@ export class CartServiceService implements OnInit {
 
   saveCartToStorage() {
     const storageKey = this.isLoggedIn ? 'userCart' : 'guestCart';
+    console.log('saving cart', storageKey); 
     localStorage.setItem(storageKey, JSON.stringify(this.cart));
   }
 

@@ -70,7 +70,8 @@ export class AuthServiceService {
   }
 
   //post pin
-  postPin(payload: any , url : string): Observable<string> {
+  postPin(payload: { pin: string, email: string, type: string }): Observable<string> {
+    let url = this.type; 
     return this.http.post<string>(
       `${environment.baseUrl}/${url}`,
       payload

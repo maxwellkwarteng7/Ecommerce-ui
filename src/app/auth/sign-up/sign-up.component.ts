@@ -72,7 +72,7 @@ export class SignUpComponent  {
     // make the api call 
     this.auth.postRegistrationDetails(body).subscribe((res) => { 
       this.auth.userEmail = body.email;  
-      this.auth.type = 'email-verification'; 
+      this.auth.type = 'verify-email'; 
       this.router.navigateByUrl('/pin-verification');
     }, (error) => {
       this.registrationErrorMessage = error.error.error;

@@ -6,9 +6,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { ActivatedRoute, NavigationEnd, Router } from "@angular/router";
-import { filter } from "rxjs";
+import { Router } from "@angular/router";
 import { AuthServiceService } from "../services/auth-service/auth-service.service";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
   selector: "app-passcode",
@@ -18,9 +18,13 @@ import { AuthServiceService } from "../services/auth-service/auth-service.servic
   styleUrl: "./passcode.component.scss",
 })
 export class PasscodeComponent {
+  errorMessage: string = ''; 
+  loading: boolean = false; 
+
   constructor(
-    private router: ActivatedRoute,
-    private auth: AuthServiceService
+    private router: Router,
+    private auth: AuthServiceService, 
+    private toaster : ToastrService
   ) {}
 
   // the 6 digit form
@@ -52,17 +56,18 @@ export class PasscodeComponent {
 
   // handle 6 digit
   handleSixDigit() {
+    this.loading = true; 
     const values = this.SixdigitPinForm.value;
+    console.log(values);
     // get all values as one into newValues variable
-    const newValues: string = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
+    const newValues = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
 
-    // parse it and make it an integer
-    const sixDigits = parseInt(newValues);
-    let payload: { email: string; pin: number; type: string } = {
-      pin: sixDigits,
+    let payload: { email: string; pin: string ; type: string } = {
+      pin: newValues,
       type: this.auth.type,
       email: this.auth.userEmail,
     };
-    console.log(payload); 
+    //  now that you have the payload make the api request 
+    
   }
 }

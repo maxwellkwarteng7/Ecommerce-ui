@@ -27,7 +27,7 @@ export class ForgotPasswordComponent {
   });
 
   handleGoBack() {
-    this.location.back();
+    this.location.back(); 
   }
 
 

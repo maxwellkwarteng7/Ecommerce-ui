@@ -15,6 +15,10 @@
           6 digit pin has been sent to your email
         </p>
       </div>
+      <!-- error message -->
+      <div class="py-2 text-center text-xs text-red-500">
+        {{errorMessage}}
+      </div>
 
       <!-- the input fields to handle that  -->
       <form [formGroup]="SixdigitPinForm">
@@ -74,17 +78,21 @@
           <button
             (click)="handleSixDigit()"
             [disabled]="!SixdigitPinForm.valid"
-            class="w-full text-white rounded-sm py-2 bg-primary text-center"
+            class="w-full text-white rounded-sm py-2 bg-primary text-center flex items-center justify-center"
           >
-            Submit
+            @if(!loading){
+              Submit
+            }@else {
+              <span class="spinner"></span>
+            }
           </button>
         </div>
       </form>
 
       <!-- facing issues  -->
       <div class="text-sm text-tertiary text-center">
-        <span>Are you facing any problems receiving the code ?</span>
-        <a class="text-gray-700">Resend Code</a>
+        <span>Are you facing any problems receiving the code ?  </span>
+        <button class="text-gray-700  underline underline-offset-2 "> Resend Code</button>
       </div>
     </div>
   </div>

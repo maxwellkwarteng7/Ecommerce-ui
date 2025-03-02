@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
 
 
-  constructor(private cartService: CartServiceService, private authService: AuthServiceService, private router: Router , private alert : AlertServiceService  , private location : Location) {
+  constructor(private cartService: CartServiceService, private authService: AuthServiceService, private router: Router , private alert : AlertServiceService) {
   }
 
   ngOnInit(): void {

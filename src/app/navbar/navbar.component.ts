@@ -5,6 +5,8 @@ import { AuthServiceService } from '../services/auth-service/auth-service.servic
 import { CommonModule } from '@angular/common';
 import { AlertServiceService } from '../services/sweetAlert/alert-service.service';
 
+
+
 @Component({
   selector: 'app-navbar',
   standalone: true,
@@ -20,13 +22,14 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean = false;
 
 
-  constructor(private cartService: CartServiceService, private authService: AuthServiceService, private router: Router , private alert : AlertServiceService) {
+  constructor(private cartService: CartServiceService, private authService: AuthServiceService, private router: Router , private alert : AlertServiceService  , private location : Location) {
   }
 
   ngOnInit(): void {
     this.isLoggedIn = this.authService.isAuthenticated(); 
     this.cartService.cartCount$.subscribe(count => this.cartNumber = count); 
   }
+
 
  
   toggleHamburger() {

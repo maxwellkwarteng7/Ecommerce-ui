@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  // post the login details 
  
 
 

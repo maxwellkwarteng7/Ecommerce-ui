@@ -60,8 +60,9 @@ export class PasscodeComponent {
     const sixDigits = parseInt(newValues);
     let payload: { email: string; pin: number; type: string } = {
       pin: sixDigits,
-      type: "",
-      email: "",
+      type: this.auth.type,
+      email: this.auth.userEmail,
     };
+    console.log(payload); 
   }
 }

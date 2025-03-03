@@ -41,7 +41,7 @@ export class ForgotPasswordComponent {
     this.auth.initiateForgotPassword(values).subscribe({
       next: () => {
         localStorage.setItem('type', 'forgot-password');
-        localStorage.setItem('userEmail', JSON.stringify(values.email)); 
+        localStorage.setItem('userEmail', values.email); 
         this.router.navigate(['/pin-verification']);
       },
       error: (err) => {

@@ -76,7 +76,7 @@
         </div>
         <div class="my-5">
           <button
-            (click)="handleSixDigit()"
+            (click)="handleEmailVerification()"
             [disabled]="!SixdigitPinForm.valid"
             class="w-full text-white rounded-sm py-2 bg-primary text-center flex items-center justify-center"
             *ngIf="processingType === 'verify-email'"
@@ -184,7 +184,7 @@
           </div>
         <div class="mt-8">
           <button
-         
+            (click)="handleForgotPassword()"
             class="bg-primary text-white text-sm text-center py-2 rounded-sm w-full"
             [disabled]="!PasswordForm.valid || !SixdigitPinForm.valid"
           >

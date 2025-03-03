@@ -69,8 +69,7 @@ export class AuthServiceService {
   }
 
   //post pin
-  postPin(payload: { pin: string, email: string, type: string }): Observable<string> {
-    let url = JSON.parse(localStorage.getItem('type') || '');
+  postPin(payload: { pin: string, email: string, type: string } , url : string): Observable<string> {
     return this.http.post<string>(
       `${environment.baseUrl}/${url}`,
       payload

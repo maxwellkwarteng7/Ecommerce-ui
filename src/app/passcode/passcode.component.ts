@@ -25,6 +25,7 @@ export class PasscodeComponent implements OnInit{
   loading: boolean = false; 
   type: string = 'password'; 
   processingType!: string; 
+  userEmail!: string;
 
   constructor(
     private router: Router,
@@ -33,12 +34,13 @@ export class PasscodeComponent implements OnInit{
   ) { }
 
   ngOnInit(): void {
-    this.getType();
+    this.getEmailAndType();
   }
   
 
-  getType() {
-     this.processingType = localStorage.getItem('type') || ''; 
+  getEmailAndType() {
+    this.processingType = localStorage.getItem('type') || '';
+    this.userEmail = localStorage.getItem('userEmail') || ''; 
   }
 
   // the 6 digit form
@@ -52,8 +54,8 @@ export class PasscodeComponent implements OnInit{
   });
 
   PasswordForm: FormGroup = new FormGroup({
-    password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(8) , Validators.maxLength(128)]),
+    confirmPassword: new FormControl('', [Validators.required, Validators.minLength(8), Validators.maxLength(128)]),
   }, {
       validators : this.confirmPasswordValidator()
   });
@@ -114,11 +116,11 @@ export class PasscodeComponent implements OnInit{
 
     let payload: { email: string; pin: string ; type: string } = {
       pin: newValues,
-      type: '',
-      email: '',
+      type: this.processingType,
+      email: this.userEmail,
     };
     //  now that you have the payload make the api request 
-    
+    console.log(payload); 
 
   }
 }

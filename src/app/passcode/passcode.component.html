@@ -79,7 +79,7 @@
             (click)="handleSixDigit()"
             [disabled]="!SixdigitPinForm.valid"
             class="w-full text-white rounded-sm py-2 bg-primary text-center flex items-center justify-center"
-            *ngIf="processingType === 'email-verification'"
+            *ngIf="processingType === 'verify-email'"
           >
             @if(!loading){
               Submit
@@ -96,7 +96,7 @@
               <label
                 class="inline-block w-full text-sm text-tertiary"
                 for="password"
-                >Password</label
+                >New Password</label
               >
               <input
                 class="border-b-solid border-b-tertiary border-b-[0.5px] pb-1 outline-none text-sm text-gray-700 w-full pr-8"
@@ -132,6 +132,12 @@
               >
                 Must be 8 or more characters
               </p>
+              <p
+                *ngIf="Fields['password']['errors']['maxlength']"
+                class="text-red-500 text-xs"
+              >
+              Password must not be more than 128 characters
+              </p>
             </div>
           </div>
           <div class="my-2">
@@ -161,21 +167,26 @@
               >
                 Retype your password
               </p>
-            </div>
-            <div *ngIf="Fields['confirmPassword']['touched']" class="my-1">
               <p
-                *ngIf="PasswordForm.errors?.['mismatch']"
-                class="text-red-500 text-xs"
-              >
-                Passwords do not match
-              </p>
+              *ngIf="PasswordForm.errors?.['mismatch']"
+              class="text-red-500 text-xs"
+            >
+              Passwords do not match
+            </p>
+            <p
+            *ngIf="Fields['confirmPassword']['errors']['maxlength']"
+            class="text-red-500 text-xs"
+          >
+           confirm Password must not be more than 128 characters
+          </p>
             </div>
+           
           </div>
         <div class="mt-8">
           <button
          
             class="bg-primary text-white text-sm text-center py-2 rounded-sm w-full"
-            [disabled]="!PasswordForm.valid && !SixdigitPinForm.valid"
+            [disabled]="!PasswordForm.valid || !SixdigitPinForm.valid"
           >
           @if(!loading){
             Submit

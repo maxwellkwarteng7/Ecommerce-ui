@@ -104,23 +104,59 @@ export class PasscodeComponent implements OnInit{
       this.type = 'password'; 
     }
   }
+
+  handlePin() {
+    const values = this.SixdigitPinForm.value;
+    // get all values as one into newValues variable
+    const newValues = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
+    return newValues; 
+  }
+
+  generatePayload() {
+    this.loading = true; 
+    const pin = this.handlePin(); 
+    let payload : {email : string , pin : string , type : string , password : string } = {
+      pin,
+      type: this.processingType,
+      email: this.userEmail,
+      password: ''
+    };
+    return payload; 
+  }
     
 
   // handle 6 digit
-  handleSixDigit() {
-    this.loading = true; 
-    const values = this.SixdigitPinForm.value;
-    console.log(values);
-    // get all values as one into newValues variable
-    const newValues = `${values.one}${values.two}${values.three}${values.four}${values.five}${values.six}`;
-
-    let payload: { email: string; pin: string ; type: string } = {
-      pin: newValues,
-      type: this.processingType,
-      email: this.userEmail,
-    };
-    //  now that you have the payload make the api request 
+  handleEmailVerification() {
+    const payload = this.generatePayload(); 
     console.log(payload); 
+    this.auth.postPin(payload , payload.type).subscribe({
+      next: () => {
+        this.toaster.success('Email Verified , Login here'); 
+        this.loading = false 
+        this.router.navigate(['/login']); 
+      }, 
+      error: (err) => {
+        this.errorMessage = err.error.error
+        this.loading = false 
+      }, 
+    })
+  }
 
+  handleForgotPassword() {
+    let  payload = this.generatePayload(); 
+    let values = this.PasswordForm.value; 
+    payload.password = values.password; 
+    this.auth.postPin(payload , payload.type).subscribe({
+      next: () => {
+        this.loading = false; 
+        this.toaster.success('Password Change Successful'); 
+        this.router.navigate(['/login']); 
+      }, 
+      error: (err) => {
+        this.loading = false; 
+        this.errorMessage = err.error.error
+      }
+    })
+    
   }
 }

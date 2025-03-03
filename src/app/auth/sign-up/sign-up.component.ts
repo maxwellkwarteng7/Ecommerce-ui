@@ -71,7 +71,7 @@ export class SignUpComponent  {
     body.role = 'customer'; 
     // make the api call 
     this.auth.postRegistrationDetails(body).subscribe((res) => { 
-      localStorage.setItem('userEmail', JSON.stringify(body.email));  
+      localStorage.setItem('userEmail', body.email);  
       localStorage.setItem('type', 'verify-email');
       this.router.navigateByUrl('/pin-verification');
     }, (error) => {

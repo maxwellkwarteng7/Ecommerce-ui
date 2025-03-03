@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects(CategoryEffect, TagProductEffect),
     provideAnimations(),
     provideToastr({
-      timeOut: 3000,
+      timeOut: 4000,
       progressAnimation: "increasing",
       progressBar: true,
       preventDuplicates: true,

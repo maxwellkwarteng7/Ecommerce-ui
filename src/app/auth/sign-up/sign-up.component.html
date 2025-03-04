@@ -1,13 +1,13 @@
 <!-- this is the content of the register / sign-up page  -->
 <div class="flex items-center justify-center w-full min-h-[100vh] bg-white pb-[20vh]">
   <!-- home button -->
-  <button
-    [routerLink]="['/home']"
-    class="py-2 px-3 underline underline-offset-4 flex items-center  text-xs md:text-sm absolute top-[10px] left-[10px]"
+  <a
+    (click)="handleGoBack()"
+    class="py-2 px-3 underline underline-offset-4 flex items-center  text-xs md:text-sm absolute top-[10px] left-[10px] cursor-pointer"
   >
     <span class="mdi mdi-chevron-left"></span>
-    <span>Go To Home</span>
-  </button>
+    <span>Go Back</span>
+  </a>
 
   <!--  -->
   <div

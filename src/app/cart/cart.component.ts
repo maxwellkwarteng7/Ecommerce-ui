@@ -6,6 +6,8 @@ import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 import { Cart } from '../models/templates';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
+import { AuthServiceService } from '../services/auth-service/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -20,12 +22,16 @@ export class CartComponent implements OnInit {
   loading: boolean = true; 
   subTotal: any = 0; 
   tax: number = 0; 
+  isLoggedIn!: boolean; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
+  private auth = inject(AuthServiceService); 
+  private router = inject(Router); 
 
   ngOnInit(): void {
     this.getLocalCartItems(); 
     this.getSubTotal(); 
+    this.isLoggedIn = this.auth.isAuthenticated(); 
   }
 
   goBack() {
@@ -75,6 +81,11 @@ export class CartComponent implements OnInit {
    itemSubTotalPrice(price : number , quantity : number) {
     const newPrice = price * quantity; 
     return newPrice.toFixed(2);
+  }
+
+  proceedToCheckout() {
+    console.log(this.cartItems);
+    if (!this.isLoggedIn) this.router.navigate(['/login']); 
   }
 
 }

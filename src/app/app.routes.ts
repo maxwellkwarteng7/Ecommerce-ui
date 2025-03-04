@@ -8,8 +8,10 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
-import { authGuardGuard } from './auth-guard.guard';
+
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { authGuard } from './auth.guard';
+import { authRedirectGuard } from './auth-redirect.guard';
 
 export const routes: Routes = [
     {
@@ -19,23 +21,27 @@ export const routes: Routes = [
     }, 
     {
         path: 'home', 
-        component : HomeComponent
+        component: HomeComponent, 
     } , 
     {
         path: 'login', 
-        component: LoginComponent
+        component: LoginComponent, 
+        canActivate : [authRedirectGuard]
     }, 
     {
         path: 'sign-up', 
-        component : SignUpComponent
+        component: SignUpComponent, 
+        canActivate : [authRedirectGuard]
     }, 
     {
         path: "forgot-password", 
-        component : ForgotPasswordComponent
+        component: ForgotPasswordComponent, 
+        canActivate : [authRedirectGuard]
     }, 
     {
         path: "pin-verification", 
-        component : PasscodeComponent
+        component: PasscodeComponent, 
+        canActivate : [authRedirectGuard]
     },
     {
         path: 'product-detail/:id', 
@@ -51,11 +57,12 @@ export const routes: Routes = [
     },
     {
         path: 'new-password', 
-        component : NewPasswordComponent
+        component: NewPasswordComponent, 
+        canActivate : [authRedirectGuard]
     } , 
     {
-        path: '', 
-        canActivate: [authGuardGuard], 
+        path: '',  
+        canActivateChild : [authGuard] , 
         children: [
             {
                 path: 'orders', 

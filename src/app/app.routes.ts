@@ -8,6 +8,8 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
+import { authGuardGuard } from './auth-guard.guard';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 export const routes: Routes = [
     {
@@ -50,5 +52,16 @@ export const routes: Routes = [
     {
         path: 'new-password', 
         component : NewPasswordComponent
+    } , 
+    {
+        path: '', 
+        canActivate: [authGuardGuard], 
+        children: [
+            {
+                path: 'orders', 
+                component : SidebarComponent
+            }
+        ]
+        
     }
 ];

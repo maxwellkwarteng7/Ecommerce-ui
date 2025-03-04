@@ -35,7 +35,7 @@
               <li><a  class="uppercase" [routerLink]="['/home']">Home</a></li>
               <li><a class="uppercase"  [routerLink]="['/products']" >Products</a></li>
               <li *ngIf="isLoggedIn"><a class="uppercase cursor-pointer">Orders</a></li>
-              <li><a *ngIf="!isLoggedIn" class="uppercase"  href="">About Us</a></li>
+              <li *ngIf="!isLoggedIn"><a class="uppercase"  href="">About Us</a></li>
               <li><a  class="uppercase"  href="">Contact Us</a></li>
             </ul>
             <!-- auth links and cart -->

@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component  , Inject, inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthServiceService } from '../../services/auth-service/auth-service.service';
 import { loginSuccessMessage, loginTemplate } from '../../models/templates';
 import { CartServiceService } from '../../services/cart-service/cart-service.service';
+
 
 @Component({
   selector: 'app-login',
@@ -28,9 +29,10 @@ export class LoginComponent implements OnInit {
   });
 
   // injecting the auth service 
-  auth = inject(AuthServiceService); 
-  router = inject(Router); 
-  cartService = inject(CartServiceService); 
+  private auth = inject(AuthServiceService); 
+  private router = inject(Router); 
+  private cartService = inject(CartServiceService); 
+  private location = inject(Location); 
  
 
   ngOnInit(): void { 
@@ -53,7 +55,9 @@ export class LoginComponent implements OnInit {
     }
   }
 
- 
+  handleGoBack() {
+    this.location.back(); 
+  }
 
 
   get Fields() {

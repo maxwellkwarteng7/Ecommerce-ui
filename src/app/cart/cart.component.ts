@@ -103,7 +103,7 @@ export class CartComponent implements OnInit {
     }); 
     this.cartService.postCartItems(cartItemsArray).subscribe({
       next: () => {
-        this.toaster.success('Checkout went through'); 
+        this.router.navigate(['/shipping']);  
         this.loading = false; 
       }, 
       error: () => {

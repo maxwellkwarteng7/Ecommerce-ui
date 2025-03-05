@@ -9,5 +9,5 @@ import { NavbarComponent } from "../navbar/navbar.component";
   styleUrl: './shipping.component.scss'
 })
 export class ShippingComponent {
-
+  isPaymentActive: boolean = false; 
 }

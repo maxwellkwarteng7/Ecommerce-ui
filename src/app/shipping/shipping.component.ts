@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-shipping',
   standalone: true,
-  imports: [NavbarComponent],
+  imports: [NavbarComponent , ReactiveFormsModule , CommonModule],
   templateUrl: './shipping.component.html',
   styleUrl: './shipping.component.scss'
 })

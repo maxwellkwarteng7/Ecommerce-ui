@@ -24,6 +24,7 @@ export class CartComponent implements OnInit {
   subTotal: any = 0; 
   tax: number = 0; 
   isLoggedIn!: boolean; 
+  cartCount!: number; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
   private auth = inject(AuthServiceService); 
@@ -34,6 +35,7 @@ export class CartComponent implements OnInit {
     this.getLocalCartItems(); 
     this.getSubTotal(); 
     this.isLoggedIn = this.auth.isAuthenticated(); 
+    this.cartService.cartCount$.subscribe((count) => this.cartCount = count); 
   }
 
   goBack() {

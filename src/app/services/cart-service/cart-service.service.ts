@@ -2,8 +2,10 @@ import { Injectable, signal } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Cart } from "../../models/templates";
 import { BehaviorSubject } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ProductServiceService } from "../product-service/product-service.service";
+import { environment } from "../../../environments/environment.development";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: "root",
@@ -12,8 +14,16 @@ export class CartServiceService {
   cartCount = new BehaviorSubject<number>(this.cartValue()); 
   cartCount$ = this.cartCount.asObservable(); 
 
-  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService) {
+  constructor(private toaster: ToastrService, private http: HttpClient, private productService: ProductServiceService , private cookie : CookieService) {
   
+  }
+
+  getHeaders(): HttpHeaders{
+    const token = this.cookie.get('token'); 
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    }); 
   }
 
   cartValue(): number {
@@ -80,6 +90,14 @@ export class CartServiceService {
     } 
     localStorage.setItem('userCart', JSON.stringify(localCart));
     this.cartCount.next(localCart.length);
+  }
+
+  postCartItems(cartItemsArray: { productId: number, quantity: number }[]) {
+    let payload = {
+      cartItemsArray
+    }
+    return this.http.post(`${environment.baseUrl}/cart`, payload, { headers: this.getHeaders() }
+    ); 
   }
 
  

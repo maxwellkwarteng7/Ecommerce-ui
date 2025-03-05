@@ -8,10 +8,10 @@ import { ProductsComponent } from './products/products.component';
 import { CartComponent } from './cart/cart.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { NewPasswordComponent } from './new-password/new-password.component';
-
-import { SidebarComponent } from './sidebar/sidebar.component';
 import { authGuard } from './auth.guard';
 import { authRedirectGuard } from './auth-redirect.guard';
+import { OrdersComponent } from './orders/orders.component';
+import { ShippingComponent } from './shipping/shipping.component';
 
 export const routes: Routes = [
     {
@@ -66,7 +66,11 @@ export const routes: Routes = [
         children: [
             {
                 path: 'orders', 
-                component : SidebarComponent
+                component : OrdersComponent
+            }, 
+            {
+                path: 'shipping', 
+                component : ShippingComponent
             }
         ]
         

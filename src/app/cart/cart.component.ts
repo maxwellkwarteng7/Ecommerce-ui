@@ -8,6 +8,7 @@ import { Cart } from '../models/templates';
 import { CartServiceService } from '../services/cart-service/cart-service.service';
 import { AuthServiceService } from '../services/auth-service/auth-service.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +20,7 @@ import { Router } from '@angular/router';
 export class CartComponent implements OnInit {
  
   cartItems: Cart[] = []; 
-  loading: boolean = true; 
+  loading!: boolean; 
   subTotal: any = 0; 
   tax: number = 0; 
   isLoggedIn!: boolean; 
@@ -27,6 +28,7 @@ export class CartComponent implements OnInit {
   private cartService = inject(CartServiceService);
   private auth = inject(AuthServiceService); 
   private router = inject(Router); 
+  private toaster = inject(ToastrService); 
 
   ngOnInit(): void {
     this.getLocalCartItems(); 
@@ -39,6 +41,7 @@ export class CartComponent implements OnInit {
   }
 
   getLocalCartItems() {
+    this.loading = true;
     this.cartItems = JSON.parse(localStorage.getItem('userCart') || '[]'); 
     this.loading = false; 
   }
@@ -84,8 +87,29 @@ export class CartComponent implements OnInit {
   }
 
   proceedToCheckout() {
+    this.loading = true; 
     console.log(this.cartItems);
-    if (!this.isLoggedIn) this.router.navigate(['/login']); 
+    if (!this.isLoggedIn) this.router.navigate(['/login']);
+    let cartItemsArray : {productId : number , quantity : number}[] = []; 
+    this.cartItems.forEach(item => {
+      const { id: productId, quantity } = item;
+      let newItem = {
+        productId,
+        quantity
+      }
+      cartItemsArray.push(newItem);
+    }); 
+    this.cartService.postCartItems(cartItemsArray).subscribe({
+      next: () => {
+        this.toaster.success('Checkout went through'); 
+        this.loading = false; 
+      }, 
+      error: () => {
+        this.toaster.error('Error checking out '); 
+        this.loading = false; 
+      }
+    })
+    
   }
 
 }

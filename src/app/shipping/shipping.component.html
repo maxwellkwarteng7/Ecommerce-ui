@@ -24,18 +24,27 @@
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
                         formControlName="fullName"
                         >
+                        <div *ngIf="Fields['fullName']['errors'] && Fields['fullName']['touched']">
+                            <p class="text-xs pt-1 text-red-500">Full Name is required</p>
+                        </div>
                     </div>
                     <div class="my-2 w-full">
                         <label class="inline-block w-full mb-1 text-gray-500">Telephone *</label> 
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
                         formControlName="phone"
                         >
+                        <div *ngIf="Fields['phone']['errors'] && Fields['phone']['touched']">
+                            <p class="text-xs pt-1 text-red-500">Phone is required</p>
+                        </div>
                     </div>
                     <div class="my-2 w-full">
                         <label class="inline-block w-full mb-1 text-gray-500">Address 1 *</label> 
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
                         formControlName="address1"
                         >
+                        <div *ngIf="Fields['address1']['errors'] && Fields['address1']['touched']">
+                            <p class="text-xs pt-1 text-red-500">Address 1 is required</p>
+                        </div>
                     </div>
                     <div class="my-2 w-full">
                         <label class="inline-block w-full mb-1 text-gray-500">Address 2 (optional)</label> 
@@ -48,6 +57,9 @@
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
                         formControlName="country"
                         >
+                        <div *ngIf="Fields['country']['errors'] && Fields['country']['touched']">
+                            <p class="text-xs pt-1 text-red-500">Country is required</p>
+                        </div>
                     </div>
                   
                     <div class="my-2 w-full">
@@ -55,18 +67,24 @@
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
                         formControlName="city"
                         >
+                        <div *ngIf="Fields['city']['errors'] && Fields['city']['touched']">
+                            <p class="text-xs pt-1 text-red-500">City is required</p>
+                        </div>
                     </div>  
 
                     <div class="my-2 w-full">
                         <label class="inline-block w-full mb-1 text-gray-500">State/Region/Province *</label> 
                         <input type="text" class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full" 
-                        formControlName="city"
+                        formControlName="state"
                         >
+                        <div *ngIf="Fields['state']['errors'] && Fields['state']['touched']">
+                            <p class="text-xs pt-1 text-red-500">State/Region/Province is required</p>
+                        </div>
                     </div>
 
                     <div class="my-2 w-full">
                         <label class="w-full mb-1 inline-block"></label>
-                      <button class="w-full bg-black text-white py-3 px-3 flex items-center justify-center">
+                      <button class="w-full bg-black text-white py-3 px-3 flex items-center justify-center" [disabled]="!billingAddressForm.valid">
                         @if (!loading) {
                             Save Address 
                         }@else {

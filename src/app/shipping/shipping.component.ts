@@ -28,7 +28,5 @@ export class ShippingComponent {
     return this.billingAddressForm.controls; 
   }
 
-  handleClick() {
-    alert('I clicked '); 
-  }
+ 
 }

@@ -25,6 +25,7 @@ export class CartComponent implements OnInit {
   tax: number = 0; 
   isLoggedIn!: boolean; 
   cartCount!: number; 
+  checkoutLoading: boolean = false; 
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
   private auth = inject(AuthServiceService); 
@@ -89,7 +90,7 @@ export class CartComponent implements OnInit {
   }
 
   proceedToCheckout() {
-    this.loading = true; 
+    this.checkoutLoading = true; 
     console.log(this.cartItems);
     if (!this.isLoggedIn) this.router.navigate(['/login']);
     let cartItemsArray : {productId : number , quantity : number}[] = []; 
@@ -104,11 +105,11 @@ export class CartComponent implements OnInit {
     this.cartService.postCartItems(cartItemsArray).subscribe({
       next: () => {
         this.router.navigate(['/shipping']);  
-        this.loading = false; 
+        this.checkoutLoading = false; 
       }, 
       error: () => {
         this.toaster.error('Error checking out '); 
-        this.loading = false; 
+        this.checkoutLoading = false; 
       }
     })
     

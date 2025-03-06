@@ -25,7 +25,8 @@ export class CartComponent implements OnInit {
   tax: number = 0; 
   isLoggedIn!: boolean; 
   cartCount!: number; 
-  checkoutLoading: boolean = false; 
+  checkoutLoading: boolean = false;
+  removeFromCartLoader: boolean = false;
   private location = inject(Location); 
   private cartService = inject(CartServiceService);
   private auth = inject(AuthServiceService); 
@@ -64,13 +65,27 @@ export class CartComponent implements OnInit {
   get TotalPrice() : number {
     return this.subTotal;
   }
+
+   findAuthenticatedItemAndRemove(cartId : number) {
+     let item = this.cartItems.find((item) => item.id === cartId);
+     if (item) {
+       if (item.isAuthenticated === true) {
+        this.cartService.removeAuthenticatedFromCart(item.id).subscribe({
+          next: (data) => console.log(data),
+          error: (err) => console.log(err)
+        }); 
+      }
+    }
+  }
   
-  removeCartItem(cartId: number) {
-    this.loading = true;
+   removeCartItem(cartId: number) {
+    this.removeFromCartLoader = true;
+    this.findAuthenticatedItemAndRemove(cartId); 
     const newItems = this.cartItems.filter((item) => item.id !== cartId); 
     this.cartService.removeFromCart(newItems); 
     this.getLocalCartItems(); 
     this.getSubTotal();
+    this.removeFromCartLoader = false; 
   }
 
   handleItemQuantity (item : Cart , type : string){

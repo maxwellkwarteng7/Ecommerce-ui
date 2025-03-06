@@ -1,7 +1,7 @@
 import { Injectable, signal } from "@angular/core";
 import { ToastrService } from "ngx-toastr";
 import { Cart } from "../../models/templates";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { ProductServiceService } from "../product-service/product-service.service";
 import { environment } from "../../../environments/environment.development";
@@ -98,6 +98,10 @@ export class CartServiceService {
     }
     return this.http.post(`${environment.baseUrl}/cart`, payload, { headers: this.getHeaders() }
     ); 
+  }
+
+  removeAuthenticatedFromCart(id: number): Observable<string> {
+    return this.http.delete<string>(`${environment.baseUrl}/cart/${id}`, { headers: this.getHeaders() });
   }
 
  

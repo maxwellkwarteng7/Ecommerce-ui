@@ -177,6 +177,7 @@
                 src="payment-images/paystack-logo.svg"
                 alt="logo"
                 class="object-center object-cover"
+                loading="eager"
               />
             </div>
             <!-- the select radio -->
@@ -197,6 +198,7 @@
                 src="payment-images/stripe-logo-3.png"
                 alt="logo"
                 class="object-center object-cover"
+                loading="eager"
               />
             </div>
             <!-- the select radio -->
@@ -225,12 +227,13 @@
         <!-- the pay button -->
         <div class="w-full">
           <button
-            [disabled]="!isPaymentActive"
+       
             [className]="
               isPaymentActive
                 ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm'
                 : 'w-full bg-primary opacity-[0.75] text-white text-center py-2 px-3 rounded-sm'
             "
+            (click)="handlePay()"
           >
             Pay
           </button>

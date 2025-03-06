@@ -24,6 +24,10 @@ export class ShippingComponent {
     state: new FormControl('', [Validators.required])
   }); 
 
+  get Fields() {
+    return this.billingAddressForm.controls; 
+  }
+
   handleClick() {
     alert('I clicked '); 
   }

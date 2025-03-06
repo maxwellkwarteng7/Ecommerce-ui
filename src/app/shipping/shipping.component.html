@@ -13,9 +13,16 @@
         <div
           class="text-black pb-3 border-b-solid border-b-[0.4px] border-b-gray-300"
         >
-          <p class="text-[16px] md:text-[18px]">Billing Address</p>
+          <p class="text-[16px] md:text-[18px]">
+            Billing Address
+            <span class="text-sm text-primary"
+              >(choose existing or add billing address first then proceed to
+              make payment )</span
+            >
+          </p>
           <span class="text-gray-600 text-sm"
-            >Fields indicated with * are required fields</span
+            >Fields indicated with <span class="text-primary">*</span> are
+            required fields</span
           >
         </div>
 
@@ -26,7 +33,7 @@
         >
           <div class="my-2 w-full">
             <label class="inline-block w-full mb-1 text-gray-500"
-              >Full Name *</label
+              >Full Name<span class="text-primary"> *</span></label
             >
             <input
               type="text"
@@ -43,7 +50,7 @@
           </div>
           <div class="my-2 w-full">
             <label class="inline-block w-full mb-1 text-gray-500"
-              >Telephone *</label
+              >Telephone <span class="text-primary"> *</span></label
             >
             <input
               type="text"
@@ -58,7 +65,7 @@
           </div>
           <div class="my-2 w-full">
             <label class="inline-block w-full mb-1 text-gray-500"
-              >Address 1 *</label
+              >Address 1 <span class="text-primary"> *</span></label
             >
             <input
               type="text"
@@ -85,7 +92,7 @@
           </div>
           <div class="my-2 w-full">
             <label class="inline-block w-full mb-1 text-gray-500"
-              >Country *</label
+              >Country <span class="text-primary"> *</span></label
             >
             <input
               type="text"
@@ -102,7 +109,9 @@
           </div>
 
           <div class="my-2 w-full">
-            <label class="inline-block w-full mb-1 text-gray-500">City *</label>
+            <label class="inline-block w-full mb-1 text-gray-500"
+              >City <span class="text-primary"> *</span></label
+            >
             <input
               type="text"
               class="outline-none py-2 text-[15.5px] px-3 border-solid border-[0.5px] border-gray-400 text-black w-full"
@@ -115,7 +124,7 @@
 
           <div class="my-2 w-full">
             <label class="inline-block w-full mb-1 text-gray-500"
-              >State/Region/Province *</label
+              >State/Region/Province <span class="text-primary"> *</span></label
             >
             <input
               type="text"
@@ -134,7 +143,7 @@
           <div class="my-2 w-full">
             <label class="w-full mb-1 inline-block"></label>
             <button
-              class="w-full bg-black text-white py-3 px-3 flex items-center justify-center"
+              class="w-full bg-black text-white py-3 px-3 flex items-center justify-center rounded-sm"
               [disabled]="!billingAddressForm.valid"
             >
               @if (!loading) { Save Address }@else {
@@ -156,10 +165,10 @@
         </div>
 
         <!-- the paymemt options -->
-        <div class="flex flex-col gap-2  rounded-lg w-full">
-            <!-- paystack -->
+        <div class="flex flex-col gap-2 rounded-lg w-full">
+          <!-- paystack -->
           <button
-          [disabled]="!isPaymentActive"
+            [disabled]="!isPaymentActive"
             class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
@@ -179,7 +188,7 @@
           </button>
           <!-- stripe  -->
           <button
-          [disabled]="!isPaymentActive"
+            [disabled]="!isPaymentActive"
             class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
@@ -200,26 +209,33 @@
         </div>
         <!-- the others  -->
         <div class="p-3">
-            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
-                <h1>Delivery</h1>
-                <span class="text-gray-400">Free</span>
-            </div>
-            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
-                <h1>Total Order Items</h1>
-                <span class="text-gray-500">5</span>
-            </div>
-            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
-                <h1>Total </h1>
-                <span class="text-black">$200</span>
-            </div>
+          <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+            <h1>Delivery</h1>
+            <span class="text-gray-400">Free</span>
+          </div>
+          <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+            <h1>Total Order Items</h1>
+            <span class="text-gray-500">5</span>
+          </div>
+          <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+            <h1>Total</h1>
+            <span class="text-black">$200</span>
+          </div>
         </div>
         <!-- the pay button -->
         <div class="w-full">
-            <button [disabled]="!isPaymentActive" [className]="isPaymentActive ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm' : 'w-full bg-primary opacity-[0.75] text-white text-center py-2 px-3 rounded-sm'">
-                Pay
-            </button>
+          <button
+            [disabled]="!isPaymentActive"
+            [className]="
+              isPaymentActive
+                ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm'
+                : 'w-full bg-primary opacity-[0.75] text-white text-center py-2 px-3 rounded-sm'
+            "
+          >
+            Pay
+          </button>
         </div>
-    </div>
+      </div>
     </div>
   </div>
 </div>

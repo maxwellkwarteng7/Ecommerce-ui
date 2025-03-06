@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
 })
 export class ShippingComponent {
   isPaymentActive: boolean = false; 
-
+  loading: boolean = false; 
 
   billingAddressForm: FormGroup = new FormGroup({
     fullName: new FormControl('', [Validators.required]),
@@ -23,4 +23,8 @@ export class ShippingComponent {
     city: new FormControl('', [Validators.required]),
     state: new FormControl('', [Validators.required])
   }); 
+
+  handleClick() {
+    alert('I clicked '); 
+  }
 }

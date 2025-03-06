@@ -45,8 +45,14 @@
                          <button class="w-[30px] h-[30px] rounded-sm bg-secondary" [disabled]="item.quantity >= item.stock" (click)="handleItemQuantity(item , 'increase')" >+</button>
                        </div>
                        <button class="flex items-center gap-1 text-sm text-gray-500 py-2 lg:hidden" (click)="removeCartItem(item.id)">
-                         <span>Remove</span>
-                         <span class="mdi mdi-delete"></span>
+                        @if (!removeFromCartLoader) {
+                          <span>Remove</span>
+                         <span class="mdi mdi-cart-remove"></span>
+                         }@else {
+                          <div class="pt-2">
+                            <span class="spinner" style="border-top-color: black;"></span>
+                          </div>
+                         }
                        </button>
                      </div>
                    </div>
@@ -61,9 +67,15 @@
                         {{itemSubTotalPrice(item.price , item.quantity)}}
                       }
                      </b>
-                     <button class="flex items-center gap-1 text-sm text-gray-400" (click)="removeCartItem(item.id)">
-                       <span>Remove</span>
+                     <button class="flex items-center gap-1 text-sm text-gray-400 py-2 px-3 rounded-sm" (click)="removeCartItem(item.id)">
+                       @if (!removeFromCartLoader) {
+                        <span>Remove</span>
                        <span class="mdi mdi-cart-remove"></span>
+                       }@else {
+                        <div class="spinner" style="border-top-color: black; ">
+
+                        </div>
+                       }
                      </button>
                     </div>
 
@@ -125,7 +137,6 @@
                   <span class="mdi mdi-chevron-left"></span>
                   <span> countinue shopping</span>
                 </button>
-
             </div>
            </div>
     </div>

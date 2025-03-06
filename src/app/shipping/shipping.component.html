@@ -146,7 +146,7 @@
       </div>
       <!-- the payment section -->
       <div
-        class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] md:w-[35%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]"
+        class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] md:w-[35%] h-[28rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]"
       >
         <div
           class="pb-3 border-b-[0.1px] border-b-gray-300 w-full flex items-center gap-3"
@@ -158,8 +158,9 @@
         <!-- the paymemt options -->
         <div class="flex flex-col gap-2  rounded-lg w-full">
             <!-- paystack -->
-          <div
-            class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md cursor-pointer"
+          <button
+          [disabled]="!isPaymentActive"
+            class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
             <div class="w-[100px] h-[40px] flex items-center justify-center">
@@ -175,10 +176,11 @@
             >
               <span class="w-[80%] h-[80%] bg-primary rounded-full"></span>
             </div>
-          </div>
+          </button>
           <!-- stripe  -->
-          <div
-            class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md cursor-pointer"
+          <button
+          [disabled]="!isPaymentActive"
+            class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
             <div class="w-[90px] h-[40px]">
@@ -194,9 +196,30 @@
             >
               <span class="w-[80%] h-[80%] rounded-full"></span>
             </div>
-          </div>
+          </button>
         </div>
-      </div>
+        <!-- the others  -->
+        <div class="p-3">
+            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+                <h1>Delivery</h1>
+                <span class="text-gray-400">Free</span>
+            </div>
+            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+                <h1>Total Order Items</h1>
+                <span class="text-gray-500">5</span>
+            </div>
+            <div class="flex py-1 items-center flex-wrap gap-2 justify-between">
+                <h1>Total </h1>
+                <span class="text-black">$200</span>
+            </div>
+        </div>
+        <!-- the pay button -->
+        <div class="w-full">
+            <button [disabled]="!isPaymentActive" [className]="isPaymentActive ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm' : 'w-full bg-primary opacity-[0.75] text-white text-center py-2 px-3 rounded-sm'">
+                Pay
+            </button>
+        </div>
+    </div>
     </div>
   </div>
 </div>

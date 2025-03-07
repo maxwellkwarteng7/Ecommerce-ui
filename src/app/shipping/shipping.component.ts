@@ -79,7 +79,8 @@ export class ShippingComponent implements OnInit  {
   }
 
   handleAddress() {
-    
+    const addressInfo = this.billingAddressForm.value; 
+    console.log(addressInfo);
   }
 
  

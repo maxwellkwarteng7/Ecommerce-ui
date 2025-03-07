@@ -2,9 +2,10 @@ import { AfterViewInit, Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Cart } from '../models/templates';
+import { Address, Cart } from '../models/templates';
 import { PaymentService } from '../services/payment-service/payment.service';
 import { ToastrService } from 'ngx-toastr';
+import { ShippingService } from '../services/shipping-service/shipping.service';
 
 @Component({
   selector: 'app-shipping',
@@ -15,16 +16,20 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ShippingComponent implements OnInit  {
   isPaymentActive: boolean = false; 
-  loading: boolean = false; 
   cartItems: Cart[] = [];
   total: any; 
   itemsCount!: number;
   paymentLink: string = ''; 
-  checkoutLoader: boolean = false; 
+
+  loaders = {
+    checkoutLoader: false, 
+    addressLoader : false 
+  }
 
   // all injections here
   paymentService = inject(PaymentService); 
   toaster = inject(ToastrService); 
+  shippingService = inject(ShippingService); 
 
 
   ngOnInit(): void {
@@ -59,17 +64,17 @@ export class ShippingComponent implements OnInit  {
 
 
   getPaystackLink() {
-    this.checkoutLoader = true; 
+    this.loaders.checkoutLoader = true; 
     this.paymentService.initializePaystackPayment().subscribe({
       next: (data) => {
         this.paymentLink = data.link
         window.open(this.paymentLink, '_blank'); 
-        this.checkoutLoader = false; 
+        this.loaders.checkoutLoader = false; 
       },
       error: (error) => {
         console.log(error);
         this.toaster.error('Error fetching payment link');
-        this.checkoutLoader = false;
+        this.loaders.checkoutLoader = false;
       }
     });
   }
@@ -79,8 +84,21 @@ export class ShippingComponent implements OnInit  {
   }
 
   handleAddress() {
-    const addressInfo = this.billingAddressForm.value; 
-    console.log(addressInfo);
+    this.loaders.addressLoader = true; 
+    const addressInfo: Address = this.billingAddressForm.value; 
+    console.log('this is working'); 
+    this.shippingService.postUserAddress(addressInfo).subscribe({
+      next: () => {
+        this.loaders.addressLoader = false;
+        this.toaster.success('Address Saved !');
+      }, 
+      error: (error) => {
+        this.loaders.addressLoader = false;
+        console.log(error); 
+        this.toaster.error('Error saving Address');
+      }
+    })
+    
   }
 
  

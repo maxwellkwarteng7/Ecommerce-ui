@@ -147,7 +147,7 @@
               class="w-full bg-black text-white py-3 px-3 flex items-center justify-center rounded-sm"
               [disabled]="!billingAddressForm.valid"
             >
-              @if (!loading) { Save Address }@else {
+              @if (!loaders.addressLoader) { Save Address }@else {
               <span class="spinner"></span>
               }
             </button>
@@ -236,7 +236,7 @@
             "
             (click)="handlePay()"
           >
-           @if(!checkoutLoader){
+           @if(!loaders.checkoutLoader){
             Pay
            }@else {
               <span class="spinner"></span>

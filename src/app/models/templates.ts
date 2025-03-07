@@ -41,4 +41,14 @@ export interface Cart {
     isAuthenticated: boolean;
 }
 
+export interface Address {
+    fullName: string, 
+    phone: string, 
+    address1: string, 
+    address2: string, 
+    country: string, 
+    state: string, 
+    city: string, 
+}
+
 

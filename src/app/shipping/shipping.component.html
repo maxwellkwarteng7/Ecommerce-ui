@@ -227,15 +227,19 @@
         <!-- the pay button -->
         <div class="w-full">
           <button
-       
+          [disabled]="!isPaymentActive"
             [className]="
               isPaymentActive
-                ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm'
-                : 'w-full bg-primary opacity-[0.75] text-white text-center py-2 px-3 rounded-sm'
+                ? 'w-full bg-primary text-white text-center py-2 px-3 rounded-sm flex items-center justify-center'
+                : 'w-full bg-primary opacity-[0.5] text-white text-center py-2 px-3 rounded-sm flex items-center justify-center'
             "
             (click)="handlePay()"
           >
+           @if(!checkoutLoader){
             Pay
+           }@else {
+              <span class="spinner"></span>
+           }
           </button>
         </div>
       </div>

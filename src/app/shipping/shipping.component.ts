@@ -78,5 +78,9 @@ export class ShippingComponent implements OnInit  {
     this.getPaystackLink();
   }
 
+  handleAddress() {
+    
+  }
+
  
 }

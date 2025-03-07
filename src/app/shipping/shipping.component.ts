@@ -20,6 +20,7 @@ export class ShippingComponent implements OnInit  {
   total: any; 
   itemsCount!: number;
   paymentLink: string = ''; 
+  checkoutLoader: boolean = false; 
 
   // all injections here
   paymentService = inject(PaymentService); 
@@ -58,14 +59,17 @@ export class ShippingComponent implements OnInit  {
 
 
   getPaystackLink() {
+    this.checkoutLoader = true; 
     this.paymentService.initializePaystackPayment().subscribe({
       next: (data) => {
         this.paymentLink = data.link
         window.open(this.paymentLink, '_blank'); 
+        this.checkoutLoader = false; 
       },
       error: (error) => {
         console.log(error);
         this.toaster.error('Error fetching payment link');
+        this.checkoutLoader = false;
       }
     });
   }

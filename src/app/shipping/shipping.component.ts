@@ -22,6 +22,7 @@ export class ShippingComponent implements OnInit  {
   paymentLink: string = ''; 
   addressArray: Address[] = []; 
   newAddressState: boolean = false;
+  isEditingAddress: boolean = false; 
 
   loaders = {
     checkoutLoader: false, 
@@ -94,18 +95,21 @@ export class ShippingComponent implements OnInit  {
   handleAddress() {
     this.loaders.addressLoader = true; 
     const addressInfo: Address = this.billingAddressForm.value; 
-    console.log('this is working'); 
-    this.shippingService.postUserAddress(addressInfo).subscribe({
-      next: () => {
-        this.loaders.addressLoader = false;
-        this.toaster.success('Address Saved !');
-      }, 
-      error: (error) => {
-        this.loaders.addressLoader = false;
-        console.log(error); 
-        this.toaster.error('Error saving Address');
-      }
-    })
+    if (this.isEditingAddress) {
+      
+    } else {
+      this.shippingService.postUserAddress(addressInfo).subscribe({
+        next: () => {
+          this.loaders.addressLoader = false;
+          this.toaster.success('Address Saved !');
+        }, 
+        error: (error) => {
+          this.loaders.addressLoader = false;
+          console.log(error); 
+          this.toaster.error('Error saving Address');
+        }
+      })
+    }
   }
 
   // get addresses 
@@ -123,6 +127,16 @@ export class ShippingComponent implements OnInit  {
         this.loaders.pageLoader = false; 
       }
     }); 
+  }
+
+  deleteUserAddress() {
+    
+  }
+
+  EdituserAddress(item: Address) {
+    this.isEditingAddress = true;
+    this.newAddressState = true;
+    this.billingAddressForm.patchValue(item);
   }
 
  

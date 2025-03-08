@@ -27,43 +27,48 @@
         </div>
         <!-- already existing addresses -->
          <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-4" *ngIf="addressArray.length > 0">
-          <div class="w-full bg-gray-100 rounded-lg  border-[3px] cursor-pointer min-h-[15rem] flex flex-col gap-2  border-white p-4 text-sm lg:text-[15.5px]">
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">Name :</span> 
-              <span class="text-gray-600">Maxwell Nsiah Kwarteng</span>
+          @for (item of addressArray; track $index) {
+            <div class="w-full bg-gray-100 rounded-lg  border-[3px] cursor-pointer min-h-[15rem] flex flex-col gap-2  border-white p-4 text-sm lg:text-[15.5px]">
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">Name :</span> 
+                <span class="text-gray-600">{{item.fullName}}</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">Telephone :</span> 
+                <span class="text-gray-600">{{item.phone}}</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">Address1 :</span> 
+                <span class="text-gray-600">{{item.address1}}</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2" *ngIf="item.address2">
+                <span class="font-bold text-gray-700">Address 2 :</span> 
+                <span class="text-gray-600">{{item.address2}}</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">Country :</span> 
+                <span class="text-gray-600">{{item.country}}</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">State/Region :</span> 
+                <span class="text-gray-600">Ashanti</span>
+              </div>
+              <div class="flex flex-wrap item-center gap-2">
+                <span class="font-bold text-gray-700">City :</span> 
+                <span class="text-gray-600">{{item.city}}</span>
+              </div>
+             <!-- THE edit button -->
+              <div class="pt-3 pl-2 flex items-center justify-between">
+                <button class="text-[23px] lg:text-[26px]" (click)="EdituserAddress(item)">
+                  <span class="mdi mdi-note-edit"></span>
+                </button>
+                <button class="text-[23px] lg:text-[26px]">
+                  <span class="mdi mdi-trash-can text-primary"></span>
+                </button>
+  
+              </div>
             </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">Telephone :</span> 
-              <span class="text-gray-600"> 0554751182</span>
-            </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">Address1 :</span> 
-              <span class="text-gray-600">Agric Junction</span>
-            </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">Address 2 :</span> 
-              <span class="text-gray-600">Dorcia Owusu Avenue</span>
-            </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">Country :</span> 
-              <span class="text-gray-600">Ghana</span>
-            </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">State/Region :</span> 
-              <span class="text-gray-600">Ashanti</span>
-            </div>
-            <div class="flex flex-wrap item-center gap-2">
-              <span class="font-bold text-gray-700">City :</span> 
-              <span class="text-gray-600">Kumasi</span>
-            </div>
-           <!-- THE edit button -->
-            <div class="pt-3 pl-2 flex items-center justify-end">
-              <button class="text-2xl lg:text-3xl">
-                <span class="mdi mdi-note-edit"></span>
-              </button>
-
-            </div>
-          </div>
+          }
          </div>
          <div class="w-full flex items-center justify-end">
           <button (click)="showAddress()" class="rounded-sm py-2 px-3 text-white bg-black text-sm">
@@ -198,7 +203,13 @@
               class="w-full bg-black text-white py-3 px-3 flex items-center justify-center rounded-sm"
               [disabled]="!billingAddressForm.valid"
             >
-              @if (!loaders.addressLoader) { Save Address }@else {
+              @if (!loaders.addressLoader) { 
+                @if (isEditingAddress) {
+                  Edit Address
+                }@else {
+                  Save Address
+                } 
+               }@else {
               <span class="spinner"></span>
               }
             </button>

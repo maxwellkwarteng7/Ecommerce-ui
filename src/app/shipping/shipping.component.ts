@@ -23,6 +23,7 @@ export class ShippingComponent implements OnInit  {
   addressArray: Address[] = []; 
   newAddressState: boolean = false;
   isEditingAddress: boolean = false; 
+  selectedAddress!: number; 
 
   loaders = {
     checkoutLoader: false, 
@@ -68,6 +69,8 @@ export class ShippingComponent implements OnInit  {
   }
 
 
+
+
   getPaystackLink() {
     this.loaders.checkoutLoader = true; 
     this.paymentService.initializePaystackPayment().subscribe({
@@ -89,6 +92,8 @@ export class ShippingComponent implements OnInit  {
   }
 
   showAddress() {
+    this.isEditingAddress = false;
+    this.billingAddressForm.reset(); 
     this.newAddressState = !this.newAddressState; 
   }
 
@@ -100,6 +105,7 @@ export class ShippingComponent implements OnInit  {
     } else {
       this.shippingService.postUserAddress(addressInfo).subscribe({
         next: () => {
+          this.getAddresses(); 
           this.loaders.addressLoader = false;
           this.toaster.success('Address Saved !');
         }, 
@@ -129,8 +135,13 @@ export class ShippingComponent implements OnInit  {
     }); 
   }
 
-  deleteUserAddress() {
-    
+  handleSelection(addressId : number) {
+    this.selectedAddress = addressId; 
+    this.isPaymentActive = true;
+  }
+
+  deleteUserAddress(addressId : number) {
+    alert(addressId);  
   }
 
   EdituserAddress(item: Address) {

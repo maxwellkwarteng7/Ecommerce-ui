@@ -21,7 +21,7 @@ export class PaymentService {
   }
 
   initializePaystackPayment(): Observable<{ message: string, link: string }> {
-    let body = ''; 
+    const body = ''; 
     return this.http.post<{message : string , link: string}>(`${environment.baseUrl}/paystack/initialize-payment`, body , {headers : this.getHeaders()}); 
   }
 

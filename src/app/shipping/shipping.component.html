@@ -26,57 +26,72 @@
           >
         </div>
         <!-- already existing addresses -->
-         <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-4" *ngIf="addressArray.length > 0">
-          @for (item of addressArray; track $index) {
-            <div class="w-full bg-gray-100 rounded-lg min-h-[15rem] p-4">
-              <div class="flex justify-end">
-                <button [className]="selectedAddress === item.id ? 'w-[24px] h-[24px] border-[1px] border-black bg-black rounded-full cursor-pointer flex items-center justify-center text-xs' : 'w-[24px] h-[24px] border-[1px] border-black bg-white rounded-full cursor-pointer flex items-center justify-center text-xs'" (click)="handleSelection(item.id)">
-                  <span class="mdi mdi-check text-white" *ngIf="selectedAddress == item.id" ></span>
-                </button>
+         <div>
+          @if (!loaders.pageLoader) {
+            @if (addressArray.length > 0) {
+              <div class="py-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4">
+                @for (item of addressArray; track $index) {
+                  <div class="w-full bg-gray-100 rounded-lg min-h-[15rem] p-4">
+                    <div class="flex justify-end">
+                      <button [className]="selectedAddress === item.id ? 'w-[21px] h-[21px] border-[1px] border-transparent bg-black rounded-full cursor-pointer flex items-center justify-center text-xs' : 'w-[21px] h-[21px] border-[1px] border-black bg-white rounded-full cursor-pointer flex items-center justify-center text-xs'" (click)="handleSelection(item.id)">
+                        <span class="mdi mdi-check text-white" *ngIf="selectedAddress == item.id" ></span>
+                      </button>
+                    </div>
+                    <div class="flex flex-col gap-2 text-[15.5px] sm:text-sm md:text-[15.5px] w-full">
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">Name :</span> 
+                        <span class="text-gray-600">{{item.fullName}}</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">Telephone :</span> 
+                        <span class="text-gray-600">{{item.phone}}</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">Address1 :</span> 
+                        <span class="text-gray-600">{{item.address1}}</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2" *ngIf="item.address2">
+                        <span class="font-bold text-gray-700">Address 2 :</span> 
+                        <span class="text-gray-600">{{item.address2}}</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">Country :</span> 
+                        <span class="text-gray-600">{{item.country}}</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">State/Region :</span> 
+                        <span class="text-gray-600">Ashanti</span>
+                      </div>
+                      <div class="flex flex-wrap item-center gap-2">
+                        <span class="font-bold text-gray-700">City :</span> 
+                        <span class="text-gray-600">{{item.city}}</span>
+                      </div>
+                    </div>
+                   <!-- THE edit button -->
+                    <div class="pt-3 pl-2 flex items-center justify-between">
+                      <button class="text-[23px] lg:text-[26px]" (click)="EdituserAddress(item)">
+                        <span class="mdi mdi-note-edit"></span>
+                      </button>
+                      <button class="text-[23px] lg:text-[26px]" (click)="deleteUserAddress(item.id)">
+                        <span class="mdi mdi-trash-can text-primary"></span>
+                      </button>
+        
+                    </div>
+                  </div>
+                }
+               </div>
+            }@else {
+              <div class="text-xs sm:text-sm py-5">
+                No address added ..
               </div>
-              <div class="flex flex-col gap-2 text-sm lg:text-[15.5px] w-full">
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">Name :</span> 
-                  <span class="text-gray-600">{{item.fullName}}</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">Telephone :</span> 
-                  <span class="text-gray-600">{{item.phone}}</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">Address1 :</span> 
-                  <span class="text-gray-600">{{item.address1}}</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2" *ngIf="item.address2">
-                  <span class="font-bold text-gray-700">Address 2 :</span> 
-                  <span class="text-gray-600">{{item.address2}}</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">Country :</span> 
-                  <span class="text-gray-600">{{item.country}}</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">State/Region :</span> 
-                  <span class="text-gray-600">Ashanti</span>
-                </div>
-                <div class="flex flex-wrap item-center gap-2">
-                  <span class="font-bold text-gray-700">City :</span> 
-                  <span class="text-gray-600">{{item.city}}</span>
-                </div>
-              </div>
-             <!-- THE edit button -->
-              <div class="pt-3 pl-2 flex items-center justify-between">
-                <button class="text-[23px] lg:text-[26px]" (click)="EdituserAddress(item)">
-                  <span class="mdi mdi-note-edit"></span>
-                </button>
-                <button class="text-[23px] lg:text-[26px]" (click)="deleteUserAddress(item.id)">
-                  <span class="mdi mdi-trash-can text-primary"></span>
-                </button>
-  
-              </div>
+            }
+          }@else {
+            <div class="flex items-center justify-center py-5">
+              <span class="spinner" style="border-top-color: black; width: 30px ; height: 30px"></span>
             </div>
           }
          </div>
+         
          <div class="w-full flex items-center justify-end">
           <button (click)="showAddress()" class="rounded-sm py-2 px-3 text-white bg-black text-sm">
             @if(newAddressState === false){

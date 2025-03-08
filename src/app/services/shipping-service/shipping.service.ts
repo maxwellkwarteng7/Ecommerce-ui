@@ -29,4 +29,12 @@ export class ShippingService {
     return this.http.get<Address[]>(`${environment.baseUrl}/shipping`, { headers: this.getHeaders() }); 
   }
 
+  deleteAddress(id: number): Observable<string> {
+    return this.http.delete<string>(`${environment.baseUrl}/shipping/${id}` , {headers : this.getHeaders()}); 
+  }
+
+  updateAddress(address: Address): Observable<string>{
+    return this.http.put<string>(`${environment.baseUrl}/shipping/${address.id}`, address, { headers: this.getHeaders() });
+  }
+
 }

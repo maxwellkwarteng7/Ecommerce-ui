@@ -94,7 +94,7 @@ export class CartServiceService {
 
   postCartItems(cartItemsArray: { productId: number, quantity: number }[]) {
     let payload = {
-      cartItemsArray
+      cartItemsArray, 
     }
     return this.http.post(`${environment.baseUrl}/cart`, payload, { headers: this.getHeaders() }
     ); 

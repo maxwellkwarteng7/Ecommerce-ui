@@ -16,7 +16,7 @@
           <p class="text-[16px] md:text-[18px]">
             Billing Address
             <span class="text-sm text-primary"
-              >(choose existing or add billing address first then proceed to
+              >(select existing address or add billing address first then proceed to
               make payment )</span
             >
           </p>
@@ -25,10 +25,61 @@
             required fields</span
           >
         </div>
+        <!-- already existing addresses -->
+         <div class="py-4 grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-4" *ngIf="addressArray.length > 0">
+          <div class="w-full bg-gray-100 rounded-lg  border-[3px] cursor-pointer min-h-[15rem] flex flex-col gap-2  border-white p-4 text-sm lg:text-[15.5px]">
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">Name :</span> 
+              <span class="text-gray-600">Maxwell Nsiah Kwarteng</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">Telephone :</span> 
+              <span class="text-gray-600"> 0554751182</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">Address1 :</span> 
+              <span class="text-gray-600">Agric Junction</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">Address 2 :</span> 
+              <span class="text-gray-600">Dorcia Owusu Avenue</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">Country :</span> 
+              <span class="text-gray-600">Ghana</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">State/Region :</span> 
+              <span class="text-gray-600">Ashanti</span>
+            </div>
+            <div class="flex flex-wrap item-center gap-2">
+              <span class="font-bold text-gray-700">City :</span> 
+              <span class="text-gray-600">Kumasi</span>
+            </div>
+           <!-- THE edit button -->
+            <div class="pt-3 pl-2 flex items-center justify-end">
+              <button class="text-2xl lg:text-3xl">
+                <span class="mdi mdi-note-edit"></span>
+              </button>
+
+            </div>
+          </div>
+         </div>
+         <div class="w-full flex items-center justify-end">
+          <button (click)="showAddress()" class="rounded-sm py-2 px-3 text-white bg-black text-sm">
+            @if(newAddressState === false){
+              Add New Address
+            }@else {
+              <span class="flex items-center justify-center">
+                <span class="mdi mdi-close"></span>
+              </span>
+            }
+          </button>
+         </div>
 
         <!-- the form and form fields  -->
         <form
-          class="py-3 grid grid-cols-1 md:grid-cols-2 gap-4"
+          [className]="newAddressState ? 'py-3 grid grid-cols-1 md:grid-cols-2 gap-4' : 'hidden'"
           [formGroup]="billingAddressForm"
         >
           <div class="my-2 w-full">

@@ -20,10 +20,13 @@ export class ShippingComponent implements OnInit  {
   total: any; 
   itemsCount!: number;
   paymentLink: string = ''; 
+  addressArray: Address[] = []; 
+  newAddressState: boolean = false;
 
   loaders = {
     checkoutLoader: false, 
-    addressLoader : false 
+    addressLoader: false, 
+    pageLoader : true , 
   }
 
   // all injections here
@@ -35,6 +38,7 @@ export class ShippingComponent implements OnInit  {
   ngOnInit(): void {
     this.cartItems = JSON.parse(localStorage.getItem('userCart') || '[]'); 
     this.itemsCount = this.cartItems.length;
+    this.getAddresses(); 
   }
 
 
@@ -83,6 +87,10 @@ export class ShippingComponent implements OnInit  {
     this.getPaystackLink();
   }
 
+  showAddress() {
+    this.newAddressState = !this.newAddressState; 
+  }
+
   handleAddress() {
     this.loaders.addressLoader = true; 
     const addressInfo: Address = this.billingAddressForm.value; 
@@ -98,7 +106,23 @@ export class ShippingComponent implements OnInit  {
         this.toaster.error('Error saving Address');
       }
     })
-    
+  }
+
+  // get addresses 
+  getAddresses() {
+    this.shippingService.getUserAddresses().subscribe({
+      next: (data) => {
+        this.addressArray = data;
+        if (data.length === 0) this.newAddressState = true;
+        console.log(this.addressArray); 
+        this.loaders.pageLoader = false;
+      }, 
+      error: (error) => {
+        console.log(error); 
+        this.toaster.error('Error fetching addresses'); 
+        this.loaders.pageLoader = false; 
+      }
+    }); 
   }
 
  

@@ -25,4 +25,8 @@ export class ShippingService {
     return this.http.post<string>(`${environment.baseUrl}/shipping`, payload, { headers: this.getHeaders() }); 
   }
 
+  getUserAddresses(): Observable<Address[]> {
+    return this.http.get<Address[]>(`${environment.baseUrl}/shipping`, { headers: this.getHeaders() }); 
+  }
+
 }

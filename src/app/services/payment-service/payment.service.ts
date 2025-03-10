@@ -25,6 +25,12 @@ export class PaymentService {
     return this.http.post<{message : string , link: string}>(`${environment.baseUrl}/paystack/initialize-payment`, body , {headers : this.getHeaders()}); 
   }
 
+  verifyPaystackPayment(reference: string, addressId: number): Observable<string> {
+    const payload = {
+      addressId
+    }
+    return this.http.post<string>(`${environment.baseUrl}/paystack/verify-payment/${reference}` , payload, {headers : this.getHeaders()}); 
+    }
   
 
 

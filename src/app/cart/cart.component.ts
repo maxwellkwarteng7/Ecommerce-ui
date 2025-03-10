@@ -36,7 +36,8 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.getLocalCartItems(); 
     this.getSubTotal(); 
-    this.isLoggedIn = this.auth.isAuthenticated(); 
+    this.isLoggedIn = this.auth.isAuthenticated();
+     
     this.cartService.cartCount$.subscribe((count) => this.cartCount = count); 
   }
 
@@ -66,7 +67,7 @@ export class CartComponent implements OnInit {
     return this.subTotal;
   }
 
-   findAuthenticatedItemAndRemove(cartId : number) {
+  async  findAuthenticatedItemAndRemove(cartId : number) {
      let item = this.cartItems.find((item) => item.id === cartId);
      if (item) {
        if (item.isAuthenticated === true) {
@@ -78,9 +79,9 @@ export class CartComponent implements OnInit {
     }
   }
   
-   removeCartItem(cartId: number) {
+   async removeCartItem(cartId: number) {
     this.removeFromCartLoader = true;
-    this.findAuthenticatedItemAndRemove(cartId); 
+    await this.findAuthenticatedItemAndRemove(cartId); 
     const newItems = this.cartItems.filter((item) => item.id !== cartId); 
     this.cartService.removeFromCart(newItems); 
     this.getLocalCartItems(); 
@@ -119,6 +120,7 @@ export class CartComponent implements OnInit {
     }); 
     this.cartService.postCartItems(cartItemsArray).subscribe({
       next: () => {
+        this.cartService.getUserCart();  
         this.router.navigate(['/shipping']);  
         this.checkoutLoading = false; 
       }, 

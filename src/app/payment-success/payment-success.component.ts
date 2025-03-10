@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../services/payment-service/payment.service';
 import { ToastrService } from 'ngx-toastr';
 import { AlertServiceService } from '../services/sweetAlert/alert-service.service';
@@ -18,6 +18,7 @@ export class PaymentSuccessComponent implements OnInit {
   paymentService = inject(PaymentService); 
   toaster = inject(ToastrService); 
   sweetAlert = inject(AlertServiceService); 
+  router = inject(Router); 
 
   ngOnInit(): void {
     const addressId: number = parseInt(localStorage.getItem('addressId') || '');
@@ -28,10 +29,13 @@ export class PaymentSuccessComponent implements OnInit {
           this.paymentService.verifyPaystackPayment(reference , addressId).subscribe({
             next: () => {
               this.sweetAlert.successMessage('Payment Successful', ''); 
+              this.router.navigate(['/orders']); 
             }, 
             error: (error) => {
               console.log(error); 
+              this.router.navigate(['/shipping']); 
               this.toaster.error('Error verifying payment'); 
+              
             }
           })
         }

@@ -20,22 +20,7 @@ export class OrdersComponent implements OnInit {
   toaster = inject(ToastrService); 
   
   ngOnInit(): void {
-    const addressId: number = parseInt(localStorage.getItem('addressId') || '');
-     
-      this.activeRoute.queryParams.subscribe(params => {
-        const reference = params['reference'];  
-        if (reference) {
-          this.paymentService.verifyPaystackPayment(reference , addressId).subscribe({
-            next: () => {
-              this.sweetAlert.successMessage('Payment Successful', ''); 
-            }, 
-            error: (error) => {
-              console.log(error); 
-              this.toaster.error('Error verifying payment'); 
-            }
-          })
-        }
-      })
+    
   }
 
   

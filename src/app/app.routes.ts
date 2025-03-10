@@ -12,6 +12,7 @@ import { authGuard } from './auth.guard';
 import { authRedirectGuard } from './auth-redirect.guard';
 import { OrdersComponent } from './orders/orders.component';
 import { ShippingComponent } from './shipping/shipping.component';
+import { PaymentSuccessComponent } from './payment-success/payment-success.component';
 
 export const routes: Routes = [
     {
@@ -71,6 +72,10 @@ export const routes: Routes = [
             {
                 path: 'shipping', 
                 component : ShippingComponent
+            }, 
+            {
+                path: 'payment-success', 
+                component : PaymentSuccessComponent
             }
         ]
         

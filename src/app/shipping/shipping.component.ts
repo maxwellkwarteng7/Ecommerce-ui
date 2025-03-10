@@ -12,6 +12,7 @@ import { PaymentService } from "../services/payment-service/payment.service";
 import { ToastrService } from "ngx-toastr";
 import { ShippingService } from "../services/shipping-service/shipping.service";
 import { AlertServiceService } from "../services/sweetAlert/alert-service.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-shipping",
@@ -43,6 +44,8 @@ export class ShippingComponent implements OnInit {
   toaster = inject(ToastrService);
   shippingService = inject(ShippingService);
   alert = inject(AlertServiceService);
+  activeRoute = inject(ActivatedRoute); 
+  sweetAlert = inject(AlertServiceService); 
 
   ngOnInit(): void {
     this.cartItems = JSON.parse(localStorage.getItem("userCart") || "[]");
@@ -154,6 +157,7 @@ export class ShippingComponent implements OnInit {
 
   handleSelection(addressId: number) {
     this.selectedAddress = addressId;
+    localStorage.setItem('addressId', JSON.stringify(this.selectedAddress)); 
     this.isPaymentActive = true;
   }
 

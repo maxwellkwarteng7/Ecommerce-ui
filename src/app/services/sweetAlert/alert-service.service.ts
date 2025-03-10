@@ -20,4 +20,13 @@ export class AlertServiceService {
       cancelButtonText: 'Cancel',
     });
   }
+
+  successMessage(message: string, subMessage: string) {
+    return Swal.fire({
+      title: message,
+      text: subMessage,
+      icon: 'success'
+    }); 
+  }
+
 }

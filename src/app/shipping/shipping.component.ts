@@ -36,7 +36,7 @@ export class ShippingComponent implements OnInit {
   loaders = {
     checkoutLoader: false,
     addressLoader: false,
-    pageLoader: true,
+    pageLoader: false,
   };
 
   // all injections here
@@ -140,11 +140,14 @@ export class ShippingComponent implements OnInit {
 
   // get addresses
   getAddresses() {
+    this.loaders.pageLoader = true; 
     this.shippingService.getUserAddresses().subscribe({
       next: (data) => {
         this.addressArray = data;
-        if (data.length === 0) this.newAddressState = true;
-        console.log(this.addressArray);
+        if (data.length <= 0) {
+          this.newAddressState = true;
+          this.isPaymentActive = false;
+        }
         this.loaders.pageLoader = false;
       },
       error: (error) => {

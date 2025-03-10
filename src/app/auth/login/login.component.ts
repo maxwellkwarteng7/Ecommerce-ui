@@ -55,8 +55,8 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  handleGoBack() {
-    this.location.back(); 
+  handleGoHome() {
+    this.router.navigate(['/home']); 
   }
 
 

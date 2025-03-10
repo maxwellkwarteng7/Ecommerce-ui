@@ -81,7 +81,8 @@ export class CartServiceService {
       userCart.forEach((userItem : Cart)  => {
         let existingItem = localCart.find((localItem) => userItem.id === localItem.id);
         if (existingItem) {
-          existingItem.quantity = userItem.quantity; 
+          existingItem.quantity = userItem.quantity;
+          existingItem.isAuthenticated = true; 
         } else {
           localCart.push(userItem);
         }

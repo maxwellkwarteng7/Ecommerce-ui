@@ -49,6 +49,7 @@ export class PaymentSuccessComponent implements OnInit {
     this.cartService.clearUserCart().subscribe({
       next: () => {
         localStorage.setItem("userCart", "[]");
+        this.cartService.cartCount.next(0);
         this.isLoading = false; 
         this.router.navigate(["/orders"]);
       },

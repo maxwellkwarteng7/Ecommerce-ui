@@ -105,6 +105,10 @@ export class CartServiceService {
     return this.http.delete<string>(`${environment.baseUrl}/cart/${id}`, { headers: this.getHeaders() });
   }
 
+  clearUserCart(): Observable<string> {
+    return this.http.delete<string>(`${environment.baseUrl}//userCart/clear`); 
+  }
+
  
 
  

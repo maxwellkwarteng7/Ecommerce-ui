@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { PaymentService } from '../services/payment-service/payment.service';
 import { ToastrService } from 'ngx-toastr';
 import { AlertServiceService } from '../services/sweetAlert/alert-service.service';
+import { CartServiceService } from '../services/cart-service/cart-service.service';
 
 @Component({
   selector: 'app-payment-success',
@@ -19,6 +20,7 @@ export class PaymentSuccessComponent implements OnInit {
   toaster = inject(ToastrService); 
   sweetAlert = inject(AlertServiceService); 
   router = inject(Router); 
+  cartService = inject(CartServiceService); 
 
   ngOnInit(): void {
     const addressId: number = parseInt(localStorage.getItem('addressId') || '');
@@ -29,7 +31,7 @@ export class PaymentSuccessComponent implements OnInit {
           this.paymentService.verifyPaystackPayment(reference , addressId).subscribe({
             next: () => {
               this.sweetAlert.successMessage('Payment Successful', ''); 
-              this.router.navigate(['/orders']); 
+              this.clearUserCart();
             }, 
             error: (error) => {
               console.log(error); 
@@ -40,5 +42,16 @@ export class PaymentSuccessComponent implements OnInit {
           })
         }
       })
+  }
+
+
+  clearUserCart() {
+    this.cartService.clearUserCart().subscribe({
+      next: () => this.router.navigate(['/orders']), 
+      error: (error) => {
+        console.log(error); 
+        this.toaster.error('Error clearing user cart'); 
+      } 
+    })
   }
 }

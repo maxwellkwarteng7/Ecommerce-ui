@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
 import { OrdersService } from '../services/orders-service/orders.service';
@@ -11,7 +11,7 @@ import { Orders } from '../models/templates';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })
-export class OrdersComponent {
+export class OrdersComponent implements OnInit {
 
   // variables 
   orders : Orders[] = []; 
@@ -19,6 +19,15 @@ export class OrdersComponent {
   // injections 
   ordersService = inject(OrdersService); 
 
+  ngOnInit(): void {
+    
+  }
 
+
+  getUserOrders() {
+    this.ordersService.getOrders().subscribe({
+      next: (data) => this.orders = data  , 
+    })
+  }
 
 }

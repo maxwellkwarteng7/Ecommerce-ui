@@ -52,4 +52,24 @@ export interface Address {
     id: number
 }
 
-
+export interface Orders {
+    id: number
+    userId: number
+    totalPrice: number
+    paymentMethod: string
+    transactionRef: string
+    addressId: number
+    paymentDate: string
+    order_shipping_address: OrderShippingAddress
+  }
+  
+  export interface OrderShippingAddress {
+    fullName: string
+    phone: string
+    address1: string
+    address2: any
+    country: string
+    city: string
+    state: string
+  }
+  

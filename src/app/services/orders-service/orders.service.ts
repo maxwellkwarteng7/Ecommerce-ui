@@ -21,6 +21,6 @@ export class OrdersService {
   }
   
   getOrders(): Observable<Orders> {
-    return this.http.get<Orders>(`${environment.baseUrl}/orders` , )
+    return this.http.get<Orders>(`${environment.baseUrl}/orders`, { headers: this.getHeaders() }); 
   }
 }

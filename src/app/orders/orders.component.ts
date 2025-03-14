@@ -3,6 +3,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
 import { OrdersService } from '../services/orders-service/orders.service';
 import { Orders } from '../models/templates';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-orders',
@@ -14,20 +15,33 @@ import { Orders } from '../models/templates';
 export class OrdersComponent implements OnInit {
 
   // variables 
-  orders : Orders[] = []; 
+  orders: Orders[] = [];
+  loaders = {
+    allOrders: false
+  }
 
   // injections 
-  ordersService = inject(OrdersService); 
+  ordersService = inject(OrdersService);
+  toaster = inject(ToastrService);
 
   ngOnInit(): void {
-    
+    this.getUserOrders();
   }
 
 
   getUserOrders() {
+    this.loaders.allOrders = true;
     this.ordersService.getOrders().subscribe({
-      next: (data) => this.orders = data  , 
-    })
+      next: (data) => {
+        this.orders = data,
+          console.log(data); 
+      } , 
+      error: (err) => {
+        console.log(err);
+        this.toaster.error('Error fetching orders');
+      },
+      complete: () => this.loaders.allOrders = false
+    });
   }
-
+  
 }

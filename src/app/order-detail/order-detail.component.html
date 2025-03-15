@@ -61,8 +61,16 @@
 
             </div>
             <div class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]">
-           
-              
+                <h1 class="pb-3 border-b-[0.5px] border-b-gray-300">Order Address</h1>
+                <div class="flex flex-col flex-wrap justify-center gap-3 text-sm sm:text-[15px] lg:text-[16px] ">
+                  <p class="text-gray-600"> <span class="text-black">Name : </span> {{orderAddress.fullName}}</p>
+                  <p class="text-gray-600"> <span class="text-black">Telephone : </span> {{orderAddress.phone}}</p>
+                  <p class="text-gray-600"> <span class="text-black">Address1 : </span> {{orderAddress.address1}}</p>
+                  <p *ngIf="orderAddress.address2" class="text-gray-600" > <span class="text-black" >Address2 : </span> {{orderAddress.address2}}</p>
+                  <p class="text-gray-600"> <span class="text-black">Country : </span> {{orderAddress.country}}</p>
+                  <p class="text-gray-600"> <span class="text-black">State/Region : </span> {{orderAddress.state}}</p>
+                  <p class="text-gray-600"> <span class="text-black">City : </span> {{orderAddress.city}}</p>
+                </div>
            
                
             </div>

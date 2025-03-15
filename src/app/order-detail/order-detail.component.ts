@@ -1,5 +1,5 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { OrderShippingAddress } from '../models/templates';
 import { Subscription } from 'rxjs';
 
@@ -18,18 +18,21 @@ export class OrderDetailComponent implements OnInit , OnDestroy {
 
   // all injections 
   activeRoute = inject(ActivatedRoute); 
+  router = inject(Router); 
 
   ngOnInit(): void {
   this.routeSub = this.activeRoute.paramMap.subscribe(param => {
     const orderId = param.get('orderId');
     if (orderId) {
       this.orderId = parseInt(orderId); 
+      console.log(this.orderId); 
     }
     })
   }
 
 ngOnDestroy(): void {
   this.routeSub.unsubscribe(); 
-}
+  }
+  
 
 }

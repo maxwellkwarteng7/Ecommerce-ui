@@ -30,7 +30,7 @@
                   <thead>
                     <tr class="bg-black text-white rounded-sm">
                       <th class="px-4 py-2">#</th>
-                      <th class="px-4 py-2">Order Items</th>
+                      <th class="px-4 py-2">Order Details</th>
                       <th class="px-4 py-2">Order Total</th>
                       <th class="px-4 py-2">Total Price</th>
                       <th class="px-4 py-2">Payment Method</th>
@@ -43,7 +43,7 @@
                       <tr class="border-b text-sm md:text-[15px] lg:text-[16px]">
                         <td  class="px-4 py-3">{{$index + 1}}</td>
                         <td class="px-4 py-3">
-                          <a  class="cursor-pointer underline hover:text-primary transition duration-150 ease-in-out">view items</a>
+                          <a (click)="handleOrderDetails(item.order_shipping_address)"  class="cursor-pointer underline hover:text-primary transition duration-150 ease-in-out">view details</a>
                         </td>
                         <td class="px-4 py-3 font-semibold">0</td>
                         <td class="px-4 py-3">$ {{item.totalPrice}}</td>

@@ -105,7 +105,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
 
 
   addToCart(product: Product) {
-    this.cartService.prepareAndAddToCart(product, 1); 
+    this.cartService.prepareAndAddToCart(product, 1);
   }
 
   navigateToSingleProduct(id: number) {

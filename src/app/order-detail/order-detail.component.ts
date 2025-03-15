@@ -18,19 +18,23 @@ export class OrderDetailComponent implements OnInit {
   orderAddress!: OrderShippingAddress;
   orderId!: number;
   orderItems: Product[] = []; 
-  loading: boolean = true; 
+  loading: boolean = false; 
   
 
 
 
   // all injections 
   activeRoute = inject(ActivatedRoute);
-  router = inject(Router);
   location = inject(Location); 
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get('orderId');
     this.orderId = id ? parseInt(id) : 0;
+   
+    // getting the address data 
+      this.orderAddress = history.state['address'];
+      console.log("history" , this.orderAddress)
+    
   }
 
   goBack() {

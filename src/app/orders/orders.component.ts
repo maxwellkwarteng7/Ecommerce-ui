@@ -4,11 +4,12 @@ import { FooterComponent } from "../footer/footer.component";
 import { OrdersService } from '../services/orders-service/orders.service';
 import { Orders } from '../models/templates';
 import { ToastrService } from 'ngx-toastr';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-orders',
   standalone: true,
-  imports: [NavbarComponent, FooterComponent],
+  imports: [NavbarComponent, FooterComponent , CommonModule],
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.scss'
 })
@@ -17,7 +18,7 @@ export class OrdersComponent implements OnInit {
   // variables 
   orders: Orders[] = [];
   loaders = {
-    allOrders: false
+    allOrders: false 
   }
 
   // injections 

@@ -3,14 +3,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { OrderShippingAddress } from '../models/templates';
 import { FooterComponent } from "../footer/footer.component";
 import { NavbarComponent } from "../navbar/navbar.component";
-import { Location } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { TruncatePipe } from '../truncate.pipe';
 import { Product } from '../models/productTemplate';
 
 @Component({
   selector: 'app-order-detail',
   standalone: true,
-  imports: [FooterComponent, NavbarComponent , TruncatePipe] , 
+  imports: [FooterComponent, NavbarComponent , TruncatePipe , CommonModule] , 
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })

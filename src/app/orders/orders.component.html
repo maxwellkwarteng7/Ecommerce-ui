@@ -18,8 +18,10 @@
             </div>
             }
 
-            <div>
-              
+            <div *ngIf="loaders.allOrders" class="flex items-center justify-center w-full py-5">
+              <div class="spinner" style="width: 35px ; height : 35px ; border-top-color: black;">
+
+              </div>
             </div>
 
             @if (orders.length > 0) {

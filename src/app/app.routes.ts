@@ -13,6 +13,7 @@ import { authRedirectGuard } from './auth-redirect.guard';
 import { OrdersComponent } from './orders/orders.component';
 import { ShippingComponent } from './shipping/shipping.component';
 import { PaymentSuccessComponent } from './payment-success/payment-success.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 export const routes: Routes = [
     {
@@ -76,6 +77,10 @@ export const routes: Routes = [
             {
                 path: 'payment-success', 
                 component : PaymentSuccessComponent
+            }, 
+            {
+                path: 'order-detail/:orderId', 
+                component : OrderDetailComponent
             }
         ]
         

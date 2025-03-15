@@ -2,9 +2,10 @@ import { Component, inject, OnInit } from '@angular/core';
 import { NavbarComponent } from "../navbar/navbar.component";
 import { FooterComponent } from "../footer/footer.component";
 import { OrdersService } from '../services/orders-service/orders.service';
-import { Orders } from '../models/templates';
+import { Orders, OrderShippingAddress } from '../models/templates';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-orders',
@@ -24,6 +25,7 @@ export class OrdersComponent implements OnInit {
   // injections 
   ordersService = inject(OrdersService);
   toaster = inject(ToastrService);
+  router = inject(Router); 
 
   ngOnInit(): void {
     this.getUserOrders();
@@ -33,16 +35,18 @@ export class OrdersComponent implements OnInit {
   getUserOrders() {
     this.loaders.allOrders = true;
     this.ordersService.getOrders().subscribe({
-      next: (data) => {
-        this.orders = data,
-          console.log(this.orders); 
-      } , 
+      next: (data) => this.orders = data, 
       error: (err) => {
         console.log(err);
         this.toaster.error('Error fetching orders');
       },
       complete: () => this.loaders.allOrders = false
     });
+  }
+
+  handleOrderDetails(OrderAddress: OrderShippingAddress) {
+    console.log(OrderAddress); 
+    this.router.navigate(['/order-details']), { state: { OrderAddress } };
   }
   
 }

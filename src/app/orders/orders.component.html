@@ -35,20 +35,29 @@
                       <th class="px-4 py-2">Total Price</th>
                       <th class="px-4 py-2">Payment Method</th>
                       <th class="px-4 py-2">Reference</th>
+                      <th class="px-4 py-2">Payment Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr class="border-b text-sm md:text-[15px] lg:text-[16px]">
-                      <td  class="px-4 py-3">1</td>
-                      <td class="px-4 py-3">
-                        <a  class="cursor-pointer underline">view items</a>
-                      </td>
-                      <td class="px-4 py-3 font-semibold">13</td>
-                      <td class="px-4 py-3">$5000</td>
-                      <td class="px-4 py-3">Paystack</td>
-                      <td class="px-4 py-3">4t5yui78</td>
-                    </tr>
-                
+                    @for (item of orders; track $index) {
+                      <tr class="border-b text-sm md:text-[15px] lg:text-[16px]">
+                        <td  class="px-4 py-3">{{$index + 1}}</td>
+                        <td class="px-4 py-3">
+                          <a  class="cursor-pointer underline hover:text-primary transition duration-150 ease-in-out">view items</a>
+                        </td>
+                        <td class="px-4 py-3 font-semibold">0</td>
+                        <td class="px-4 py-3">$ {{item.totalPrice}}</td>
+                        <td class="px-4 py-3 capitalize">
+                          @if(item.paymentMethod === 'paystack'){
+                            <img src="payment-images/paystack-logo.svg" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
+                          }@else {
+                            <img src="payment-images/stripe-logo-3.png" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
+                          }
+                        </td>
+                        <td class="px-4 py-3">{{item.transactionRef}}</td>
+                        <td class="px-4 py-3">{{item.paymentDate | date : 'dd-MM-yy' }} <td>
+                      </tr>
+                    }
                   </tbody>
                 </table>
               </div>

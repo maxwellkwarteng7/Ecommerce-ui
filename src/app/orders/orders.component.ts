@@ -26,7 +26,7 @@ export class OrdersComponent implements OnInit {
   toaster = inject(ToastrService);
 
   ngOnInit(): void {
-    // this.getUserOrders();
+    this.getUserOrders();
   }
 
 

@@ -25,6 +25,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
  
   userReview!: reviewsTemplate; 
   page: number = 1; 
+  username: string = ''; 
   
   loading: { product: boolean, image: boolean, reviews: boolean } = {
     product: true  ,  
@@ -38,6 +39,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
   private toaster = inject(ToastrService);
   private cartService = inject(CartServiceService);
   private router = inject(Router);
+  
 
   ngOnInit(): void {
     this.routeSub = this.activeRoute.paramMap.subscribe(params => {
@@ -77,6 +79,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
       this.productService.getProductReviews(this.singleProduct.id , page , 8).subscribe({
         next: (data) => {
           this.userReview = data
+          console.log(data); 
         },
         error: (error) => {
           this.toaster.error('Error fetching product reviews');
@@ -119,7 +122,7 @@ export class ProductDetailsComponent implements OnInit , OnDestroy  {
       for (let i = 0; i < reviews.length; i++){
         average += reviews[i].rating; 
       }
-      average = average / reviews.length; 
+      average = (average / reviews.length); 
     }
     return average;  
   }

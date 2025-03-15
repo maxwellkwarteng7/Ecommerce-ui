@@ -4,7 +4,6 @@ import {
   inject,
   Input,
   OnChanges,
-  OnInit,
   SimpleChanges,
   ViewChild,
 } from "@angular/core";

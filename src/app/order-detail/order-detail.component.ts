@@ -10,29 +10,22 @@ import { Subscription } from 'rxjs';
   templateUrl: './order-detail.component.html',
   styleUrl: './order-detail.component.scss'
 })
-export class OrderDetailComponent implements OnInit , OnDestroy {
-  orderAddress!: OrderShippingAddress; 
-  orderId!: number; 
-  private routeSub!: Subscription;
+export class OrderDetailComponent implements OnInit {
+  orderAddress!: OrderShippingAddress;
+  orderId!: number;
+
 
 
   // all injections 
-  activeRoute = inject(ActivatedRoute); 
-  router = inject(Router); 
+  activeRoute = inject(ActivatedRoute);
+  router = inject(Router);
 
   ngOnInit(): void {
-  this.routeSub = this.activeRoute.paramMap.subscribe(param => {
-    const orderId = param.get('orderId');
-    if (orderId) {
-      this.orderId = parseInt(orderId); 
-      console.log(this.orderId); 
-    }
-    })
+    const id = this.activeRoute.snapshot.paramMap.get('orderId');
+    this.orderId = id ? parseInt(id) : 0;
   }
 
-ngOnDestroy(): void {
-  this.routeSub.unsubscribe(); 
-  }
-  
+
+
 
 }

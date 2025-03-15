@@ -45,7 +45,9 @@ export class OrdersComponent implements OnInit {
   }
 
   handleOrderDetails(OrderAddress: OrderShippingAddress , orderId: number) {
-    this.router.navigate(['/order-detail' , orderId]), { state: { OrderAddress } };
+    this.router.navigate(['/order-detail', orderId], {state : {address : OrderAddress}});  
+
+   
   }
   
 }

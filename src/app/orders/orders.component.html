@@ -9,8 +9,51 @@
           </div>
 
           <!-- the cart container -->
-           <div class="bg-white rounded-sm shadow-lg min-h-[30rem]">
-            
+           <div class="bg-white rounded-sm shadow-lg min-h-[30rem] p-5">
+
+            @if(orders.length === 0) {
+              
+            <div class="py-7">
+              You have no order items ...
+            </div>
+            }
+
+            <div>
+              
+            </div>
+
+            @if (orders.length > 0) {
+              <div class="overflow-x-auto">
+                <table class="min-w-full whitespace-nowrap">
+                  <thead>
+                    <tr class="bg-black text-white rounded-sm">
+                      <th class="px-4 py-2">#</th>
+                      <th class="px-4 py-2">Order Items</th>
+                      <th class="px-4 py-2">Order Total</th>
+                      <th class="px-4 py-2">Total Price</th>
+                      <th class="px-4 py-2">Payment Method</th>
+                      <th class="px-4 py-2">Reference</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b text-sm md:text-[15px] lg:text-[16px]">
+                      <td  class="px-4 py-3">1</td>
+                      <td class="px-4 py-3">
+                        <a  class="cursor-pointer underline">view items</a>
+                      </td>
+                      <td class="px-4 py-3 font-semibold">13</td>
+                      <td class="px-4 py-3">$5000</td>
+                      <td class="px-4 py-3">Paystack</td>
+                      <td class="px-4 py-3">4t5yui78</td>
+                    </tr>
+                
+                  </tbody>
+                </table>
+              </div>
+            }@else {
+
+            }
+          
            </div>
     </div>
 

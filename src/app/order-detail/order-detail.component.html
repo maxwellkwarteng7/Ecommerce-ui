@@ -1,81 +1,104 @@
 <div class="w-full min-h-[100vh] bg-secondary">
-    <app-navbar></app-navbar>
-    <div class="w-full px-4 md:px-[3%] xl:px-[8%] py-[3%]">
-        <!-- the back button  -->
-         <div class="flex items-center text-sm md:text-[16px] cursor-pointer" (click)=" goBack()">
-            <span class="mdi mdi-chevron-left"></span>
-            <span>Back</span>
-         </div>
+  <app-navbar></app-navbar>
+  <div class="w-full px-4 md:px-[3%] xl:px-[8%] py-[3%]">
+    <!-- the back button  -->
+    <div
+      class="flex items-center text-sm md:text-[16px] cursor-pointer"
+      (click)="goBack()"
+    >
+      <span class="mdi mdi-chevron-left"></span>
+      <span>Back</span>
+    </div>
 
-         <!-- Your cart header -->
-          <div class="py-5">
-            <p class="text-2xl sm:text-3xl lg:text-4xl font-thin">Order Details</p>
-          </div>
+    <!-- Your cart header -->
+    <div class="py-5">
+      <p class="text-2xl sm:text-3xl lg:text-4xl font-thin">Order Details</p>
+    </div>
 
-          <!-- the cart container -->
-           <div class="my-[2%] flex flex-col lg:flex-row gap-3 lg:gap-5 w-[100%]">
-            <div class="bg-white rounded-sm shadow-lg w-full lg:w-[70%] min-h-[20rem] md:min-h-[30rem] p-6 flex flex-col gap-2">
-              @if(!loading){
-               @if(this.orderItems.length > 0){
-                @for(item of orderItems ; track $index){
-                  <!-- the list of carts heres  -->
-              <div class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem] w-full">
+    <!-- the cart container -->
+    <div class="my-[2%] flex flex-col lg:flex-row gap-3 lg:gap-5 w-[100%]">
+      <div
+        class="bg-white rounded-sm shadow-lg w-full lg:w-[70%] min-h-[20rem] md:min-h-[30rem] p-6 flex flex-col gap-2"
+      >
+        @if(!loading){ @if(this.orderItems.length > 0){ @for(item of orderItems
+        ; track $index){
+        <!-- the list of carts heres  -->
+        <div
+          class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem] w-full"
+        >
+          <!-- the image and text  -->
+          <div class="flex items-start gap-5 justify-between">
+            <!-- the image -->
+            <div class="flex items-center gap-5 w-full">
+              <img
+                src="{{ item.image }}"
+                alt="...cart-image"
+                class="w-[100px] h-[100px] object-cover object-center rounded-sm"
+              />
 
-               <!-- the image and text  -->
-                <div class="flex items-start gap-5 justify-between">
-                 <!-- the image -->
-                 <div class="flex items-center gap-5 w-full">
-                  <img src="{{item.image}}" alt="...cart-image" class="w-[100px] h-[100px]  object-cover object-center rounded-sm">
-
-                  <!-- the name , buttons to change quantity -->
-                   <div class="flex flex-col gap-3 w-full">
-                     <h3 class="text-sm sm:text-[16px] text-wrap">{{item.name | truncate : 70 }}</h3>
-                     <b class="lg:hidden">
-                      <!-- @if(item.discountPrice){
+              <!-- the name , buttons to change quantity -->
+              <div class="flex flex-col gap-3 w-full">
+                <h3 class="text-sm sm:text-[16px] text-wrap">
+                  {{ item.name | truncate : 70 }}
+                </h3>
+                <b class="lg:hidden">
+                  <!-- @if(item.discountPrice){
                         {{itemSubTotalPrice(item.discountPrice , item.quantity)}}
                       }@else {
                         {{itemSubTotalPrice(item.price , item.quantity)}}
                       } -->
-                     </b>
-                
-                   </div>
-                 </div>
-
-             
-
-                </div>
-
+                </b>
               </div>
-               }
-               }
-              }@else {
-                <div class="w-full flex items-center justify-center h-full">
-                  <div
-                    class="spinner"
-                    style="border-top-color: black; width: 40px; height: 40px"
-                  ></div>
-                </div>
-              }
-             
-            
-
             </div>
-            <div class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]">
-                <h1 class="pb-3 border-b-[0.5px] border-b-gray-300">Order Address</h1>
-                <div class="flex flex-col flex-wrap justify-center gap-3 text-sm sm:text-[15px] lg:text-[16px] ">
-                  <p class="text-gray-600"> <span class="text-black">Name : </span> {{orderAddress.fullName}}</p>
-                  <p class="text-gray-600"> <span class="text-black">Telephone : </span> {{orderAddress.phone}}</p>
-                  <p class="text-gray-600"> <span class="text-black">Address1 : </span> {{orderAddress.address1}}</p>
-                  <p *ngIf="orderAddress.address2" class="text-gray-600" > <span class="text-black" >Address2 : </span> {{orderAddress.address2}}</p>
-                  <p class="text-gray-600"> <span class="text-black">Country : </span> {{orderAddress.country}}</p>
-                  <p class="text-gray-600"> <span class="text-black">State/Region : </span> {{orderAddress.state}}</p>
-                  <p class="text-gray-600"> <span class="text-black">City : </span> {{orderAddress.city}}</p>
-                </div>
-           
-               
-            </div>
-           </div>
+          </div>
+        </div>
+        } } }@else {
+        <div class="w-full flex items-center justify-center h-full">
+          <div
+            class="spinner"
+            style="border-top-color: black; width: 40px; height: 40px"
+          ></div>
+        </div>
+        }
+      </div>
+      <div
+        class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]"
+      >
+        <h1 class="pb-3 border-b-[0.5px] border-b-gray-300">
+          Shipping Address
+        </h1>
+        <div
+          class="flex flex-col flex-wrap justify-center gap-3 text-sm sm:text-[15px] lg:text-[16px] bg-secondary p-4 rounded-sm"
+        >
+          <p class="text-gray-600">
+            <span class="text-black">Name : </span> {{ orderAddress.fullName }}
+          </p>
+          <p class="text-gray-600">
+            <span class="text-black">Telephone : </span>
+            {{ orderAddress.phone }}
+          </p>
+          <p class="text-gray-600">
+            <span class="text-black">Address1 : </span>
+            {{ orderAddress.address1 }}
+          </p>
+          <p *ngIf="orderAddress.address2" class="text-gray-600">
+            <span class="text-black">Address2 : </span>
+            {{ orderAddress.address2 }}
+          </p>
+          <p class="text-gray-600">
+            <span class="text-black">Country : </span>
+            {{ orderAddress.country }}
+          </p>
+          <p class="text-gray-600">
+            <span class="text-black">State/Region : </span>
+            {{ orderAddress.state }}
+          </p>
+          <p class="text-gray-600">
+            <span class="text-black">City : </span> {{ orderAddress.city }}
+          </p>
+        </div>
+      </div>
     </div>
-
+  </div>
 </div>
 <app-footer></app-footer>

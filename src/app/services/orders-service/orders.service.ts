@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Orders, orderTemplate } from '../../models/templates';
+import { orderDetail, Orders, orderTemplate } from '../../models/templates';
 import { environment } from '../../../environments/environment.development';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -22,5 +22,9 @@ export class OrdersService {
   
   getOrders(): Observable<orderTemplate> {
     return this.http.get<orderTemplate>(`${environment.baseUrl}/orders`, { headers: this.getHeaders() }); 
+  }
+
+  getOrderItems(orderId : number , page : number , limit : number): Observable<orderDetail> {
+    return this.http.get<orderDetail>(`${environment.baseUrl}/orders/${orderId}?page=${page}&limit=${limit}`, { headers: this.getHeaders() });
   }
 }

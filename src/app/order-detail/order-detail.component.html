@@ -22,7 +22,7 @@
       >
         @if(!loading){ @if(this.orderItems.length > 0){ @for(item of orderItems
         ; track $index){
-        <!-- the list of carts heres  -->
+        <!-- the list of orders heres  -->
         <div
           class="py-3 border-b-solid border-b-[0.5px] border-b-gray-200 min-h-[8rem] w-full"
         >
@@ -36,7 +36,7 @@
                 class="w-[100px] h-[100px] object-cover object-center rounded-sm"
               />
 
-              <!-- the name , buttons to change quantity -->
+              <!-- the name and others -->
               <div class="flex flex-col gap-3 w-full">
                 <h3 class="text-sm sm:text-[16px] text-wrap">
                   {{ item.product.name | truncate : 50 }}
@@ -65,7 +65,25 @@
             </div>
           </div>
         </div>
-        } } }@else {
+        }
+        <div class="py-4 flex items-center justify-end">
+          <div class="flex items-center gap-2">
+            <button (click)=" fetchPrevPage()"  *ngIf="currentPage > 1"  class="py-2 bg-secondary text-black text-[14px] px-2 rounded-sm">
+              Prev
+            </button>
+             <div class="flex items-center gap-1 text-sm">
+              <span>{{currentPage}}</span>
+              <span>of</span>
+              <span>{{totalPages}}</span>
+             </div>
+            <button *ngIf="currentPage < totalPages" (click)="fetchNextPage()" class="py-2 bg-secondary text-black text-[15px] px-2 rounded-sm">
+              Next
+            </button>
+          </div>
+        </div>
+       }
+
+       }@else {
         <div class="w-full flex items-center justify-center h-full">
           <div
             class="spinner"

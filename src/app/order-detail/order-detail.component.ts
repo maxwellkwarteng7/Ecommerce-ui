@@ -20,14 +20,15 @@ export class OrderDetailComponent implements OnInit {
   orderId!: number;
   orderItems: details[] = [];
   loading: boolean = false;
-
+  currentPage!: number;
+  totalPages!: number;
 
   // all injections
   activeRoute = inject(ActivatedRoute);
   location = inject(Location);
   orderService = inject(OrdersService);
   toaster = inject(ToastrService);
-  page: number = 1 ;
+  page: number = 1;
 
   ngOnInit(): void {
     const id = this.activeRoute.snapshot.paramMap.get("orderId");
@@ -35,19 +36,21 @@ export class OrderDetailComponent implements OnInit {
 
     // getting the address data
     this.orderAddress = history.state["address"];
-    this.getUserOderItems(this.orderId);
+    this.getUserOderItems();
   }
 
   goBack() {
     this.location.back();
   }
 
-  getUserOderItems(orderId: number) {
+  getUserOderItems() {
     this.loading = true;
-    this.orderService.getOrderItems(orderId , this.page , 10).subscribe({
+    this.orderService.getOrderItems(this.orderId, this.page, 10).subscribe({
       next: (data) => {
-        this.page = data.currentPage; 
+        this.page = data.currentPage;
         this.orderItems = data.orderItems;
+        this.currentPage = data.currentPage;
+        this.totalPages = data.totalPages;
       },
       error: (error) => {
         console.log(error);
@@ -55,5 +58,15 @@ export class OrderDetailComponent implements OnInit {
       },
       complete: () => (this.loading = false),
     });
+  }
+
+  fetchNextPage() {
+    this.page += 1;
+    this.getUserOderItems();
+  }
+
+  fetchPrevPage() {
+    this.page -= 1;
+    this.getUserOderItems();
   }
 }

@@ -1,47 +1,38 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { OrderShippingAddress } from '../models/templates';
+import { Component, inject, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { OrderShippingAddress } from "../models/templates";
 import { FooterComponent } from "../footer/footer.component";
 import { NavbarComponent } from "../navbar/navbar.component";
-import { CommonModule, Location } from '@angular/common';
-import { TruncatePipe } from '../truncate.pipe';
-import { Product } from '../models/productTemplate';
+import { CommonModule, Location } from "@angular/common";
+import { TruncatePipe } from "../truncate.pipe";
+import { Product } from "../models/productTemplate";
 
 @Component({
-  selector: 'app-order-detail',
+  selector: "app-order-detail",
   standalone: true,
-  imports: [FooterComponent, NavbarComponent , TruncatePipe , CommonModule] , 
-  templateUrl: './order-detail.component.html',
-  styleUrl: './order-detail.component.scss'
+  imports: [FooterComponent, NavbarComponent, TruncatePipe, CommonModule],
+  templateUrl: "./order-detail.component.html",
+  styleUrl: "./order-detail.component.scss",
 })
 export class OrderDetailComponent implements OnInit {
   orderAddress!: OrderShippingAddress;
   orderId!: number;
-  orderItems: Product[] = []; 
-  loading: boolean = false; 
-  
+  orderItems: Product[] = [];
+  loading: boolean = false;
 
-
-
-  // all injections 
+  // all injections
   activeRoute = inject(ActivatedRoute);
-  location = inject(Location); 
+  location = inject(Location);
 
   ngOnInit(): void {
-    const id = this.activeRoute.snapshot.paramMap.get('orderId');
+    const id = this.activeRoute.snapshot.paramMap.get("orderId");
     this.orderId = id ? parseInt(id) : 0;
-   
-    // getting the address data 
-      this.orderAddress = history.state['address'];
-      console.log("history" , this.orderAddress)
-    
+
+    // getting the address data
+    this.orderAddress = history.state["address"];
   }
 
   goBack() {
     this.location.back();
   }
-
-
-
-
 }

@@ -66,7 +66,7 @@
           </div>
         </div>
         }
-        <div class="py-4 flex items-center justify-end">
+        <div class="py-4 flex items-center justify-end" *ngIf="totalPages > 1">
           <div class="flex items-center gap-2">
             <button (click)=" fetchPrevPage()"  *ngIf="currentPage > 1"  class="py-2 bg-secondary text-black text-[14px] px-2 rounded-sm">
               Prev

@@ -21,6 +21,7 @@ export class OrdersComponent implements OnInit {
   loaders = {
     allOrders: false 
   }
+  orderItemsCount!: number; 
 
   // injections 
   ordersService = inject(OrdersService);
@@ -35,7 +36,9 @@ export class OrdersComponent implements OnInit {
   getUserOrders() {
     this.loaders.allOrders = true;
     this.ordersService.getOrders().subscribe({
-      next: (data) => this.orders = data, 
+      next: ({ userOrders}) => {
+        this.orders = userOrders; 
+      }, 
       error: (err) => {
         console.log(err);
         this.toaster.error('Error fetching orders');
@@ -46,8 +49,6 @@ export class OrdersComponent implements OnInit {
 
   handleOrderDetails(OrderAddress: OrderShippingAddress , orderId: number) {
     this.router.navigate(['/order-detail', orderId], {state : {address : OrderAddress}});  
-
-   
   }
   
 }

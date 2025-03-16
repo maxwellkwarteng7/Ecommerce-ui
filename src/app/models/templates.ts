@@ -52,6 +52,10 @@ export interface Address {
     id: number
 }
 
+export interface orderTemplate {
+    userOrders: Orders[]
+}
+
 export interface Orders {
     id: number
     userId: number
@@ -60,6 +64,7 @@ export interface Orders {
     transactionRef: string
     addressId: number
     paymentDate: string
+    orderItemCount : number , 
     order_shipping_address: OrderShippingAddress
   }
   

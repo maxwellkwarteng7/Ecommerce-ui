@@ -31,7 +31,7 @@
             <!-- the image -->
             <div class="flex items-center gap-5 w-full">
               <img
-                src="{{ item.image }}"
+                src="{{ item.product.image }}"
                 alt="...cart-image"
                 class="w-[100px] h-[100px] object-cover object-center rounded-sm"
               />
@@ -39,15 +39,28 @@
               <!-- the name , buttons to change quantity -->
               <div class="flex flex-col gap-3 w-full">
                 <h3 class="text-sm sm:text-[16px] text-wrap">
-                  {{ item.name | truncate : 70 }}
+                  {{ item.product.name | truncate : 50 }}
                 </h3>
                 <b class="lg:hidden">
-                  <!-- @if(item.discountPrice){
-                        {{itemSubTotalPrice(item.discountPrice , item.quantity)}}
-                      }@else {
-                        {{itemSubTotalPrice(item.price , item.quantity)}}
-                      } -->
+                  @if(item.product.discountPrice){
+                  <span>Subtotal : ${{ item.product.discountPrice * item.quantity }} </span>
+                  }@else {
+                    <span>Subtotal : ${{ item.product.price * item.quantity }} </span>
+                  }
                 </b>
+                <p> <span class="text-gray-600">Quantity</span> : {{item.quantity}}</p>
+                <p><span class="text-gray-600">Order Status</span>: {{item.orderStatus}}</p>
+              </div>
+            </div>
+            <div class="lg:block hidden">
+              <div class="text-sm">
+                @if(item.product.discountPrice){
+                Subtotal 
+                <span class="font-bold text-primary text-[17px]">${{ item.product.discountPrice * item.quantity }}</span>
+                }@else {
+                Subtotal
+                <span class="font-bold text-primary text-[17px]">${{ item.product.price * item.quantity }}</span>
+                }
               </div>
             </div>
           </div>
@@ -62,7 +75,7 @@
         }
       </div>
       <div
-        class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] h-[21rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]"
+        class="bg-white rounded-sm shadow-lg w-full lg:w-[30%] h-[23rem] flex flex-col gap-3 p-5 lg:sticky lg:top-[12vh]"
       >
         <h1 class="pb-3 border-b-[0.5px] border-b-gray-300">
           Shipping Address

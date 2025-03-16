@@ -76,5 +76,24 @@ export interface Orders {
     country: string
     city: string
     state: string
-  }
+}
+  
+export interface orderDetail {
+    currentPage: number 
+    totalPages: number, 
+    orderItems : details[]
+}
+
+export interface details {
+    quantity: number, 
+    orderStatus: string, 
+    product : orderProduct
+}
+
+export interface orderProduct {
+    image: string, 
+    price: number, 
+    discountPrice: number, 
+    name : string
+}
   

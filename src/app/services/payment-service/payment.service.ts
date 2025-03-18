@@ -20,9 +20,9 @@ export class PaymentService {
     }); 
   }
 
-  initializePaystackPayment(): Observable<{ message: string, link: string }> {
+  initiatePayment(paymentMethod : string): Observable<{ message: string, link: string }> {
     const body = ''; 
-    return this.http.post<{message : string , link: string}>(`${environment.baseUrl}/paystack/initialize-payment`, body , {headers : this.getHeaders()}); 
+    return this.http.post<{message : string , link: string}>(`${environment.baseUrl}/${paymentMethod}/initiate-payment`, body , {headers : this.getHeaders()}); 
   }
 
   verifyPaystackPayment(reference: string, addressId: number): Observable<string> {

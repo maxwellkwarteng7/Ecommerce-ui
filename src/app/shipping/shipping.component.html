@@ -254,6 +254,7 @@
           <!-- paystack -->
           <button
             [disabled]="!isPaymentActive"
+            (click)="handlePaymentMethod('paystack')"
             class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
@@ -267,14 +268,15 @@
             </div>
             <!-- the select radio -->
             <div
-              class="w-[1.2em] h-[1.2em] rounded-full border-solid border-[1px] border-black flex items-center justify-center"
+              class="size-5 rounded-full border-solid border-[1px] border-black flex items-center justify-center"
             >
-              <span class="w-[80%] h-[80%] bg-primary rounded-full"></span>
+            <span  [className]="paymentMethod === 'paystack'? 'w-[80%] h-[80%] bg-primary rounded-full' : 'w-[80%] h-[80%] rounded-full'"></span>
             </div>
           </button>
           <!-- stripe  -->
           <button
             [disabled]="!isPaymentActive"
+            (click)="handlePaymentMethod('stripe')"
             class="px-3 py-5 bg-white shadow-lg flex items-center justify-between gap-2 rounded-md"
           >
             <!-- the image -->
@@ -288,9 +290,9 @@
             </div>
             <!-- the select radio -->
             <div
-              class="w-[1.2em] h-[1.2em] rounded-full border-solid border-[1px] border-black flex items-center justify-center"
+              class="size-5 rounded-full border-solid border-[1px] border-black flex items-center justify-center"
             >
-              <span class="w-[80%] h-[80%] rounded-full"></span>
+              <span  [className]="paymentMethod === 'stripe'? 'w-[80%] h-[80%] bg-primary rounded-full' : 'w-[80%] h-[80%] rounded-full'"></span>
             </div>
           </button>
         </div>

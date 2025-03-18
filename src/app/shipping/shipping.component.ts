@@ -32,6 +32,7 @@ export class ShippingComponent implements OnInit {
   isEditingAddress: boolean = false;
   selectedAddress!: number;
   dynamicAddressId!: number; 
+  paymentMethod: string = 'paystack'; 
 
   loaders = {
     checkoutLoader: false,
@@ -79,22 +80,30 @@ export class ShippingComponent implements OnInit {
 
   getPaystackLink() {
     this.loaders.checkoutLoader = true;
-    this.paymentService.initializePaystackPayment().subscribe({
-      next: (data) => {
-        this.paymentLink = data.link;
-        window.open(this.paymentLink, "_blank");
-        this.loaders.checkoutLoader = false;
-      },
-      error: (error) => {
-        console.log(error);
-        this.toaster.error("Error fetching payment link");
-        this.loaders.checkoutLoader = false;
-      },
-    });
+    if (this.paymentMethod === 'paystack') {
+      this.paymentService.initializePaystackPayment().subscribe({
+        next: (data) => {
+          this.paymentLink = data.link;
+          window.open(this.paymentLink, "_blank");
+          this.loaders.checkoutLoader = false;
+        },
+        error: (error) => {
+          console.log(error);
+          this.toaster.error("Error fetching payment link");
+          this.loaders.checkoutLoader = false;
+        },
+      });
+    } else {
+      
+     }
   }
 
   handlePay() {
     this.getPaystackLink();
+  }
+
+  handlePaymentMethod(method: string) {
+    this.paymentMethod = method; 
   }
 
   showAddress() {

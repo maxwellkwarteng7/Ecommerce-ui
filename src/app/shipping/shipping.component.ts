@@ -78,7 +78,7 @@ export class ShippingComponent implements OnInit {
     return this.total;
   }
 
-  getPaystackLink() {
+  getPaymentLink() {
     this.loaders.checkoutLoader = true;
     if (this.paymentMethod === 'paystack') {
       this.paymentService.initializePaystackPayment().subscribe({
@@ -99,7 +99,7 @@ export class ShippingComponent implements OnInit {
   }
 
   handlePay() {
-    this.getPaystackLink();
+    this.getPaymentLink();
   }
 
   handlePaymentMethod(method: string) {

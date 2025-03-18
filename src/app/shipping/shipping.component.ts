@@ -80,8 +80,7 @@ export class ShippingComponent implements OnInit {
 
   getPaymentLink() {
     this.loaders.checkoutLoader = true;
-    if (this.paymentMethod === 'paystack') {
-      this.paymentService.initializePaystackPayment().subscribe({
+      this.paymentService.initiatePayment(this.paymentMethod).subscribe({
         next: (data) => {
           this.paymentLink = data.link;
           window.open(this.paymentLink, "_blank");
@@ -93,9 +92,6 @@ export class ShippingComponent implements OnInit {
           this.loaders.checkoutLoader = false;
         },
       });
-    } else {
-      
-     }
   }
 
   handlePay() {

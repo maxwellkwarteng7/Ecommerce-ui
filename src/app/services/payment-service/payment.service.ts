@@ -30,7 +30,11 @@ export class PaymentService {
       addressId
     }
     return this.http.post<string>(`${environment.baseUrl}/paystack/verify-payment/${reference}` , payload, {headers : this.getHeaders()}); 
-    }
+  }
+  
+  verifyStripePayment(sessionId: string, addressId: number): Observable<string> {
+    return this.http.get<string>(`${environment.baseUrl}/stripe/verify-payment/${sessionId}`); 
+  }
   
 
 

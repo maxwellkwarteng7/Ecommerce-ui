@@ -48,11 +48,11 @@
                         <td class="px-4 py-3">{{item.orderItemCount}}</td>
                         <td class="px-4 py-3">$ {{item.totalPrice}}</td>
                         <td class="px-4 py-3 capitalize">
-                          @if(item.paymentMethod === 'paystack'){
-                            <img src="payment-images/paystack-logo.svg" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
-                          }@else {
-                            <img src="payment-images/stripe-logo-3.png" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
-                          }
+                        
+                            <img *ngIf="item.paymentMethod === 'paystack'" src="payment-images/paystack-logo.svg" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
+                         
+                            <img *ngIf="  item.paymentMethod === 'stripe'" src="payment-images/stripe-logo-3.png" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
+
                         </td>
                         <td class="px-4 py-3">{{item.transactionRef}}</td>
                         <td class="px-4 py-3">{{item.paymentDate | date : 'dd-MM-yy' }} <td>
@@ -70,3 +70,4 @@
 
 </div>
 <app-footer></app-footer>
+lorem6

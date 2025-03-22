@@ -28,6 +28,7 @@ export class PaymentSuccessComponent implements OnInit  {
   ngOnInit(): void {
     const addressId: number = parseInt(localStorage.getItem("addressId") || "");
     const reference = this.activeRoute.snapshot.paramMap.get('reference'); 
+    const sessionId = this.activeRoute.snapshot.paramMap.get('session_id');
     
       if (reference) {
         this.paymentService
@@ -43,7 +44,24 @@ export class PaymentSuccessComponent implements OnInit  {
               this.toaster.error("Error verifying payment");
             },
           });
-      }
+    }
+
+    if (sessionId) {
+      this.paymentService
+        .verifyStripePayment(sessionId, addressId)
+        .subscribe({
+          next: () => {
+            this.sweetAlert.successMessage("Payment Successful", "");
+            this.clearUserCart();
+          },
+          error: (error) => {
+            console.log(error);
+            this.router.navigate(["/shipping"]);
+            this.toaster.error("Error verifying payment");
+          },
+        });
+  }
+    
   }
 
 

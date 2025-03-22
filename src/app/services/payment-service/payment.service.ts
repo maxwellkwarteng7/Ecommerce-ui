@@ -32,11 +32,11 @@ export class PaymentService {
     return this.http.post<string>(`${environment.baseUrl}/paystack/verify-payment/${reference}` , payload, {headers : this.getHeaders()}); 
   }
   
-  verifyStripePayment(addressId: number): Observable<string> {
+  verifyStripePayment(sessionId :string , addressId: number): Observable<string> {
     const body = {
       addressId
     }
-    return this.http.post<string>(`${environment.baseUrl}/stripe/verify-payment/` , body ,  {headers : this.getHeaders()}); 
+    return this.http.post<string>(`${environment.baseUrl}/stripe/verify-payment/${sessionId}` , body ,  {headers : this.getHeaders()}); 
   }
   
 

@@ -43,11 +43,7 @@ export class PaymentSuccessComponent implements OnInit  {
               this.toaster.error("Error verifying payment");
             },
           });
-      } else {
-        this.sweetAlert.successMessage("Payment Successful", "");
-        this.clearUserCart();
-        this.router.navigate(["/orders"]);
-     }
+      }
   }
 
 

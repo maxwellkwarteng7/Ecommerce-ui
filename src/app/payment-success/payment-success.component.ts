@@ -13,7 +13,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./payment-success.component.html",
   styleUrl: "./payment-success.component.scss",
 })
-export class PaymentSuccessComponent implements OnInit , OnDestroy {
+export class PaymentSuccessComponent implements OnInit  {
   // injections
   activeRoute = inject(ActivatedRoute);
   paymentService = inject(PaymentService);
@@ -22,15 +22,13 @@ export class PaymentSuccessComponent implements OnInit , OnDestroy {
   router = inject(Router);
   cartService = inject(CartServiceService);
   isLoading = true;
-  routeSubscription!: Subscription; 
+ 
   
 
   ngOnInit(): void {
     const addressId: number = parseInt(localStorage.getItem("addressId") || "");
-
-   this.routeSubscription =  this.activeRoute.queryParams.subscribe((params) => {
-     const reference = params["reference"];
-     const sessionId = params["session_id"];
+    const reference = this.activeRoute.snapshot.paramMap.get('reference'); 
+    
       if (reference) {
         this.paymentService
           .verifyPaystackPayment(reference, addressId)
@@ -45,29 +43,13 @@ export class PaymentSuccessComponent implements OnInit , OnDestroy {
               this.toaster.error("Error verifying payment");
             },
           });
+      } else {
+        this.sweetAlert.successMessage("Payment Successful", "");
+        this.clearUserCart();
+        this.router.navigate(["/orders"]);
      }
-     
-     if (sessionId) {
-      this.paymentService
-        .verifyStripePayment(sessionId, addressId)
-        .subscribe({
-          next: () => {
-            this.sweetAlert.successMessage("Payment Successful", "");
-            this.clearUserCart();
-          },
-          error: (error) => {
-            console.log(error);
-            this.router.navigate(["/shipping"]);
-            this.toaster.error("Error verifying payment");
-          },
-        });
-    }
-  }); 
   }
 
-  ngOnDestroy(): void {
-    this.routeSubscription.unsubscribe(); 
-  }
 
   clearUserCart() {
     this.cartService.clearUserCart().subscribe({

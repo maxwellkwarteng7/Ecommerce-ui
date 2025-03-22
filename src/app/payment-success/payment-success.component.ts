@@ -30,7 +30,7 @@ export class PaymentSuccessComponent implements OnInit  {
     const reference = this.activeRoute.snapshot.paramMap.get('reference'); 
     const sessionId = this.activeRoute.snapshot.paramMap.get('session_id');
     
-      if (reference) {
+      if (reference && addressId) {
         this.paymentService
           .verifyPaystackPayment(reference, addressId)
           .subscribe({
@@ -46,7 +46,7 @@ export class PaymentSuccessComponent implements OnInit  {
           });
     }
 
-    if (sessionId) {
+    if (sessionId && addressId) {
       this.paymentService
         .verifyStripePayment(sessionId, addressId)
         .subscribe({

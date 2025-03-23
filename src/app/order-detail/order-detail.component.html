@@ -43,9 +43,9 @@
                 </h3>
                 <b class="lg:hidden">
                   @if(item.product.discountPrice){
-                  <span>Subtotal : ${{ item.product.discountPrice * item.quantity }} </span>
+                  <span>Subtotal : ${{ getProductSubTotal(item.product.discountPrice , item.quantity) }} </span>
                   }@else {
-                    <span>Subtotal : ${{ item.product.price * item.quantity }} </span>
+                    <span>Subtotal : ${{  getProductSubTotal(item.product.price , item.quantity)}} </span>
                   }
                 </b>
                 <p> <span class="text-gray-600">Quantity</span> : {{item.quantity}}</p>
@@ -56,10 +56,10 @@
               <div class="text-sm">
                 @if(item.product.discountPrice){
                 Subtotal 
-                <span class="font-bold text-primary text-[17px]">${{ item.product.discountPrice * item.quantity }}</span>
+                <span class="font-bold text-primary text-[17px]">${{ getProductSubTotal(item.product.discountPrice , item.quantity) }}</span>
                 }@else {
                 Subtotal
-                <span class="font-bold text-primary text-[17px]">${{ item.product.price * item.quantity }}</span>
+                <span class="font-bold text-primary text-[17px]">${{  getProductSubTotal(item.product.price , item.quantity)}}</span>
                 }
               </div>
             </div>

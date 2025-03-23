@@ -40,7 +40,7 @@ export class ProductServiceService {
   }
 
   getProductReviews(productId: number , page : number , limit : number): Observable<reviewsTemplate> {
-    return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/${productId}?page=${page}&limit=${limit}`); 
+    return this.http.get<reviewsTemplate>(`${environment.baseUrl}/reviews/product-reviews/${productId}?page=${page}&limit=${limit}`); 
   }
 
   getAllProducts(page: number, limit: number): Observable<productsTemplate>{

@@ -69,4 +69,10 @@ export class OrderDetailComponent implements OnInit {
     this.page -= 1;
     this.getUserOderItems();
   }
+
+    getProductSubTotal( price : number  , quantity : number): string {
+      const total = price * quantity;
+      console.log("console ", total.toFixed(2));
+    return total.toFixed(2);
+  }
 }

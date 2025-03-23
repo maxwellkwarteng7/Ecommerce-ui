@@ -34,7 +34,6 @@
                       <th class="px-4 py-2">Order Items</th>
                       <th class="px-4 py-2">Total Price</th>
                       <th class="px-4 py-2">Payment Method</th>
-                      <th class="px-4 py-2">Reference</th>
                       <th class="px-4 py-2">Payment Date</th>
                     </tr>
                   </thead>
@@ -46,7 +45,7 @@
                           <a (click)="handleOrderDetails(item.order_shipping_address , item.id)"  class="cursor-pointer underline hover:text-primary transition duration-150 ease-in-out">view details</a>
                         </td>
                         <td class="px-4 py-3">{{item.orderItemCount}}</td>
-                        <td class="px-4 py-3">$ {{item.totalPrice}}</td>
+                        <td class="px-4 py-3">$ {{  getOrderTotalPrice(item.totalPrice) }}</td>
                         <td class="px-4 py-3 capitalize">
                         
                             <img *ngIf="item.paymentMethod === 'paystack'" src="payment-images/paystack-logo.svg" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
@@ -54,7 +53,6 @@
                             <img *ngIf="  item.paymentMethod === 'stripe'" src="payment-images/stripe-logo-3.png" alt="paystack" class="w-[70px] h-[70px] object-contain object-center">
 
                         </td>
-                        <td class="px-4 py-3">{{item.transactionRef}}</td>
                         <td class="px-4 py-3">{{item.paymentDate | date : 'dd-MM-yy' }} <td>
                       </tr>
                     }

@@ -13,7 +13,7 @@ import { Subscription } from "rxjs";
   templateUrl: "./payment-success.component.html",
   styleUrl: "./payment-success.component.scss",
 })
-export class PaymentSuccessComponent implements OnInit  {
+export class PaymentSuccessComponent implements OnInit , OnDestroy {
   // injections
   activeRoute = inject(ActivatedRoute);
   paymentService = inject(PaymentService);
@@ -22,14 +22,15 @@ export class PaymentSuccessComponent implements OnInit  {
   router = inject(Router);
   cartService = inject(CartServiceService);
   isLoading = true;
- 
+  routeSubscription!: Subscription; 
   
 
   ngOnInit(): void {
     const addressId: number = parseInt(localStorage.getItem("addressId") || "");
-    const reference = this.activeRoute.snapshot.paramMap.get('reference'); 
-    const sessionId = this.activeRoute.snapshot.paramMap.get('session_id');
-    
+
+   this.routeSubscription =  this.activeRoute.queryParams.subscribe((params) => {
+     const reference = params["reference"];
+     const sessionId = params["session_id"];
       if (reference && addressId) {
         this.paymentService
           .verifyPaystackPayment(reference, addressId)
@@ -44,9 +45,9 @@ export class PaymentSuccessComponent implements OnInit  {
               this.toaster.error("Error verifying payment");
             },
           });
-    }
-
-    if (sessionId && addressId) {
+     }
+     
+     if (sessionId && addressId) {
       this.paymentService
         .verifyStripePayment(sessionId, addressId)
         .subscribe({
@@ -60,10 +61,13 @@ export class PaymentSuccessComponent implements OnInit  {
             this.toaster.error("Error verifying payment");
           },
         });
-  }
-    
+    }
+  }); 
   }
 
+  ngOnDestroy(): void {
+    this.routeSubscription.unsubscribe(); 
+  }
 
   clearUserCart() {
     this.cartService.clearUserCart().subscribe({

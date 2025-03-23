@@ -50,5 +50,9 @@ export class OrdersComponent implements OnInit {
   handleOrderDetails(OrderAddress: OrderShippingAddress , orderId: number) {
     this.router.navigate(['/order-detail', orderId], {state : {address : OrderAddress}});  
   }
+
+  getOrderTotalPrice(price: number): string {
+    return price.toFixed(2);
+  }
   
 }

@@ -34,7 +34,7 @@ export class ShippingService {
   }
 
   updateAddress(address: Address): Observable<string>{
-    return this.http.put<string>(`${environment.baseUrl}/shipping/${address.id}`, address, { headers: this.getHeaders() });
+    return this.http.patch<string>(`${environment.baseUrl}/shipping/${address.id}`, address, { headers: this.getHeaders() });
   }
 
 }

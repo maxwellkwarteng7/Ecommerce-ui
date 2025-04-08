@@ -60,7 +60,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         .getProductsByCategory(categoryId, page, 12)
         .subscribe({
           next: (data) => {
-            console.log(data);
             this.products = data;
           },
           error: () => this.toaster.error("error fetching category products"),

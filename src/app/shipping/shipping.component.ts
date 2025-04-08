@@ -173,7 +173,7 @@ export class ShippingComponent implements OnInit {
     this.alert
       .fireAlert(
         "Are you sure you want to delete ?",
-        "No cannot revert this action"
+        "You cannot revert this action"
       )
       .then((result) => {
         if (result.isConfirmed) {

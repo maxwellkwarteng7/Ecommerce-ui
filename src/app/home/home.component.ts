@@ -65,5 +65,5 @@ export class HomeComponent implements OnInit {
   goToProducts(type: number | string) {
     this.router.navigate(['/products'], { queryParams: { type } }); 
   }
-
+  
 }
